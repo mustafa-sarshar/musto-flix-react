@@ -5,12 +5,17 @@ import ReactDom from "react-dom";
 // Import Styles
 import "./index.scss";
 
+// Import components
+// import { MainView }  from "./components/main-view/main-view";
+
 // Main component (will eventually use all the others)
 class MyFlixApplication extends React.Component {
     render() {
         return (
-            <div className="my-flix">
-                <div>Good Morning</div>
+            <div className="main-view">
+                <div>Inception</div>
+                <div>The Shawshank Redemption</div>
+                <div>Gladiator</div>
             </div>
         );
     }
