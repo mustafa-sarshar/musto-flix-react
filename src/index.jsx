@@ -1,21 +1,20 @@
 // Import Libs
 import React from "react";
 import ReactDom from "react-dom";
+import { createRoot } from "react-dom/client";
 
 // Import Styles
 import "./index.scss";
 
 // Import components
-// import { MainView }  from "./components/main-view/main-view";
+import MainView from "./components/mainView/mainView";
 
 // Main component (will eventually use all the others)
 class MyFlixApplication extends React.Component {
     render() {
         return (
             <div className="main-view">
-                <div>Inception</div>
-                <div>The Shawshank Redemption</div>
-                <div>Gladiator</div>
+                <MainView />
             </div>
         );
     }
