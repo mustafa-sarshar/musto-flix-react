@@ -4,8 +4,7 @@
 - The whole project is based on MERN stack. 
 
 
-
-
-Note: The package "**parcel**" is installed globally via: **npm install -g parcel**. [More info](https://parceljs.org/)
-
-We recommend to remove this line, if you have already installed this package _globally_. However, we recommend to use this package as a local dev-dependency to avoid any conflict between packages.
+- Note: The package "**parcel**" is installed locally as a dev-dependency via: **npm install --save-dev parcel**. [More info](https://parceljs.org/)
+    - If you have already installed this package globally, we recommend to use this package as a local dev-dependency to avoid any conflict between packages.
+    - Moreover, you may add one command to the **script** tag in the package.json as follows:
+        - "start": "parcel src/index.html"
