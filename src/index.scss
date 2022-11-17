@@ -1,32 +1,74 @@
 $color: steelblue;
+$size-movie-view__width: 150px;
+
+@mixin style-movie-view__lables {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+@mixin style-movie-view__values {
+    font-style: italic;
+}
+
+main {
+    width: 100%;
+    margin: 20px auto;
+}
 
 .main {
-
     &-view {
+        width: 100%;
         color: $color;
-        border-bottom: 1px solid black;
         text-align: center;
     }
 }
 
 .movie {
-
     &-card {
-        text-decoration: underline;
-    }
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid gray;
+        border-radius: 5px;
+        cursor: pointer;
 
+        &:hover {
+            box-shadow: 2px 2px 4px #00000088;
+        }
+    }
     &-view {
-        width: 100px;
+        margin: auto;
+        width: $size-movie-view__width;
+        padding: 10px;
+        border: 1px solid rgba(0, 0, 255, 0.226);
+        border-radius: 5px;        
     }
-
     &-poster {
         img {
-            width: 200px;
+            height: 100%;
+            width: 100%;
             border-radius: 5px;
+            margin: auto;
             box-shadow: 2px 2px 4px #000000c2;
         }
     }
     &-title {
-        border: 1px solid green;
+        margin: 10px auto;
+
+        &__label {
+            @include style-movie-view__lables();
+        }
+        &__value {
+            @include style-movie-view__values();
+        }
+    }
+    &-description {
+        margin: 10px auto;
+
+        &__label {
+            @include style-movie-view__lables();
+        }
+        &__value {
+            @include style-movie-view__values();
+        }
     }
 }
