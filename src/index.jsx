@@ -1,7 +1,6 @@
 // Import Libs
 import React from "react";
 import ReactDom from "react-dom";
-import { createRoot } from "react-dom/client";
 
 // Import Styles
 import "./index.scss";
@@ -9,9 +8,14 @@ import "./index.scss";
 // Import components
 import MainView from "./components/mainView/mainView";
 
+// Debugger
+const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
+
 // Main component (will eventually use all the others)
 class MyFlixApplication extends React.Component {
     render() {
+        if (DEBUG) console.log("render", this);
+
         return (
             <div className="main-view">
                 <MainView />
