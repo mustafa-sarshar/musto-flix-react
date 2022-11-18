@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "../button/button";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
@@ -28,13 +29,16 @@ export default class MovieView extends React.Component {
                         {movie.des}
                     </span>
                 </div>
-                <button
-                    onClick={() => {
+                <Button
+                    btnName="btnBack"
+                    btnLabel="Back"
+                    className="btn-back"
+                    btnOnClick={() => {
                         onBackClick(null);
                     }}
                 >
                     Back
-                </button>
+                </Button>
             </div>
         );
     }
