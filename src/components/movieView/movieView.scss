@@ -1,0 +1,50 @@
+
+$size-movie-view__width: 150px;
+
+@mixin style-movie-view__label {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+@mixin style-movie-view__value {
+    font-style: italic;
+}
+
+.movie {
+    &-view {
+        margin: auto;
+        width: $size-movie-view__width;
+        padding: 10px;
+        border: 1px solid rgba(0, 0, 255, 0.226);
+        border-radius: 5px;
+    }
+    &-poster {
+        img {
+            height: 100%;
+            width: 100%;
+            border-radius: 5px;
+            margin: auto;
+            box-shadow: 2px 2px 4px #000000c2;
+        }
+    }
+    &-title {
+        margin: 10px auto;
+
+        &__label {
+            @include style-movie-view__label();
+        }
+        &__value {
+            @include style-movie-view__value();
+        }
+    }
+    &-description {
+        margin: 10px auto;
+
+        &__label {
+            @include style-movie-view__label();
+        }
+        &__value {
+            @include style-movie-view__value();
+        }
+    }
+}

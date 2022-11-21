@@ -1,6 +1,9 @@
 import React from "react";
 import { Button } from "../button/button";
 
+// Import Styles
+import "./movieView.scss";
+
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
@@ -32,7 +35,6 @@ class MovieView extends React.Component {
                 <Button
                     btnName="btnBack"
                     btnLabel="Back"
-                    className="btn-back"
                     btnOnClick={() => {
                         onBackClick(null);
                     }}
