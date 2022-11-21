@@ -2,7 +2,7 @@
 import "./button.scss";
 
 // Create a function component
-export function Button(props) {
+function Button(props) {
     const className =
         props.btnName === "btnBack"
             ? "btn btn-back"
@@ -15,3 +15,5 @@ export function Button(props) {
         </button>
     );
 }
+
+export { Button };

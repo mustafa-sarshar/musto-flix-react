@@ -6,26 +6,12 @@
         padding: 10px;
         margin: 20px auto;
         width: fit-content;
-        box-shadow: 1px 1px 2px rgba(128, 128, 128, 0.5), -1px -1px 2px rgba(128, 128, 128, 0.5);
+        box-shadow: 1px 1px 2px rgba(128, 128, 128, 0.5),
+            -1px -1px 2px rgba(128, 128, 128, 0.5);
 
-        &__username {
-            &-group {
-                padding: 5px;
-                width: 100%;
-            }
-        }
-        &__password {
-            &-group {
-                padding: 5px;
-                width: 100%;
-            }
-        }
-        &__button {
-            &-group {
-                padding: 5px;
-                width: 100%;
-                text-align: right;
-            }
+        &__groups {
+            padding: 5px;
+            width: 100%;
         }
         input {
             width: 70%;

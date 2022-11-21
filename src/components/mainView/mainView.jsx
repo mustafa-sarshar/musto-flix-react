@@ -1,7 +1,14 @@
+// Import Libs
 import React from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 
+// Import Styles
+import "./mainView.scss";
+
+// Import Components
 import LoginView from "../loginView/loginView";
+import RegistrationView from "../registrationView/registrationView";
 import MovieCard from "../movieCard/movieCard";
 import MovieView from "../movieView/movieView";
 
@@ -27,7 +34,20 @@ class MainView extends React.Component {
 
         // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView
         if (!user)
-            return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
+            return (
+                <>
+                    <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
+                    <br />
+                    <br />
+                    <br />
+                    <p style={{ color: "red" }}>
+                        Just for testing purposes NOW!
+                    </p>
+                    <RegistrationView
+                        onSignedIn={(user) => this.onSignedIn(user)}
+                    />
+                </>
+            );
 
         // Before the movies have been loaded
         if (movies.length === 0) {
@@ -95,6 +115,13 @@ class MainView extends React.Component {
         this.setState({
             user,
         });
+    }
+    onRequestSignIn(message) {
+        console.log(message);
+    }
+    // When a user successfully signs in, this function sets the `user` property in state to that *particular user
+    onSignedIn(user) {
+        console.log("SignedIn");
     }
 }
 

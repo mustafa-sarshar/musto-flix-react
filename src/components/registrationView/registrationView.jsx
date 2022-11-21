@@ -1,8 +1,12 @@
+// Import Libs
 import React, { useState } from "react";
-import { Button } from "../button/button";
+import PropTypes from "prop-types";
 
 // Import Styles
 import "./registrationView.scss";
+
+// Import Components
+import { Button } from "../button/button";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
@@ -10,31 +14,51 @@ const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 function RegistrationView(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [birth, setBirth] = useState();
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        if (DEBUG) console.log("username:", username, "password:", password);
+        if (DEBUG)
+            console.log(
+                "username:",
+                username,
+                "password:",
+                password,
+                "email:",
+                email,
+                "birth:",
+                birth,
+            );
         /* Send a request to the server for authentication */
-        /* then call props.onLoggedIn(username) */
-        props.onLoggedIn(username);
+        /* then call props.onSignedIn(username) */
+        props.onSignedIn(username);
     };
     return (
         <>
-            <h1 className="login-title">Please Login To Enjoy It 😊</h1>
+            <p className="login-title">Please register yourself, if you still don't have any accounts</p>
             <hr />
             <div className="login-form">
                 <form>
-                    <div className="login-form__username-group">
+                    <div className="login-form__groups">
                         <label>Username: </label>
                         <input
-                            id="username"
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
                     <div className="clear-fix"></div>
-                    <div className="login-form__password-group">
+                    <div className="login-form__groups">
+                        <label>Email: </label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+                    <div className="clear-fix"></div>
+                    <div className="login-form__groups">
                         <label>Password: </label>
                         <input
                             id="password"
@@ -44,10 +68,20 @@ function RegistrationView(props) {
                         />
                     </div>
                     <div className="clear-fix"></div>
-                    <div className="login-form__button-group">
+                    <div className="login-form__groups">
+                        <label>Birth date: </label>
+                        <input
+                            id="birth"
+                            type="birth"
+                            value={birth}
+                            onChange={(e) => setBirth(e.target.value)}
+                        />
+                    </div>
+                    <div className="clear-fix"></div>
+                    <div className="login-form__groups">
                         <Button
                             btnName="btnSubmit"
-                            btnLabel="Log in"
+                            btnLabel="Sign in"
                             btnOnClick={handleSubmit}
                         />
                     </div>
@@ -57,5 +91,9 @@ function RegistrationView(props) {
         </>
     );
 }
+
+RegistrationView.propTypes = {
+    onSignedIn: PropTypes.func.isRequired,
+};
 
 export default RegistrationView;
