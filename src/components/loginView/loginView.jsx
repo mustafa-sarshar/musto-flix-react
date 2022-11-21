@@ -64,7 +64,7 @@ const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 //     }
 // }
 
-export function LoginView(props) {
+function LoginView(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -73,7 +73,7 @@ export function LoginView(props) {
         if (DEBUG) console.log("username:", username, "password:", password);
         /* Send a request to the server for authentication */
         /* then call props.onLoggedIn(username) */
-        // props.onLoggedIn(username);
+        props.onLoggedIn(username);
     };
     return (
         <form>
@@ -99,3 +99,5 @@ export function LoginView(props) {
         </form>
     );
 }
+
+export default LoginView;

@@ -3,7 +3,7 @@ import React from "react";
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
-export default class MovieCard extends React.Component {
+class MovieCard extends React.Component {
     render() {
         if (DEBUG) console.log("render", this);
 
@@ -15,3 +15,4 @@ export default class MovieCard extends React.Component {
         );
     }
 }
+export default MovieCard;

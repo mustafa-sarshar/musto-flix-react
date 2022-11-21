@@ -4,7 +4,7 @@ import { Button } from "../button/button";
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
-export default class MovieView extends React.Component {
+class MovieView extends React.Component {
     render() {
         if (DEBUG) console.log("render", this);
 
@@ -52,3 +52,5 @@ export default class MovieView extends React.Component {
         if (DEBUG) console.log("componentWillUnmount", this);
     }
 }
+
+export default MovieView;
