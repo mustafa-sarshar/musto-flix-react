@@ -77,9 +77,9 @@ class MainView extends React.Component {
                         </Col>
                     ) : (
                         movies.map((movie) => (
-                            <Col md={3}>
+                            <Col sm={12} md={6} lg={4} xl={3}>
                                 <MovieCard
-                                    key={movie._id}
+                                    key={movie.title}
                                     movie={movie}
                                     onMovieClick={(movie) => {
                                         this.setSelectedMovie(movie);

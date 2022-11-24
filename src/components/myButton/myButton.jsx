@@ -3,14 +3,8 @@ import "./myButton.scss";
 
 // Create a function component
 function MyButton(props) {
-    const className =
-        props.btnName === "btnBack"
-            ? "btn btn-back"
-            : props.btnName === "btnSubmit"
-            ? "btn btn-submit"
-            : "else";
     return (
-        <button type="button" className={className} onClick={props.btnOnClick}>
+        <button type="button" class={props.btnStyle} onClick={props.btnOnClick}>
             {props.btnLabel}
         </button>
     );

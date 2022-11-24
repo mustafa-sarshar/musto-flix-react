@@ -48,6 +48,7 @@ function LoginView(props) {
                     <Form.Control
                         type="password"
                         placeholder="password"
+                        autoComplete="true"
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <Form.Text className="text-muted">*required</Form.Text>

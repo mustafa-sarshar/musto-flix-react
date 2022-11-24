@@ -1,5 +1,5 @@
 // Import Libs
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import "./movieView.scss";
 
 // Import Bootstrap Components
-import { Col } from "react-bootstrap";
+import { Row, Col, Table, Card } from "react-bootstrap";
 
 // Import Custom Components
 import { MyButton } from "../myButton/myButton";
@@ -22,76 +22,111 @@ class MovieView extends React.Component {
         this.state = {
             director: "",
             genre: "",
+            stars: [],
         };
 
-        axios
-            .get(
-                `https://musto-movie-api.herokuapp.com/directors/${this.props.movie.director_id}`
-            )
-            .then((res) => {
-                this.setState({ director: res.data.name });
-            })
-            .catch((err) => {
-                console.log(err.message);
+        if (this.props.movie.director_id) {
+            axios
+                .get(
+                    `https://musto-movie-api.herokuapp.com/directors/${this.props.movie.director_id}`
+                )
+                .then((res) => {
+                    this.setState({ director: res.data.name });
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+        }
+        if (this.props.movie.genre_id) {
+            axios
+                .get(
+                    `https://musto-movie-api.herokuapp.com/genres/${this.props.movie.genre_id}`
+                )
+                .then((res) => {
+                    this.setState({ genre: res.data.name });
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+        }
+        if (this.props.movie.stars.length > 0) {
+            this.props.movie.stars.map((star) => {
+                axios
+                    .get(`https://musto-movie-api.herokuapp.com/actors/${star}`)
+                    .then((res) => {
+                        this.setState({
+                            stars: [...this.state.stars, res.data.name],
+                        });
+                        console.log(res.data.name);
+                    })
+                    .catch((err) => {
+                        console.log(err.message);
+                        this.setState({
+                            stars: [...this.state.stars, "NA"],
+                        });
+                    });
             });
-        axios
-            .get(
-                `https://musto-movie-api.herokuapp.com/genres/${this.props.movie.genre_id}`
-            )
-            .then((res) => {
-                this.setState({ genre: res.data.name });
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
+        }
     }
+
     render() {
         if (DEBUG) console.log("render", this);
 
         const { movie, onBackClick } = this.props;
 
         return (
-            <div className="movie-view">
-                <div className="movie-poster">
-                    <img src={movie.image_url} />
-                </div>
-                <div className="movie-title">
-                    <span className="movie-title__label">Title</span>
-                    <br />
-                    <span className="movie-title__value">{movie.title}</span>
-                </div>
-                <div className="movie-director">
-                    <span className="movie-title__label">Director</span>
-                    <br />
-                    <span className="movie-title__value">
-                        {this.state.director}
-                    </span>
-                </div>
-                <div className="movie-director">
-                    <span className="movie-title__label">Genre</span>
-                    <br />
-                    <span className="movie-title__value">
-                        {this.state.genre}
-                    </span>
-                </div>
-                <hr />
-                <div className="movie-description">
-                    <span className="movie-description__label">
-                        Description
-                    </span>
-                    <br />
-                    <span className="movie-description__value">
-                        {movie.des}
-                    </span>
-                </div>
-                <MyButton
-                    btnName="btnBack"
-                    btnLabel="Back"
-                    btnOnClick={() => {
-                        onBackClick(null);
-                    }}
-                />
-            </div>
+            <Row>
+                <Col>
+                    <div className="movie-view">
+                        <Card>
+                            <Card.Header>
+                                <div className="movie-title">
+                                    <h2>{movie.title}</h2>
+                                </div>
+                            </Card.Header>
+                            <Card.Body>
+                                <div className="movie-poster">
+                                    <img src={movie.image_url} />
+                                </div>
+                                <Table
+                                    striped
+                                    bordered
+                                    hover
+                                    size="sm"
+                                    className="movie-table"
+                                >
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Genre</th>
+                                            <td>{this.state.genre}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Director</th>
+                                            <td>{this.state.director}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Stars</th>
+                                            <td>
+                                                {this.state.stars.join(" | ")}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </Table>
+                                <p className="movie-description">{movie.des}</p>
+                            </Card.Body>
+                            <Card.Footer className="text-left">
+                                <MyButton
+                                    btnStyle="text-green border-none cursor-pointer add-padding--5px background-transparent"
+                                    btnLabel="back"
+                                    btnOnClick={() => {
+                                        onBackClick(null);
+                                    }}
+                                />
+                            </Card.Footer>
+                        </Card>
+                    </div>
+                </Col>
+            </Row>
         );
     }
     componentDidMount() {
