@@ -1,4 +1,3 @@
-
 $size-movie-view__width: 150px;
 
 @mixin style-movie-view__label {
@@ -10,15 +9,10 @@ $size-movie-view__width: 150px;
     font-style: italic;
 }
 
-.container {
-    width: 100%;
-    height: 100vh;
-}
-
 .movie {
     &-view {
-        margin: auto;
-        width: $size-movie-view__width;
+        // margin: auto;
+        // width: $size-movie-view__width;
         padding: 10px;
         border: 1px solid rgba(0, 0, 255, 0.226);
         border-radius: 5px;

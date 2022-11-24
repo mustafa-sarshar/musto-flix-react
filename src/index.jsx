@@ -5,7 +5,10 @@ import ReactDom from "react-dom";
 // Import Styles
 import "./index.scss";
 
-// Import components
+// Import Bootstrap Components
+import { Container } from "react-bootstrap";
+
+// Import Custom Components
 import MainView from "./components/mainView/mainView";
 
 // Debugger
@@ -17,9 +20,9 @@ class MyFlixApplication extends React.Component {
         if (DEBUG) console.log("render", this);
 
         return (
-            <div className="main-view">
+            <Container>
                 <MainView />
-            </div>
+            </Container>
         );
     }
 }

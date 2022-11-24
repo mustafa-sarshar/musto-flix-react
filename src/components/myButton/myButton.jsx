@@ -1,8 +1,8 @@
 // Import Styles
-import "./button.scss";
+import "./myButton.scss";
 
 // Create a function component
-function Button(props) {
+function MyButton(props) {
     const className =
         props.btnName === "btnBack"
             ? "btn btn-back"
@@ -16,4 +16,4 @@ function Button(props) {
     );
 }
 
-export { Button };
+export { MyButton };

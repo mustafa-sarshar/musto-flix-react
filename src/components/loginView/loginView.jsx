@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 // Import Styles
 import "./loginView.scss";
 
-// Import Components
-import { Button } from "../button/button";
+// Import Bootstrap Components
+import { Button, Form } from "react-bootstrap";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
@@ -15,61 +15,69 @@ function LoginView(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleLogIn = (evt) => {
+    const handleSubmit = (evt) => {
         evt.preventDefault();
         if (DEBUG) console.log("username:", username, "password:", password);
         /* Send a request to the server for authentication */
         /* then call props.onLoggedIn(username) */
         props.onLoggedIn(username);
     };
-    const handleRequestSignIn = (evt) => {
+    const handleRequestRegister = (evt) => {
         evt.preventDefault();
-        if (DEBUG) console.log("username:", username, "password:", password);
+        if (DEBUG) console.log("Sign In Request");
         /* Send a request to the server for registration */
-        props.onRequestSignIn(username);
+        props.onRequestRegister();
     };
     return (
         <>
             <h1 className="login-title">Please Log In To Enjoy It 😊</h1>
             <hr />
-            <div className="login-form">
-                <form>
-                    <div className="login-form__groups">
-                        <label>Username: </label>
-                        <input
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                    </div>
-                    <div className="clear-fix"></div>
-                    <div className="login-form__groups">
-                        <label>Password: </label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    <div className="clear-fix"></div>
-                    <div className="login-form__groups">
-                        <Button
-                            btnName="btnSubmit"
-                            btnLabel="Login"
-                            btnOnClick={handleLogIn}
-                        />
-                    </div>
-                    <div className="clear-fix"></div>
-                    <div className="login-form__groups">
-                        <Button
-                            btnName="btnSignIn"
-                            btnLabel="Register"
-                            btnOnClick={handleRequestSignIn}
-                        />
-                    </div>
-                    <div className="clear-fix"></div>
-                </form>
-            </div>
+            <hr />
+            <Form>
+                <Form.Group className="mb-3" controlId="formUsername">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                        type="text"
+                        placeholder="username"
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <Form.Text className="text-muted">*required</Form.Text>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                        type="password"
+                        placeholder="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <Form.Text className="text-muted">*required</Form.Text>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formCheckbox">
+                    <Form.Check type="checkbox" label="Check me out" />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formButtonSubmit">
+                    <Button
+                        variant="primary"
+                        type="submit"
+                        onClick={handleSubmit}
+                    >
+                        Login
+                    </Button>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formButtonRegister">
+                    <Button
+                        variant="secondary"
+                        type="button"
+                        onClick={handleRequestRegister}
+                    >
+                        Register
+                    </Button>
+                    <Form.Text className="text-muted">
+                        Please register yourself, if you still don't have any
+                        accounts
+                    </Form.Text>
+                </Form.Group>
+            </Form>
         </>
     );
 }

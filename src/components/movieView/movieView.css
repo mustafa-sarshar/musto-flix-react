@@ -1,0 +1,32 @@
+.movie-view {
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 255, 0.226);
+  border-radius: 5px;
+}
+.movie-poster img {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  margin: auto;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7607843137);
+}
+.movie-title {
+  margin: 10px auto;
+}
+.movie-title__label {
+  font-weight: bold;
+  text-decoration: underline;
+}
+.movie-title__value {
+  font-style: italic;
+}
+.movie-description {
+  margin: 10px auto;
+}
+.movie-description__label {
+  font-weight: bold;
+  text-decoration: underline;
+}
+.movie-description__value {
+  font-style: italic;
+}/*# sourceMappingURL=movieView.css.map */

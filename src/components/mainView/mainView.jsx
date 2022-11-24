@@ -1,12 +1,14 @@
 // Import Libs
 import React from "react";
 import axios from "axios";
-import PropTypes from "prop-types";
 
 // Import Styles
 import "./mainView.scss";
 
-// Import Components
+// Import Bootstrap Components
+import { Row, Col } from "react-bootstrap";
+
+// Import Custom Components
 import LoginView from "../loginView/loginView";
 import RegistrationView from "../registrationView/registrationView";
 import MovieCard from "../movieCard/movieCard";
@@ -25,29 +27,33 @@ class MainView extends React.Component {
             movies: [],
             selectedMovie: null,
             user: null,
+            showRegistrationPanel: false,
         };
     }
     render() {
         if (DEBUG) console.log("render:", this);
 
-        const { movies, selectedMovie, user } = this.state;
+        const { movies, selectedMovie, user, showRegistrationPanel } =
+            this.state;
 
         // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView
-        if (!user)
-            return (
-                <>
-                    <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
-                    <br />
-                    <br />
-                    <br />
-                    <p style={{ color: "red" }}>
-                        Just for testing purposes NOW!
-                    </p>
+
+        if (!user) {
+            if (!showRegistrationPanel) {
+                return (
+                    <LoginView
+                        onLoggedIn={(user) => this.onLoggedIn(user)}
+                        onRequestRegister={() => this.onRequestRegister()}
+                    />
+                );
+            } else {
+                return (
                     <RegistrationView
                         onSignedIn={(user) => this.onSignedIn(user)}
                     />
-                </>
-            );
+                );
+            }
+        }
 
         // Before the movies have been loaded
         if (movies.length === 0) {
@@ -58,27 +64,31 @@ class MainView extends React.Component {
             );
         } else {
             return (
-                <div className="main-view">
+                <Row className="main-view justify-content-md-center">
                     {/* If the state of `selectedMovie` is not null, that selected movie will be returned otherwise, all *movies will be returned */}
                     {selectedMovie ? (
-                        <MovieView
-                            movie={selectedMovie}
-                            onBackClick={(newSelectedMovie) => {
-                                this.setSelectedMovie(newSelectedMovie);
-                            }}
-                        />
-                    ) : (
-                        movies.map((movie) => (
-                            <MovieCard
-                                key={movie._id}
-                                movie={movie}
-                                onMovieClick={(movie) => {
-                                    this.setSelectedMovie(movie);
+                        <Col md={8}>
+                            <MovieView
+                                movie={selectedMovie}
+                                onBackClick={(newSelectedMovie) => {
+                                    this.setSelectedMovie(newSelectedMovie);
                                 }}
                             />
+                        </Col>
+                    ) : (
+                        movies.map((movie) => (
+                            <Col md={3}>
+                                <MovieCard
+                                    key={movie._id}
+                                    movie={movie}
+                                    onMovieClick={(movie) => {
+                                        this.setSelectedMovie(movie);
+                                    }}
+                                />
+                            </Col>
                         ))
                     )}
-                </div>
+                </Row>
             );
         }
     }
@@ -116,12 +126,16 @@ class MainView extends React.Component {
             user,
         });
     }
-    onRequestSignIn(message) {
-        console.log(message);
+    onRequestRegister() {
+        this.setState({
+            showRegistrationPanel: true,
+        });
     }
     // When a user successfully signs in, this function sets the `user` property in state to that *particular user
-    onSignedIn(user) {
-        console.log("SignedIn");
+    onSignedIn() {
+        this.setState({
+            showRegistrationPanel: false,
+        });
     }
 }
 

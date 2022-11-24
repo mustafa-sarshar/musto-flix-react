@@ -5,8 +5,11 @@ import PropTypes from "prop-types";
 // Import Styles
 import "./movieView.scss";
 
-// Import Components
-import { Button } from "../button/button";
+// Import Bootstrap Components
+import { Col } from "react-bootstrap";
+
+// Import Custom Components
+import { MyButton } from "../myButton/myButton";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
@@ -17,38 +20,32 @@ class MovieView extends React.Component {
 
         const { movie, onBackClick } = this.props;
         return (
-            <div className="container">
-                <div className="movie-view">
-                    <div className="movie-poster">
-                        <img src={movie.image_url} />
-                    </div>
-                    <div className="movie-title">
-                        <span className="movie-title__label">Title</span>
-                        <br />
-                        <span className="movie-title__value">
-                            {movie.title}
-                        </span>
-                    </div>
-                    <hr />
-                    <div className="movie-description">
-                        <span className="movie-description__label">
-                            Description
-                        </span>
-                        <br />
-                        <span className="movie-description__value">
-                            {movie.des}
-                        </span>
-                    </div>
-                    <Button
-                        btnName="btnBack"
-                        btnLabel="Back"
-                        btnOnClick={() => {
-                            onBackClick(null);
-                        }}
-                    >
-                        Back
-                    </Button>
+            <div className="movie-view">
+                <div className="movie-poster">
+                    <img src={movie.image_url} />
                 </div>
+                <div className="movie-title">
+                    <span className="movie-title__label">Title</span>
+                    <br />
+                    <span className="movie-title__value">{movie.title}</span>
+                </div>
+                <hr />
+                <div className="movie-description">
+                    <span className="movie-description__label">
+                        Description
+                    </span>
+                    <br />
+                    <span className="movie-description__value">
+                        {movie.des}
+                    </span>
+                </div>
+                <MyButton
+                    btnName="btnBack"
+                    btnLabel="Back"
+                    btnOnClick={() => {
+                        onBackClick(null);
+                    }}
+                />
             </div>
         );
     }
