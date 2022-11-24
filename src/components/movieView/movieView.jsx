@@ -1,5 +1,6 @@
 // Import Libs
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 
 // Import Styles
@@ -15,10 +16,40 @@ import { MyButton } from "../myButton/myButton";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 class MovieView extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            director: "",
+            genre: "",
+        };
+
+        axios
+            .get(
+                `https://musto-movie-api.herokuapp.com/directors/${this.props.movie.director_id}`
+            )
+            .then((res) => {
+                this.setState({ director: res.data.name });
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+        axios
+            .get(
+                `https://musto-movie-api.herokuapp.com/genres/${this.props.movie.genre_id}`
+            )
+            .then((res) => {
+                this.setState({ genre: res.data.name });
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }
     render() {
         if (DEBUG) console.log("render", this);
 
         const { movie, onBackClick } = this.props;
+
         return (
             <div className="movie-view">
                 <div className="movie-poster">
@@ -28,6 +59,20 @@ class MovieView extends React.Component {
                     <span className="movie-title__label">Title</span>
                     <br />
                     <span className="movie-title__value">{movie.title}</span>
+                </div>
+                <div className="movie-director">
+                    <span className="movie-title__label">Director</span>
+                    <br />
+                    <span className="movie-title__value">
+                        {this.state.director}
+                    </span>
+                </div>
+                <div className="movie-director">
+                    <span className="movie-title__label">Genre</span>
+                    <br />
+                    <span className="movie-title__value">
+                        {this.state.genre}
+                    </span>
                 </div>
                 <hr />
                 <div className="movie-description">

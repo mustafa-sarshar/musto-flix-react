@@ -15,8 +15,7 @@ class MovieCard extends React.Component {
 
         const { movie, onMovieClick } = this.props;
         return (
-            // <div className="movie-card" style={{ width: "200px" }}>
-            <Card width="100px">
+            <Card width="100px" height="100%">
                 <Card.Img variant="top" src={movie.image_url} />
                 <Card.Body>
                     <Card.Title>{movie.title}</Card.Title>
@@ -26,22 +25,9 @@ class MovieCard extends React.Component {
                     </Button>
                 </Card.Body>
             </Card>
-            // </div>
         );
     }
 }
-
-/*
-<div className="movie-card" onClick={() => onMovieClick(movie)}>
-    {movie.title}
-    <img
-        className="movie-card__movie-logo"
-        src={movie.image_url}
-        alt={movie.title}
-        height="30px"
-    />
-</div>
-*/
 
 MovieCard.propTypes = {
     movie: PropTypes.shape({
