@@ -1,27 +1,27 @@
 .movie {
-    &-view {
-        padding: 5px;
-        border: 1px solid rgba(0, 0, 255, 0.226);
-        border-radius: 5px;
+  &-view {
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 255, 0.226);
+    border-radius: 5px;
+  }
+  &-poster {
+    img {
+      height: 100%;
+      width: 100%;
+      margin: auto;
+      padding: 5px 0;
     }
-    &-poster {
-        img {
-            height: 100%;
-            width: 100%;
-            margin: auto;
-            padding: 5px 0;
-        }
+  }
+  &-title {
+    margin: 10px auto;
+    h2 {
+      border-bottom: 1px green solid;
     }
-    &-title {
-        margin: 10px auto;
-        h2 {
-            border-bottom: 1px green solid;
-        }
-    }
-    &-description {
-        padding: 10px;
-    }
-    &-table {
-        text-align: left;
-    }
+  }
+  &-description {
+    padding: 10px;
+  }
+  &-table {
+    text-align: left;
+  }
 }

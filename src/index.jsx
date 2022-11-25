@@ -16,15 +16,15 @@ const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 // Main component (will eventually use all the others)
 class MyFlixApplication extends React.Component {
-    render() {
-        if (DEBUG) console.log("render", this);
+  render() {
+    if (DEBUG) console.log("render", this);
 
-        return (
-            <Container>
-                <MainView />
-            </Container>
-        );
-    }
+    return (
+      <Container>
+        <MainView />
+      </Container>
+    );
+  }
 }
 
 // Find the root of the App

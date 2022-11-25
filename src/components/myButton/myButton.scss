@@ -1,59 +1,59 @@
 .border {
-    &-none {
-        border: none;
-    }
+  &-none {
+    border: none;
+  }
 }
 .cursor {
-    &-pointer {
-        cursor: pointer;
-    }
+  &-pointer {
+    cursor: pointer;
+  }
 }
 .add {
-    &-padding {
-        &--5px {
-            padding: 5px;
-        }
-        &--10px {
-            padding: 10px;
-        }
-        &--15px {
-            padding: 15px;
-        }
+  &-padding {
+    &--5px {
+      padding: 5px;
     }
+    &--10px {
+      padding: 10px;
+    }
+    &--15px {
+      padding: 15px;
+    }
+  }
 }
 .text {
-    &-green {
-        color: green;
+  &-green {
+    color: green;
+  }
+  &-align {
+    &--right {
+      text-align: right;
     }
-    &-align {
-        &--right {
-            text-align: right;
-        }
-    }
+  }
 }
 .white {
-    &__shadow {
-        &-black {
-            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-            &:hover {
-                box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
-                    -2px -2px 4px rgba(0, 0, 0, 0.5);
-            }
-        }
+  &__shadow {
+    &-black {
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      &:hover {
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+          -2px -2px 4px rgba(0, 0, 0, 0.5);
+      }
     }
+  }
 }
 .stretch {
-    &-width {
-        &--100 {
-            width: 100%;
-        }
+  &-width {
+    &--100 {
+      width: 100%;
     }
+  }
 }
 .background {
-    &-transparent {
-        background-color: transparent;
-        background-repeat: no-repeat;
-        overflow: hidden;
-        outline: none;
-    }
+  &-transparent {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    outline: none;
+  }
 }

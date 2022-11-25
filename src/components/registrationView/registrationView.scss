@@ -1,36 +1,36 @@
 .registration {
-    &-title {
-        text-align: center;
-        margin: 10px auto;
-    }
-    &-form {
-        padding: 10px;
-        margin: 20px auto;
-        width: fit-content;
-        box-shadow: 1px 1px 2px rgba(128, 128, 128, 0.5),
-            -1px -1px 2px rgba(128, 128, 128, 0.5);
+  &-title {
+    text-align: center;
+    margin: 10px auto;
+  }
+  &-form {
+    padding: 10px;
+    margin: 20px auto;
+    width: fit-content;
+    box-shadow: 1px 1px 2px rgba(128, 128, 128, 0.5),
+      -1px -1px 2px rgba(128, 128, 128, 0.5);
 
-        &__groups {
-            padding: 5px;
-            width: 100%;
-        }
-        input {
-            width: 70%;
-            float: right;
-        }
-        label {
-            width: 30%;
-            float: left;
-        }
-        button {
-            float: right;
-            padding: 1px 5px;
-        }
+    &__groups {
+      padding: 5px;
+      width: 100%;
     }
+    input {
+      width: 70%;
+      float: right;
+    }
+    label {
+      width: 30%;
+      float: left;
+    }
+    button {
+      float: right;
+      padding: 1px 5px;
+    }
+  }
 }
 
 .clear-fix {
-    content: "";
-    display: table;
-    clear: both;
+  content: "";
+  display: table;
+  clear: both;
 }
