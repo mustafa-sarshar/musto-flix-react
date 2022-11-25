@@ -5,7 +5,10 @@ import ReactDom from "react-dom";
 // Import Styles
 import "./index.scss";
 
-// Import components
+// Import Bootstrap Components
+import { Container } from "react-bootstrap";
+
+// Import Custom Components
 import MainView from "./components/mainView/mainView";
 
 // Debugger
@@ -13,15 +16,15 @@ const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 // Main component (will eventually use all the others)
 class MyFlixApplication extends React.Component {
-    render() {
-        if (DEBUG) console.log("render", this);
+  render() {
+    if (DEBUG) console.log("render", this);
 
-        return (
-            <div className="main-view">
-                <MainView />
-            </div>
-        );
-    }
+    return (
+      <Container>
+        <MainView />
+      </Container>
+    );
+  }
 }
 
 // Find the root of the App
