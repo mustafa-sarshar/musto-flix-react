@@ -17,6 +17,54 @@ function RegistrationView(props) {
   const [email, setEmail] = useState("");
   const [birth, setBirth] = useState();
 
+  // Declare hook for each input
+  const [usernameErr, setUsernameErr] = useState("");
+  const [passwordErr, setPasswordErr] = useState("");
+  const [emailErr, setEmailErr] = useState("");
+  const [birthErr, setBirthErr] = useState();
+
+  // validate user inputs
+  const validate = () => {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const dateFormat =
+      /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+    let isReq = true;
+
+    // Reset Errors
+    setUsernameErr("");
+    setEmailErr("");
+    setPasswordErr("");
+    setBirthErr("");
+
+    if (!username) {
+      setUsernameErr("Username Required");
+      isReq = false;
+    } else if (username.length < 2) {
+      setUsernameErr("Username must be at least 2 characters long");
+      isReq = false;
+    }
+    if (!email) {
+      setEmailErr("Email Required");
+      isReq = false;
+    } else if (!emailPattern.test(email)) {
+      setEmailErr("Email Address Not Valid");
+      isReq = false;
+    }
+    if (!password) {
+      setPasswordErr("Password Required");
+      isReq = false;
+    } else if (password.length < 6) {
+      setPasswordErr("Password must be at least 6 characters long");
+      isReq = false;
+    }
+    if (birth && !dateFormat.test(birth)) {
+      setBirthErr("Birth Date Not Valid");
+      isReq = false;
+    }
+
+    return isReq;
+  };
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (DEBUG)
@@ -28,12 +76,17 @@ function RegistrationView(props) {
         "email:",
         email,
         "birth:",
-        birth,
+        birth
       );
     /* Send a request to the server for authentication */
     /* then call props.onSignedIn(username) */
-    props.onSignedIn();
+
+    const isReq = validate();
+    if (isReq) {
+      props.onSignedIn();
+    }
   };
+
   return (
     <>
       <h1 className="registration-title">
@@ -47,9 +100,14 @@ function RegistrationView(props) {
           <Form.Control
             type="text"
             placeholder="username"
+            value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <Form.Text className="text-muted">*required</Form.Text>
+          {/* code added here to display validation error */}
+          {usernameErr && (
+            <p className="registration-form__error">{usernameErr}</p>
+          )}{" "}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formEmail">
@@ -57,11 +115,14 @@ function RegistrationView(props) {
           <Form.Control
             type="email"
             placeholder="email@mail.com"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <Form.Text className="text-muted">
             *required (We'll never share your email with anyone else.)
           </Form.Text>
+          {/* code added here to display validation error */}
+          {emailErr && <p className="registration-form__error">{emailErr}</p>}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formPassword">
@@ -69,9 +130,14 @@ function RegistrationView(props) {
           <Form.Control
             type="password"
             placeholder="password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Form.Text className="text-muted">*required</Form.Text>
+          {/* code added here to display validation error */}
+          {passwordErr && (
+            <p className="registration-form__error">{passwordErr}</p>
+          )}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBirthDate">
@@ -79,9 +145,12 @@ function RegistrationView(props) {
           <Form.Control
             type="date"
             placeholder="birth date"
+            value={birth}
             onChange={(e) => setBirth(e.target.value)}
           />
           <Form.Text className="text-muted">**optional</Form.Text>
+          {/* code added here to display validation error */}
+          {birthErr && <p className="registration-form__error">{birthErr}</p>}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formCheckbox">
@@ -89,7 +158,7 @@ function RegistrationView(props) {
         </Form.Group>
 
         <Button variant="primary" type="submit" onClick={handleSubmit}>
-          Sign In
+          Submit
         </Button>
       </Form>
       <br />

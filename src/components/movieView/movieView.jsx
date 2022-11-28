@@ -28,7 +28,7 @@ class MovieView extends React.Component {
     if (this.props.movie.director_id) {
       axios
         .get(
-          `https://musto-movie-api.herokuapp.com/directors/${this.props.movie.director_id}`,
+          `https://musto-movie-api.onrender.com/directors/${this.props.movie.director_id}`
         )
         .then((res) => {
           this.setState({ director: res.data.name });
@@ -40,7 +40,7 @@ class MovieView extends React.Component {
     if (this.props.movie.genre_id) {
       axios
         .get(
-          `https://musto-movie-api.herokuapp.com/genres/${this.props.movie.genre_id}`,
+          `https://musto-movie-api.onrender.com/genres/${this.props.movie.genre_id}`
         )
         .then((res) => {
           this.setState({ genre: res.data.name });
@@ -52,7 +52,7 @@ class MovieView extends React.Component {
     if (this.props.movie.stars.length > 0) {
       this.props.movie.stars.map((star) => {
         axios
-          .get(`https://musto-movie-api.herokuapp.com/actors/${star}`)
+          .get(`https://musto-movie-api.onrender.com/actors/${star}`)
           .then((res) => {
             this.setState({
               stars: [...this.state.stars, res.data.name],

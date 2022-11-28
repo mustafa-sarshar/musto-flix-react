@@ -26,6 +26,11 @@
       float: right;
       padding: 1px 5px;
     }
+
+    &__error {
+      color: red;
+      font-size: small;
+    }
   }
 }
 

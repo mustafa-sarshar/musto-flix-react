@@ -13,6 +13,7 @@ import LoginView from "../loginView/loginView";
 import RegistrationView from "../registrationView/registrationView";
 import MovieCard from "../movieCard/movieCard";
 import MovieView from "../movieView/movieView";
+import MyNavBar from "../myNavBar/myNavBar";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
@@ -61,47 +62,51 @@ class MainView extends React.Component {
       );
     } else {
       return (
-        <Row className="main-view justify-content-md-center">
-          {/* If the state of `selectedMovie` is not null, that selected movie will be returned otherwise, all *movies will be returned */}
-          {selectedMovie ? (
-            <Col md={8}>
-              <MovieView
-                movie={selectedMovie}
-                onBackClick={(newSelectedMovie) => {
-                  this.setSelectedMovie(newSelectedMovie);
-                }}
-              />
-            </Col>
-          ) : (
-            movies.map((movie) => (
-              <Col sm={12} md={6} lg={4} xl={3}>
-                <MovieCard
-                  key={movie.title}
-                  movie={movie}
-                  onMovieClick={(movie) => {
-                    this.setSelectedMovie(movie);
+        <>
+          <MyNavBar
+            user={user}
+            onLoggedOutClick={() => this.onLoggedOut()}
+            onSignUpClick={() => this.onRequestRegister()}
+          />
+          <Row className="main-view justify-content-md-center">
+            {/* If the state of `selectedMovie` is not null, that selected movie will be returned otherwise, all *movies will be returned */}
+            {selectedMovie ? (
+              <Col md={8}>
+                <MovieView
+                  movie={selectedMovie}
+                  onBackClick={(newSelectedMovie) => {
+                    this.setSelectedMovie(newSelectedMovie);
                   }}
                 />
               </Col>
-            ))
-          )}
-        </Row>
+            ) : (
+              movies.map((movie) => (
+                <Col sm={12} md={6} lg={4} xl={3} key={movie.title}>
+                  <MovieCard
+                    key={movie.title}
+                    movie={movie}
+                    onMovieClick={(movie) => {
+                      this.setSelectedMovie(movie);
+                    }}
+                  />
+                </Col>
+              ))
+            )}
+          </Row>
+        </>
       );
     }
   }
   componentDidMount() {
     if (DEBUG) console.log("componentDidMount:", this);
 
-    axios
-      .get("https://musto-movie-api.onrender.com/movies")
-      .then((res) => {
-        this.setState({
-          movies: res.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err.message);
+    const accessToken = localStorage.getItem("token");
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem("user"),
       });
+      this.getMovies(accessToken);
+    }
   }
   componentDidUpdate() {
     if (DEBUG) console.log("componentDidUpdate", this);
@@ -118,12 +123,34 @@ class MainView extends React.Component {
     });
   }
   // When a user successfully logs in, this function updates the `user` property in state to that *particular user
-  onLoggedIn(user) {
+  onLoggedIn(authData) {
+    if (DEBUG) console.log("AuthData:", authData);
     this.setState({
-      user,
+      user: authData.user.username,
     });
+
+    localStorage.setItem("token", authData.token);
+    localStorage.setItem("user", authData.user.username);
+    this.getMovies(authData.token);
   }
+  getMovies(token) {
+    axios
+      .get("https://musto-movie-api.onrender.com/movies", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        // Assign the result to the state
+        this.setState({
+          movies: response.data,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   onRequestRegister() {
+    this.onLoggedOut();
     this.setState({
       showRegistrationPanel: true,
     });
@@ -132,6 +159,16 @@ class MainView extends React.Component {
   onSignedIn() {
     this.setState({
       showRegistrationPanel: false,
+    });
+  }
+
+  // To log out and clear the localStorage and the user state variable
+  onLoggedOut() {
+    // localStorage.clear();
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    this.setState({
+      user: null,
     });
   }
 }
