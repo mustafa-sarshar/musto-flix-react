@@ -93,7 +93,7 @@ class MainView extends React.Component {
     if (DEBUG) console.log("componentDidMount:", this);
 
     axios
-      .get("https://musto-movie-api.herokuapp.com/movies")
+      .get("https://musto-movie-api.onrender.com/movies")
       .then((res) => {
         this.setState({
           movies: res.data,
