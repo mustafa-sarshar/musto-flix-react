@@ -20,6 +20,9 @@ function LoginView(props) {
   const [usernameErr, setUsernameErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
 
+  // Control the elements
+  const [isFetching, setIsFetching] = useState(false);
+
   // validate user inputs
   const validate = () => {
     let isReq = true;
@@ -52,10 +55,11 @@ function LoginView(props) {
 
     const isReq = validate();
     if (isReq) {
+      setIsFetching(true);
       /* Send a request to the server for authentication */
       axios
-        // .post("https://musto-movie-api.onrender.com/login", null, {
-        .post("http://localhost:8080/login", null, {
+        .post("https://musto-movie-api.onrender.com/login", null, {
+          // .post("http://localhost:8080/login", null, {
           params: {
             username: username,
             pass: password,
@@ -67,6 +71,9 @@ function LoginView(props) {
         })
         .catch((e) => {
           console.error(e.message);
+        })
+        .finally(() => {
+          setIsFetching(false);
         });
     }
   };
@@ -78,16 +85,15 @@ function LoginView(props) {
   };
   return (
     <>
-      <h1 className="login-title">Please Log In To Enjoy It 😊</h1>
-      <hr />
-      <hr />
-      <Form>
+      <h1 className="login-title">Login 😊</h1>
+      <Form autoComplete="on">
         <Form.Group className="mb-3" controlId="formUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
             placeholder="username"
             value={username}
+            disabled={isFetching}
             onChange={(e) => setUsername(e.target.value)}
           />
           <Form.Text className="text-muted">*required</Form.Text>
@@ -102,8 +108,9 @@ function LoginView(props) {
           <Form.Control
             type="password"
             placeholder="password"
-            autoComplete="true"
+            autoComplete="on"
             value={password}
+            disabled={isFetching}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Form.Text className="text-muted">*required</Form.Text>
@@ -111,27 +118,15 @@ function LoginView(props) {
           {passwordErr && <p className="login-form__error">{passwordErr}</p>}
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
-
         <Form.Group className="mb-3" controlId="formButtonSubmit">
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={isFetching}
+            onClick={handleSubmit}
+          >
             Login
           </Button>
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formButtonRegister">
-          <Button
-            variant="secondary"
-            type="button"
-            onClick={handleRequestRegister}
-          >
-            Register
-          </Button>
-          <Form.Text className="text-muted">
-            Please register yourself, if you still don't have any accounts
-          </Form.Text>
         </Form.Group>
       </Form>
     </>

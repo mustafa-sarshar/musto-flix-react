@@ -1,6 +1,7 @@
 // Import Libs
 import React from "react";
 import ReactDom from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom/cjs/react-router-dom.min";
 
 // Import Styles
 import "./index.scss";
@@ -20,9 +21,11 @@ class MyFlixApplication extends React.Component {
     if (DEBUG) console.log("render", this);
 
     return (
-      <Container>
-        <MainView />
-      </Container>
+      <Router>
+        <Container>
+          <MainView />
+        </Container>
+      </Router>
     );
   }
 }

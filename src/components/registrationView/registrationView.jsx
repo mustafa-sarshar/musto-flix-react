@@ -1,6 +1,8 @@
 // Import Libs
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 // Import Styles
 import "./registrationView.scss";
@@ -22,12 +24,15 @@ function RegistrationView(props) {
   const [passwordErr, setPasswordErr] = useState("");
   const [emailErr, setEmailErr] = useState("");
   const [birthErr, setBirthErr] = useState();
+  const [registrationErr, setRegistrationErr] = useState("");
+
+  // Control the elements
+  const [isFetching, setIsFetching] = useState(false);
 
   // validate user inputs
   const validate = () => {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    const dateFormat =
-      /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+    const dateFormat = /^\d{4}[./-]\d{2}[./-]\d{2}$/;
     let isReq = true;
 
     // Reset Errors
@@ -35,6 +40,7 @@ function RegistrationView(props) {
     setEmailErr("");
     setPasswordErr("");
     setBirthErr("");
+    setRegistrationErr("");
 
     if (!username) {
       setUsernameErr("Username Required");
@@ -83,24 +89,44 @@ function RegistrationView(props) {
 
     const isReq = validate();
     if (isReq) {
-      props.onSignedIn();
+      setIsFetching(true);
+      /* Send a request to the server for authentication */
+      axios
+        .post(
+          "https://musto-movie-api.onrender.com/users",
+          { username: username, pass: password, email: email, birth: birth },
+          null
+        )
+        .then((response) => {
+          const data = response.data;
+          if (DEBUG) console.log(data);
+          alert(`The username '${username}' is successfully registered`);
+          window.open("/", "_self");
+        })
+        .catch((err) => {
+          alert("Unable to register, please try again.");
+          console.error(err.message);
+          setRegistrationErr(err.message);
+        })
+        .finally(() => {
+          setIsFetching(false);
+        });
     }
   };
 
   return (
     <>
-      <h1 className="registration-title">
-        Please register yourself, if you still don't have any accounts 👌
-      </h1>
+      <h1 className="registration-title">Registration Form 👌</h1>
       <hr />
       <hr />
-      <Form>
+      <Form autoComplete="on">
         <Form.Group className="mb-3" controlId="formUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
             placeholder="username"
             value={username}
+            disabled={isFetching}
             onChange={(e) => setUsername(e.target.value)}
           />
           <Form.Text className="text-muted">*required</Form.Text>
@@ -109,13 +135,13 @@ function RegistrationView(props) {
             <p className="registration-form__error">{usernameErr}</p>
           )}{" "}
         </Form.Group>
-
         <Form.Group className="mb-3" controlId="formEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
             placeholder="email@mail.com"
             value={email}
+            disabled={isFetching}
             onChange={(e) => setEmail(e.target.value)}
           />
           <Form.Text className="text-muted">
@@ -124,13 +150,14 @@ function RegistrationView(props) {
           {/* code added here to display validation error */}
           {emailErr && <p className="registration-form__error">{emailErr}</p>}
         </Form.Group>
-
         <Form.Group className="mb-3" controlId="formPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="password"
             value={password}
+            autoComplete="on"
+            disabled={isFetching}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Form.Text className="text-muted">*required</Form.Text>
@@ -139,36 +166,38 @@ function RegistrationView(props) {
             <p className="registration-form__error">{passwordErr}</p>
           )}
         </Form.Group>
-
         <Form.Group className="mb-3" controlId="formBirthDate">
           <Form.Label>Birth date</Form.Label>
           <Form.Control
             type="date"
             placeholder="birth date"
             value={birth}
+            disabled={isFetching}
             onChange={(e) => setBirth(e.target.value)}
           />
           <Form.Text className="text-muted">**optional</Form.Text>
           {/* code added here to display validation error */}
           {birthErr && <p className="registration-form__error">{birthErr}</p>}
         </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
+        <Form.Group className="mb-3" controlId="formButtonSubmit">
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={isFetching}
+            onClick={handleSubmit}
+          >
+            Submit
+          </Button>
         </Form.Group>
-
-        <Button variant="primary" type="submit" onClick={handleSubmit}>
-          Submit
-        </Button>
+        {/* Registration error */}
+        {registrationErr && (
+          <p className="registration-form__error">{registrationErr}</p>
+        )}
       </Form>
       <br />
       <br />
     </>
   );
 }
-
-RegistrationView.propTypes = {
-  onSignedIn: PropTypes.func.isRequired,
-};
 
 export default RegistrationView;

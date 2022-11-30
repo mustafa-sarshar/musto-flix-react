@@ -2,12 +2,13 @@
 import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 // Import Styles
 import "./movieView.scss";
 
 // Import Bootstrap Components
-import { Row, Col, Table, Card } from "react-bootstrap";
+import { Row, Col, Table, Card, Button } from "react-bootstrap";
 
 // Import Custom Components
 import { MyButton } from "../myButton/myButton";
@@ -24,7 +25,7 @@ class MovieView extends React.Component {
       genre: "",
       stars: [],
     };
-
+    console.log("props:", this.props);
     if (this.props.movie.director_id) {
       axios
         .get(
@@ -92,11 +93,21 @@ class MovieView extends React.Component {
                   <tbody>
                     <tr>
                       <th scope="row">Genre</th>
-                      <td>{this.state.genre}</td>
+                      <td>
+                        {this.state.genre}
+                        <Link to={`/genres/${movie.genre_id}`}>
+                          <Button variant="link">more</Button>
+                        </Link>
+                      </td>
                     </tr>
                     <tr>
                       <th scope="row">Director</th>
-                      <td>{this.state.director}</td>
+                      <td>
+                        {this.state.director}
+                        <Link to={`/directors/${movie.director_id}`}>
+                          <Button variant="link">more</Button>
+                        </Link>
+                      </td>
                     </tr>
                     <tr>
                       <th scope="row">Stars</th>
