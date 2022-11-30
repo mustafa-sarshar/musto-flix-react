@@ -25,11 +25,12 @@ class MovieView extends React.Component {
       genre: "",
       stars: [],
     };
+
     console.log("props:", this.props);
     if (this.props.movie.director_id) {
       axios
         .get(
-          `https://musto-movie-api.onrender.com/directors/${this.props.movie.director_id}`
+          `https://musto-movie-api.onrender.com/directors/${this.props.movie.director_id}`,
         )
         .then((res) => {
           this.setState({ director: res.data.name });
@@ -41,7 +42,7 @@ class MovieView extends React.Component {
     if (this.props.movie.genre_id) {
       axios
         .get(
-          `https://musto-movie-api.onrender.com/genres/${this.props.movie.genre_id}`
+          `https://musto-movie-api.onrender.com/genres/${this.props.movie.genre_id}`,
         )
         .then((res) => {
           this.setState({ genre: res.data.name });
