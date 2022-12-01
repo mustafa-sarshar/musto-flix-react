@@ -10,6 +10,7 @@ import { Row, Col, Card, Container } from "react-bootstrap";
 
 // Import Custom Components
 import { MyButton } from "../myButton/myButton";
+import { UserDeleteModalView } from "../modalView/modalView";
 import LoadingView from "../loadingView/loadingView";
 import MovieCard from "../movieCard/movieCard";
 import UserInfoView from "./userInfoView/userInfoView";
@@ -25,12 +26,13 @@ class UserProfileView extends React.Component {
 
     this.state = {
       user: null,
+      showDeleteModal: false,
     };
   }
 
   render() {
     const { movies, onBackClick } = this.props;
-    const { user } = this.state;
+    const { user, showDeleteModal } = this.state;
 
     if (!user) {
       return (
@@ -52,10 +54,7 @@ class UserProfileView extends React.Component {
               <Card.Body>
                 <Row>
                   <Col>
-                    <UserInfoView
-                      user={user}
-                      onDeleteUserClick={() => this.handleDeleteUser()}
-                    />
+                    <UserInfoView user={user} />
                   </Col>
                 </Row>
                 <Card>
@@ -165,29 +164,6 @@ class UserProfileView extends React.Component {
       .catch((err) => {
         console.log(err.message);
       });
-  }
-
-  handleDeleteUser() {
-    const { username } = this.props;
-    const token = localStorage.getItem("token");
-
-    if (username && token) {
-      const reqInstance = axios.create({
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      reqInstance
-        .delete(`https://musto-movie-api.onrender.com/users/${username}`)
-        .then((response) => {
-          const data = response.data;
-          if (DEBUG) console.log(data);
-          alert(`The username '${username}' is successfully deleted`);
-          window.open("/logout", "_self");
-        })
-        .catch((err) => {
-          alert("Unable to delete, please try again.");
-          console.error("Error in deleting:\n", err);
-        });
-    }
   }
 
   async handleRemoveFavMovie(movie_id) {

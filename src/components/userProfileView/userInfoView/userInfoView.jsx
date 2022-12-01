@@ -7,13 +7,12 @@ import dateFormat from "../../../utils/dateFormat";
 import "./userInfoView.scss";
 
 // Import Bootstrap Components
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Modal } from "react-bootstrap";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 function UserInfoView(props) {
-  const { onDeleteUserClick, onUpdateUserClick } = props;
   const [username, setUsername] = useState(props.user.username);
   const [password, setPassword] = useState(props.user.password);
   const [email, setEmail] = useState(props.user.email);
@@ -28,6 +27,7 @@ function UserInfoView(props) {
 
   // Control the elements
   const [isFetching, setIsFetching] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // validate user inputs
   const validate = () => {
@@ -113,8 +113,60 @@ function UserInfoView(props) {
     }
   };
 
+  const handleDeleteUser = (evt) => {
+    const token = localStorage.getItem("token");
+
+    if (username && token) {
+      setIsFetching(true);
+
+      const reqInstance = axios.create({
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      reqInstance
+        .delete(`https://musto-movie-api.onrender.com/users/${username}`)
+        .then((response) => {
+          const data = response.data;
+          if (DEBUG) console.log(data);
+          alert(`The username '${username}' is successfully deleted`);
+          window.open("/logout", "_self");
+        })
+        .catch((err) => {
+          alert("Unable to delete, please try again.");
+          console.error("Error in deleting:\n", err);
+        })
+        .finally(() => {
+          setIsFetching(false);
+        });
+    }
+  };
+
+  const handleCancelDeleteModal = () => {
+    setShowDeleteModal(false);
+  };
+  const handleYesDeleteModal = () => {
+    handleDeleteUser();
+    setShowDeleteModal(false);
+  };
+
   return (
     <>
+      <Modal show={showDeleteModal} onHide={handleCancelDeleteModal}>
+        <Modal.Header>
+          <Modal.Title className="alert alert-danger">Warning</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="text-center">
+          Are you sure, to delete the account for the user with username:
+          {" >" + username + "<"}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCancelDeleteModal}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleYesDeleteModal}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <Form autoComplete="on">
         <Form.Group className="mb-3" controlId="formUsername">
           <Form.Label>Username</Form.Label>
@@ -131,6 +183,7 @@ function UserInfoView(props) {
             <p className="user-info-form__error">{usernameErr}</p>
           )}{" "}
         </Form.Group>
+
         <Form.Group className="mb-3" controlId="formEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -146,6 +199,7 @@ function UserInfoView(props) {
           {/* Validation error */}
           {emailErr && <p className="user-info-form__error">{emailErr}</p>}
         </Form.Group>
+
         <Form.Group className="mb-3" controlId="formPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -162,6 +216,7 @@ function UserInfoView(props) {
             <p className="user-info-form__error">{passwordErr}</p>
           )}
         </Form.Group>
+
         <Form.Group className="mb-3" controlId="formBirthDate">
           <Form.Label>Birth date</Form.Label>
           <Form.Control
@@ -175,6 +230,7 @@ function UserInfoView(props) {
           {/* Validation error */}
           {birthErr && <p className="user-info-form__error">{birthErr}</p>}
         </Form.Group>
+
         <Form.Group className="mb-3" controlId="formButtonSubmit">
           <Button
             variant="primary"
@@ -188,11 +244,12 @@ function UserInfoView(props) {
             variant="danger"
             type="button"
             disabled={isFetching}
-            onClick={onDeleteUserClick}
+            onClick={() => setShowDeleteModal(true)}
           >
-            Delete User
+            Delete
           </Button>
         </Form.Group>
+
         {/* Update error */}
         {updateErr && <p className="user-info-form__error">{updateErr}</p>}
       </Form>

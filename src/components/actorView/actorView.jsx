@@ -79,7 +79,7 @@ const ActorView = (props) => {
             <Card.Footer className="text-left">
               <MyButton
                 btnStyle="text-green border-none cursor-pointer add-padding--5px background-transparent"
-                btnLabel="back"
+                btnLabel="Back"
                 btnOnClick={() => {
                   onBackClick();
                 }}

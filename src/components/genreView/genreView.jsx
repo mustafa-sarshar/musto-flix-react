@@ -7,7 +7,7 @@ import axios from "axios";
 import "./genreView.scss";
 
 // Import Bootstrap Components
-import { Row, Col, Table, Card } from "react-bootstrap";
+import { Row, Col, Card } from "react-bootstrap";
 
 // Import Custom Components
 import { MyButton } from "../myButton/myButton";
@@ -57,7 +57,7 @@ const GenreView = (props) => {
             <Card.Footer className="text-left">
               <MyButton
                 btnStyle="text-green border-none cursor-pointer add-padding--5px background-transparent"
-                btnLabel="back"
+                btnLabel="Back"
                 btnOnClick={() => {
                   onBackClick();
                 }}
