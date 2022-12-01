@@ -5,7 +5,7 @@ import React from "react";
 import "./loadingView.scss";
 
 // Import Bootstrap Components
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
@@ -13,9 +13,13 @@ const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 class LoadingView extends React.Component {
   render() {
     return (
-      <div className="loading-view">
-        <p className="loading-view__message">Data is loading ...</p>
-      </div>
+      <Row>
+        <Col>
+          <div className="loading-view">
+            <p className="loading-view__message">Data is loading ...</p>
+          </div>
+        </Col>
+      </Row>
     );
   }
 }

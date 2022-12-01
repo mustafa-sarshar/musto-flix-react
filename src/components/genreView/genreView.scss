@@ -1,0 +1,29 @@
+.genre {
+  &-view {
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 255, 0.226);
+    border-radius: 5px;
+  }
+  &-title {
+    margin: 10px auto;
+    text-align: center;
+    h2 {
+      border-bottom: 1px green solid;
+    }
+  }
+  &-des {
+    padding: 10px;
+  }
+  &-table {
+    text-align: left;
+
+    tbody {
+      tr {
+        td,
+        th {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}

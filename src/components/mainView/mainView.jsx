@@ -14,12 +14,11 @@ import LoginView from "../loginView/loginView";
 import RegistrationView from "../registrationView/registrationView";
 import MovieCard from "../movieCard/movieCard";
 import MovieView from "../movieView/movieView";
-import ProfileView from "../profileView/profileView";
-import UserUpdateView from "../userUpdateView/userUpdateView";
+import UserProfileView from "../userProfileView/userProfileView";
 import DirectorView from "../directorView/directorView";
 import ActorView from "../actorView/actorView";
 import GenreView from "../genreView/genreView";
-import MenuBar from "../navbar/navbar";
+import MenuBar from "../menuBar/menuBar";
 import LoadingView from "../loadingView/loadingView";
 
 // Debugger
@@ -33,26 +32,13 @@ class MainView extends React.Component {
     // Initial state is set to null
     this.state = {
       movies: [],
-      actors: [],
-      directors: [],
-      genres: [],
-      selectedMovie: null,
       user: null,
-      showRegistrationPanel: false,
     };
   }
   render() {
     if (DEBUG) console.log("render:", this);
 
-    const {
-      movies,
-      actors,
-      directors,
-      genres,
-      selectedMovie,
-      user,
-      showRegistrationPanel,
-    } = this.state;
+    const { movies, user } = this.state;
 
     return (
       <>
@@ -75,7 +61,7 @@ class MainView extends React.Component {
                 if (movies.length === 0) {
                   return (
                     <Col sm={12} lg={8}>
-                      <LoadingView />;
+                      <LoadingView />
                     </Col>
                   );
                 }
@@ -99,7 +85,7 @@ class MainView extends React.Component {
               }}
             />
             <Route
-              path="/movies/:movieId"
+              path="/movies/:id"
               render={({ match, history }) => {
                 if (!user) {
                   return (
@@ -112,7 +98,7 @@ class MainView extends React.Component {
                 if (movies.length === 0) {
                   return (
                     <Col sm={12} lg={8}>
-                      <LoadingView />;
+                      <LoadingView />
                     </Col>
                   );
                 }
@@ -120,9 +106,40 @@ class MainView extends React.Component {
                   <Col md={8}>
                     <MovieView
                       movie={movies.find(
-                        (movie) => movie._id === match.params.movieId
+                        (movie) => movie._id === match.params.id
                       )}
                       onBackClick={() => history.goBack()}
+                    />
+                  </Col>
+                );
+              }}
+            />
+
+            <Route
+              path="/movies/:id/details"
+              render={({ match }) => {
+                if (!user) {
+                  return (
+                    <Col sm={12} lg={8}>
+                      <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
+                    </Col>
+                  );
+                }
+                // Before data have been fetched
+                if (movies.length === 0) {
+                  return (
+                    <Col sm={12} lg={8}>
+                      <LoadingView />
+                    </Col>
+                  );
+                }
+                return (
+                  <Col md={8}>
+                    <MovieView
+                      movie={movies.find(
+                        (movie) => movie._id === match.params.id
+                      )}
+                      exitButton={true}
                     />
                   </Col>
                 );
@@ -143,18 +160,13 @@ class MainView extends React.Component {
                 if (movies.length === 0) {
                   return (
                     <Col sm={12} lg={8}>
-                      <LoadingView />;
+                      <LoadingView />
                     </Col>
                   );
                 }
                 return (
                   <Col md={8}>
-                    <DirectorView
-                      director={directors.find(
-                        (director) => director._id === match.params.id
-                      )}
-                      onBackClick={() => history.goBack()}
-                    />
+                    <DirectorView onBackClick={() => history.goBack()} />
                   </Col>
                 );
               }}
@@ -174,18 +186,13 @@ class MainView extends React.Component {
                 if (movies.length === 0) {
                   return (
                     <Col sm={12} lg={8}>
-                      <LoadingView />;
+                      <LoadingView />
                     </Col>
                   );
                 }
                 return (
                   <Col md={8}>
-                    <ActorView
-                      actor={actors.find(
-                        (actor) => actor._id === match.params.id
-                      )}
-                      onBackClick={() => history.goBack()}
-                    />
+                    <ActorView onBackClick={() => history.goBack()} />
                   </Col>
                 );
               }}
@@ -204,19 +211,14 @@ class MainView extends React.Component {
                 // Before data have been fetched
                 if (movies.length === 0) {
                   return (
-                    <Col sm={12} lg={8}>
-                      <LoadingView />;
+                    <Col>
+                      <LoadingView />
                     </Col>
                   );
                 }
                 return (
                   <Col md={8}>
-                    <GenreView
-                      genre={genres.find(
-                        (genre) => genre._id === match.params.id
-                      )}
-                      onBackClick={() => history.goBack()}
-                    />
+                    <GenreView onBackClick={() => history.goBack()} />
                   </Col>
                 );
               }}
@@ -227,16 +229,16 @@ class MainView extends React.Component {
               render={({ match, history }) => {
                 if (!user) {
                   return (
-                    <Col sm={12}>
+                    <Col>
                       <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
                     </Col>
                   );
                 }
                 return (
-                  <Col md={8}>
-                    <ProfileView
+                  <Col>
+                    <UserProfileView
                       movies={movies}
-                      user={user === match.params.username}
+                      username={match.params.username}
                       onBackClick={() => history.goBack()}
                     />
                   </Col>
@@ -245,23 +247,14 @@ class MainView extends React.Component {
             />
 
             <Route
-              path={`/user-update/${user}`}
-              render={({ match, history }) => {
-                if (!user) {
-                  return (
-                    <Col>
-                      <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
-                    </Col>
-                  );
-                }
-                return (
-                  <Col md={8}>
-                    <UserUpdateView
-                      user={user}
-                      onBackClick={() => history.goBack()}
-                    />
-                  </Col>
-                );
+              exact
+              path={"/logout"}
+              render={() => {
+                localStorage.clear();
+                this.setState({
+                  user: null,
+                });
+                window.open("/", "_self");
               }}
             />
           </Switch>
@@ -286,14 +279,7 @@ class MainView extends React.Component {
   componentWillUnmount() {
     if (DEBUG) console.log("componentWillUnmount", this);
   }
-  // When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie
-  setSelectedMovie(movie) {
-    if (DEBUG) console.log("setSelectedMovie:", this);
 
-    this.setState({
-      selectedMovie: movie,
-    });
-  }
   // When a user successfully logs in, this function updates the `user` property in state to that *particular user
   onLoggedIn(authData) {
     if (DEBUG) console.log("AuthData:", authData);
@@ -304,9 +290,6 @@ class MainView extends React.Component {
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.username);
     this.getMovies(authData.token);
-    this.getActors(authData.token);
-    this.getDirectors(authData.token);
-    this.getGenres(authData.token);
   }
 
   onShowProfile() {
@@ -323,51 +306,6 @@ class MainView extends React.Component {
         // Assign the result to the state
         this.setState({
           movies: response.data,
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
-  getActors(token) {
-    axios
-      .get("https://musto-movie-api.onrender.com/actors", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        // Assign the result to the state
-        this.setState({
-          actors: response.data,
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
-  getDirectors(token) {
-    axios
-      .get("https://musto-movie-api.onrender.com/directors", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        // Assign the result to the state
-        this.setState({
-          directors: response.data,
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
-  getGenres(token) {
-    axios
-      .get("https://musto-movie-api.onrender.com/genres", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        // Assign the result to the state
-        this.setState({
-          genres: response.data,
         });
       })
       .catch((err) => {

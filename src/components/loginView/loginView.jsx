@@ -19,6 +19,7 @@ function LoginView(props) {
   // Declare hook for each input
   const [usernameErr, setUsernameErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
+  const [loginErr, setLoginErr] = useState("");
 
   // Control the elements
   const [isFetching, setIsFetching] = useState(false);
@@ -30,6 +31,7 @@ function LoginView(props) {
     // Reset Errors
     setUsernameErr("");
     setPasswordErr("");
+    setLoginErr("");
 
     if (!username) {
       setUsernameErr("Username Required");
@@ -69,20 +71,16 @@ function LoginView(props) {
           const data = response.data;
           props.onLoggedIn(data);
         })
-        .catch((e) => {
-          console.error(e.message);
+        .catch((err) => {
+          console.error(err.message);
+          setLoginErr(err.response.data.message);
         })
         .finally(() => {
           setIsFetching(false);
         });
     }
   };
-  const handleRequestRegister = (evt) => {
-    evt.preventDefault();
-    if (DEBUG) console.log("Sign In Request");
-    /* Send a request to the server for registration */
-    props.onRequestRegister();
-  };
+
   return (
     <>
       <h1 className="login-title">Login 😊</h1>
@@ -97,7 +95,7 @@ function LoginView(props) {
             onChange={(e) => setUsername(e.target.value)}
           />
           <Form.Text className="text-muted">*required</Form.Text>
-          {/* code added here to display validation error */}
+          {/* Validation error */}
           {usernameErr && (
             <p className="login-form__error">{usernameErr}</p>
           )}{" "}
@@ -114,7 +112,7 @@ function LoginView(props) {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Form.Text className="text-muted">*required</Form.Text>
-          {/* code added here to display validation error */}
+          {/* Validation error */}
           {passwordErr && <p className="login-form__error">{passwordErr}</p>}
         </Form.Group>
 
@@ -128,6 +126,8 @@ function LoginView(props) {
             Login
           </Button>
         </Form.Group>
+        {/* Registration error */}
+        {loginErr && <p className="login-form__error">{loginErr}</p>}
       </Form>
     </>
   );

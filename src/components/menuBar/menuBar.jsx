@@ -2,16 +2,13 @@
 import React from "react";
 
 // Import Custom Styles
-import "./navbar.scss";
+import "./menuBar.scss";
 
 // Import Bootstrap Components
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const MenuBar = ({ user }) => {
-  const onLoggedOut = () => {
-    localStorage.clear();
-    window.open("/", "_self");
-  };
   const isAuth = () => {
     if (typeof window == "undefined") {
       return false;
@@ -44,14 +41,9 @@ const MenuBar = ({ user }) => {
               </Nav.Link>
             )}
             {isAuth() && (
-              <Button
-                variant="link"
-                onClick={() => {
-                  onLoggedOut();
-                }}
-              >
-                Logout
-              </Button>
+              <Link to={"/logout"}>
+                <Button variant="link">Logout</Button>
+              </Link>
             )}
             {!isAuth() && <Nav.Link href="/">Sign-in</Nav.Link>}
             {!isAuth() && <Nav.Link href="/register">Sign-up</Nav.Link>}

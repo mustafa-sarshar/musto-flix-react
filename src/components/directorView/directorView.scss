@@ -1,0 +1,37 @@
+.director {
+  &-view {
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 255, 0.226);
+    border-radius: 5px;
+  }
+  &-poster {
+    img {
+      height: 100%;
+      width: 100%;
+      margin: auto;
+      padding: 5px 0;
+    }
+  }
+  &-title {
+    margin: 10px auto;
+    text-align: center;
+    h2 {
+      border-bottom: 1px green solid;
+    }
+  }
+  &-bio {
+    padding: 10px;
+  }
+  &-table {
+    text-align: left;
+
+    tbody {
+      tr {
+        td,
+        th {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}

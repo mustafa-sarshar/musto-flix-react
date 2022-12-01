@@ -25,6 +25,9 @@
   &-green {
     color: green;
   }
+  &-blue {
+    color: blue;
+  }
   &-align {
     &--right {
       text-align: right;
@@ -55,5 +58,8 @@
     background-repeat: no-repeat;
     overflow: hidden;
     outline: none;
+  }
+  &-primary {
+    background-color: lightblue;
   }
 }

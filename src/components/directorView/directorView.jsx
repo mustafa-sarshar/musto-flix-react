@@ -1,10 +1,8 @@
 // Import Libs
 import React, { useState } from "react";
-import {
-  useParams,
-  useRouteMatch,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useParams } from "react-router-dom";
 import axios from "axios";
+import dateFormat from "../../utils/dateFormat";
 
 // Import Styles
 import "./directorView.scss";
@@ -19,37 +17,78 @@ import { MyButton } from "../myButton/myButton";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 const DirectorView = (props) => {
+  if (DEBUG) console.log("render", this);
+
+  const [director, setDirector] = useState({});
+
+  const { onBackClick } = props;
   const { id: director_id } = useParams();
-  let { path, url } = useRouteMatch();
-  console.log(path, url);
+  const token = localStorage.getItem("token");
 
-  const [director, setDirector] = useState();
-  const accessToken = localStorage.getItem("token");
-
-  const getDirector = (token) => {
+  const fetchData = (director_id, token) => {
     axios
       .get(`https://musto-movie-api.onrender.com/directors/${director_id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => {
-        // Assign the result to the state
-        setDirector(response.data);
+      .then((res) => {
+        setDirector(res.data);
       })
       .catch((err) => {
-        console.error(err);
+        console.log(err.message);
       });
   };
-  if (accessToken) {
-    // getDirector(accessToken);
+
+  if (director_id && token) {
+    fetchData(director_id, token);
   }
 
   return (
-    <>
-      <div>Director View</div>
-      <br />
-      <p>{director_id}</p>
-      <p>{JSON.stringify(director)}</p>
-    </>
+    <Row>
+      <Col>
+        <div className="director-view">
+          <Card>
+            <Card.Header>
+              <div className="director-title">
+                <h2>{director?.name && director.name}</h2>
+              </div>
+            </Card.Header>
+            <Card.Body>
+              <div className="director-poster">
+                <img src="https://via.placeholder.com/250" />
+              </div>
+              <Table striped bordered hover size="sm" className="movie-table">
+                <tbody>
+                  <tr>
+                    <th scope="row">Birth date</th>
+                    <td>
+                      {director?.birth &&
+                        dateFormat(director.birth, "toLocaleDateString")}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Death date</th>
+                    <td>
+                      {director?.death &&
+                        dateFormat(director.death, "toLocaleDateString")}
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+              <p className="director-bio">{director?.bio && director.bio}</p>
+            </Card.Body>
+            <Card.Footer className="text-left">
+              <MyButton
+                btnStyle="text-green border-none cursor-pointer add-padding--5px background-transparent"
+                btnLabel="back"
+                btnOnClick={() => {
+                  onBackClick();
+                }}
+              />
+            </Card.Footer>
+          </Card>
+        </div>
+      </Col>
+    </Row>
   );
 };
 
