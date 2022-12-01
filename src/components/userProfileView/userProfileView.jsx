@@ -6,11 +6,10 @@ import axios from "axios";
 import "./userProfileView.scss";
 
 // Import Bootstrap Components
-import { Row, Col, Card, Container } from "react-bootstrap";
+import { Row, Col, Card } from "react-bootstrap";
 
 // Import Custom Components
 import { MyButton } from "../myButton/myButton";
-import { UserDeleteModalView } from "../modalView/modalView";
 import LoadingView from "../loadingView/loadingView";
 import MovieCard from "../movieCard/movieCard";
 import UserInfoView from "./userInfoView/userInfoView";
@@ -26,13 +25,12 @@ class UserProfileView extends React.Component {
 
     this.state = {
       user: null,
-      showDeleteModal: false,
     };
   }
 
   render() {
     const { movies, onBackClick } = this.props;
-    const { user, showDeleteModal } = this.state;
+    const { user } = this.state;
 
     if (!user) {
       return (
