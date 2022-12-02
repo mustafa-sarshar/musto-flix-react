@@ -1,7 +1,9 @@
 // Import Libs
 import React from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { setMovies, setFavorites } from "../../actions/actions";
 
 // Import Styles
 import "./mainView.scss";
@@ -12,7 +14,7 @@ import { Row, Col } from "react-bootstrap";
 // Import Custom Components
 import LoginView from "../loginView/loginView";
 import RegistrationView from "../registrationView/registrationView";
-import MovieCard from "../movieCard/movieCard";
+// import MovieCard from "../movieCard/movieCard";
 import MovieView from "../movieView/movieView";
 import UserProfileView from "../userProfileView/userProfileView";
 import DirectorView from "../directorView/directorView";
@@ -20,6 +22,7 @@ import ActorView from "../actorView/actorView";
 import GenreView from "../genreView/genreView";
 import MenuBar from "../menuBar/menuBar";
 import LoadingView from "../loadingView/loadingView";
+import MoviesListView from "../moviesListView/moviesListView";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
@@ -31,16 +34,18 @@ class MainView extends React.Component {
 
     // Initial state is set to null
     this.state = {
-      movies: [],
+      // movies: [],
       user: null,
-      favList: null,
+      // favList: null,
     };
   }
 
   render() {
     if (DEBUG) console.log("render:", this);
 
-    const { movies, user, favList } = this.state;
+    let { user } = this.state;
+    let { movies, favorites } = this.props;
+    console.log("Movies:", movies);
 
     return (
       <>
@@ -67,26 +72,27 @@ class MainView extends React.Component {
                     </Col>
                   );
                 }
-                if (user && favList) {
-                  return movies.map((movie) => (
-                    <Col lg={3} md={4} sm={6} key={movie._id} className="mb-3">
-                      <MovieCard
-                        showAddBtn={
-                          !favList.find((movie_id) => movie_id === movie._id)
-                        }
-                        onAddClick={() => this.handleAddFavMovie(movie._id)}
-                        showRemoveBtn={favList.find(
-                          (movie_id) => movie_id === movie._id
-                        )}
-                        onRemoveClick={() =>
-                          this.handleRemoveFavMovie(movie._id)
-                        }
-                        showOpenBtn={true}
-                        movie={movie}
-                      />
-                    </Col>
-                  ));
-                }
+                return <MoviesListView movies={movies} />;
+                // if (user && favList) {
+                //   return movies.map((movie) => (
+                //     <Col lg={3} md={4} sm={6} key={movie._id} className="mb-3">
+                //       <MovieCard
+                //         showAddBtn={
+                //           !favList.find((movie_id) => movie_id === movie._id)
+                //         }
+                //         onAddClick={() => this.handleAddFavMovie(movie._id)}
+                //         showRemoveBtn={favList.find(
+                //           (movie_id) => movie_id === movie._id
+                //         )}
+                //         onRemoveClick={() =>
+                //           this.handleRemoveFavMovie(movie._id)
+                //         }
+                //         showOpenBtn={true}
+                //         movie={movie}
+                //       />
+                //     </Col>
+                //   ));
+                // }
               }}
             />
 
@@ -309,7 +315,7 @@ class MainView extends React.Component {
     if (accessToken !== null) {
       this.setState({
         user: localStorage.getItem("user"),
-        favList: localStorage.getItem("favList").split(","),
+        // favList: localStorage.getItem("favList").split(","),
       });
       this.getMovies(accessToken);
     }
@@ -326,12 +332,13 @@ class MainView extends React.Component {
     if (DEBUG) console.log("AuthData:", authData);
     this.setState({
       user: authData.user.username,
-      favList: authData.user.favList,
     });
 
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.username);
-    localStorage.setItem("favList", authData.user.favList.toString());
+    // localStorage.setItem("favList", authData.user.favList.toString());
+    // this.props.setFavorites(authData.user.favList);
+    this.props.setFavorites(["12312312"]);
     this.getMovies(authData.token);
   }
 
@@ -342,9 +349,10 @@ class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        this.setState({
-          movies: response.data,
-        });
+        // this.setState({
+        //   movies: response.data,
+        // });
+        this.props.setMovies(response.data);
       })
       .catch((err) => {
         console.error(err);
@@ -430,4 +438,17 @@ class MainView extends React.Component {
   }
 }
 
-export default MainView;
+// #7
+const mapStateToProps = (state) => {
+  if (DEBUG) console.log("mapStateToProps", state);
+  return {
+    movies: state.movies,
+    favorites: state.favorites,
+    abc: "abc",
+  };
+};
+
+// #8
+export default connect(mapStateToProps, { setMovies, setFavorites })(MainView);
+
+// export default MainView;
