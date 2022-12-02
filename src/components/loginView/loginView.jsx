@@ -61,7 +61,6 @@ function LoginView(props) {
       /* Send a request to the server for authentication */
       axios
         .post("https://musto-movie-api.onrender.com/login", null, {
-          // .post("http://localhost:8080/login", null, {
           params: {
             username: username,
             pass: password,

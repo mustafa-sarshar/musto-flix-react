@@ -1,6 +1,5 @@
 // Import Libs
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
@@ -12,7 +11,6 @@ import { Row, Col, Table, Card, Button } from "react-bootstrap";
 
 // Import Custom Components
 import { MyButton } from "../myButton/myButton";
-import LoadingView from "../loadingView/loadingView";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
@@ -22,72 +20,10 @@ class MovieView extends React.Component {
     super(props);
 
     if (DEBUG) console.log("render", this);
-
-    this.state = {
-      director: "",
-      genre: "",
-      stars: [],
-    };
-
-    const { movie } = this.props;
-
-    const fetchData = async (movie) => {
-      if (movie.director_id) {
-        await axios
-          .get(
-            `https://musto-movie-api.onrender.com/directors/${movie.director_id}`
-          )
-          .then((res) => {
-            this.setState({ director: res.data.name });
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-      }
-      if (movie.genre_id) {
-        await axios
-          .get(`https://musto-movie-api.onrender.com/genres/${movie.genre_id}`)
-          .then((res) => {
-            this.setState({ genre: res.data.name });
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-      }
-      if (movie.stars.length > 0) {
-        await movie.stars.map(async (star) => {
-          const res = await axios.get(
-            `https://musto-movie-api.onrender.com/actors/${star}`
-          );
-          this.setState({
-            stars: [
-              ...this.state.stars,
-              { _id: res.data._id, name: res.data.name },
-            ],
-          });
-        });
-      }
-    };
-    if (props && movie) {
-      fetchData(movie);
-    }
   }
 
   render() {
     const { movie, onBackClick, exitButton } = this.props;
-    console.log("Back click:", onBackClick, exitButton);
-
-    if (
-      !this.state.director ||
-      !this.state.genre ||
-      !this.state.stars.length === movie.stars.length
-    ) {
-      return (
-        <Col>
-          <LoadingView />
-        </Col>
-      );
-    }
 
     return (
       <Row>
@@ -106,33 +42,50 @@ class MovieView extends React.Component {
                 <Table striped bordered hover size="sm" className="movie-table">
                   <tbody>
                     <tr>
-                      <th scope="row">Genre</th>
+                      <th scope="row">Genre(s)</th>
                       <td>
-                        <Link to={`/genres/${movie && movie.genre_id}`}>
-                          <Button variant="link">{this.state.genre}</Button>
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Director</th>
-                      <td>
-                        <Link to={`/directors/${movie && movie.director_id}`}>
-                          <Button variant="link">{this.state.director}</Button>
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Stars</th>
-                      <td>
-                        {this.state.stars.map((star) => {
+                        {movie.genres.map((genre) => {
                           return (
-                            <Link to={`/actors/${star._id}`}>
-                              <Button variant="link">{star.name}</Button>
+                            <Link key={genre._id} to={`/genres/${genre._id}`}>
+                              <Button key={genre._id} variant="link">
+                                {genre.name}
+                              </Button>
                             </Link>
                           );
                         })}
                       </td>
-                      {/* <td>{this.state.stars.join(" | ")}</td> */}
+                    </tr>
+                    <tr>
+                      <th scope="row">Director(s)</th>
+                      <td>
+                        {movie.directors.map((director) => {
+                          return (
+                            <Link
+                              key={director._id}
+                              to={`/directors/${director._id}`}
+                              state={{ director: movie.director }}
+                            >
+                              <Button key={director._id} variant="link">
+                                {director.name}
+                              </Button>
+                            </Link>
+                          );
+                        })}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Star(s)</th>
+                      <td>
+                        {movie.stars.map((star) => {
+                          return (
+                            <Link key={star._id} to={`/actors/${star._id}`}>
+                              <Button key={star._id} variant="link">
+                                {star.name}
+                              </Button>
+                            </Link>
+                          );
+                        })}
+                      </td>
                     </tr>
                   </tbody>
                 </Table>

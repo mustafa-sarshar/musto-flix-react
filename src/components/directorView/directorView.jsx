@@ -1,7 +1,6 @@
 // Import Libs
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import dateFormat from "../../utils/dateFormat";
 
 // Import Styles
@@ -19,27 +18,20 @@ const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 const DirectorView = (props) => {
   if (DEBUG) console.log("render", this);
 
-  const [director, setDirector] = useState({});
+  const [director, setDirector] = useState();
 
-  const { onBackClick } = props;
+  const { movies, onBackClick } = props;
   const { id: director_id } = useParams();
-  const token = localStorage.getItem("token");
 
-  const fetchData = (director_id, token) => {
-    axios
-      .get(`https://musto-movie-api.onrender.com/directors/${director_id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+  if (!director) {
+    movies.find((movie) =>
+      movie.directors.find((director) => {
+        if (director._id === director_id) {
+          setDirector(director);
+        }
+        return director._id === director_id;
       })
-      .then((res) => {
-        setDirector(res.data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
-
-  if (director_id && token) {
-    fetchData(director_id, token);
+    );
   }
 
   return (

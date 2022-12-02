@@ -33,12 +33,14 @@ class MainView extends React.Component {
     this.state = {
       movies: [],
       user: null,
+      favList: null,
     };
   }
+
   render() {
     if (DEBUG) console.log("render:", this);
 
-    const { movies, user } = this.state;
+    const { movies, user, favList } = this.state;
 
     return (
       <>
@@ -65,11 +67,26 @@ class MainView extends React.Component {
                     </Col>
                   );
                 }
-                return movies.map((movie) => (
-                  <Col lg={3} md={4} sm={6} key={movie._id} className="mb-3">
-                    <MovieCard movie={movie} />
-                  </Col>
-                ));
+                if (user && favList) {
+                  return movies.map((movie) => (
+                    <Col lg={3} md={4} sm={6} key={movie._id} className="mb-3">
+                      <MovieCard
+                        showAddBtn={
+                          !favList.find((movie_id) => movie_id === movie._id)
+                        }
+                        onAddClick={() => this.handleAddFavMovie(movie._id)}
+                        showRemoveBtn={favList.find(
+                          (movie_id) => movie_id === movie._id
+                        )}
+                        onRemoveClick={() =>
+                          this.handleRemoveFavMovie(movie._id)
+                        }
+                        showOpenBtn={true}
+                        movie={movie}
+                      />
+                    </Col>
+                  ));
+                }
               }}
             />
 
@@ -148,7 +165,7 @@ class MainView extends React.Component {
 
             <Route
               path="/directors/:id"
-              render={({ match, history }) => {
+              render={({ history }) => {
                 if (!user) {
                   return (
                     <Col sm={12} lg={8}>
@@ -166,7 +183,10 @@ class MainView extends React.Component {
                 }
                 return (
                   <Col md={8}>
-                    <DirectorView onBackClick={() => history.goBack()} />
+                    <DirectorView
+                      movies={movies}
+                      onBackClick={() => history.goBack()}
+                    />
                   </Col>
                 );
               }}
@@ -174,7 +194,7 @@ class MainView extends React.Component {
 
             <Route
               path="/actors/:id"
-              render={({ match, history }) => {
+              render={({ history }) => {
                 if (!user) {
                   return (
                     <Col sm={12} lg={8}>
@@ -192,7 +212,10 @@ class MainView extends React.Component {
                 }
                 return (
                   <Col md={8}>
-                    <ActorView onBackClick={() => history.goBack()} />
+                    <ActorView
+                      movies={movies}
+                      onBackClick={() => history.goBack()}
+                    />
                   </Col>
                 );
               }}
@@ -200,7 +223,7 @@ class MainView extends React.Component {
 
             <Route
               path="/genres/:id"
-              render={({ match, history }) => {
+              render={({ history }) => {
                 if (!user) {
                   return (
                     <Col sm={12}>
@@ -218,7 +241,10 @@ class MainView extends React.Component {
                 }
                 return (
                   <Col md={8}>
-                    <GenreView onBackClick={() => history.goBack()} />
+                    <GenreView
+                      movies={movies}
+                      onBackClick={() => history.goBack()}
+                    />
                   </Col>
                 );
               }}
@@ -247,6 +273,21 @@ class MainView extends React.Component {
             />
 
             <Route
+              path={`/user-update`}
+              render={({ match, history }) => {
+                if (!user) {
+                  return (
+                    <Col>
+                      <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
+                    </Col>
+                  );
+                }
+                this.handleUsernameUpdate();
+                return <Redirect to="/" />;
+              }}
+            />
+
+            <Route
               exact
               path={"/logout"}
               render={() => {
@@ -269,6 +310,7 @@ class MainView extends React.Component {
     if (accessToken !== null) {
       this.setState({
         user: localStorage.getItem("user"),
+        favList: localStorage.getItem("favList").split(","),
       });
       this.getMovies(accessToken);
     }
@@ -285,25 +327,22 @@ class MainView extends React.Component {
     if (DEBUG) console.log("AuthData:", authData);
     this.setState({
       user: authData.user.username,
+      favList: authData.user.favList,
     });
 
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.username);
+    localStorage.setItem("favList", authData.user.favList.toString());
     this.getMovies(authData.token);
-  }
-
-  onShowProfile() {
-    console.log("onShowProfile");
   }
 
   // Fetching methods
   getMovies(token) {
     axios
-      .get("https://musto-movie-api.onrender.com/movies", {
+      .get("https://musto-movie-api.onrender.com/movies/populated", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        // Assign the result to the state
         this.setState({
           movies: response.data,
         });
@@ -312,6 +351,88 @@ class MainView extends React.Component {
         console.error(err);
       });
   }
+
+  async handleRemoveFavMovie(movie_id) {
+    const { favList } = this.state;
+    const found = favList.indexOf(movie_id);
+
+    if (found > -1) {
+      const token = localStorage.getItem("token");
+      const username = localStorage.getItem("user");
+
+      if (movie_id && username && token) {
+        const res = await this.removeMovieFromFavList(
+          movie_id,
+          username,
+          token
+        );
+
+        if (res) {
+          const favListUpdate = favList.filter((item) => item !== movie_id);
+          this.setState({ favList: [...favListUpdate] });
+          localStorage.setItem("favList", favListUpdate.toString());
+        }
+      } else {
+        console.error("Not enough Info");
+      }
+    } else {
+      console.error("Not Found in the FavList");
+    }
+  }
+  async removeMovieFromFavList(movie_id, username, token) {
+    const reqInstance = axios.create({
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    try {
+      const res = await reqInstance.delete(
+        `https://musto-movie-api.onrender.com/users/${username}/favorites/${movie_id}`
+      );
+      console.log("Res:", res);
+      return true;
+    } catch (err) {
+      console.error("Error:", err.message);
+      return false;
+    }
+  }
+
+  async handleAddFavMovie(movie_id) {
+    const { favList } = this.state;
+    const duplicate = favList.indexOf(movie_id);
+
+    if (duplicate === -1) {
+      const token = localStorage.getItem("token");
+      const { user: username } = this.state;
+      if (movie_id && username && token) {
+        const res = await this.addMovieToFavList(movie_id, username, token);
+
+        if (res) {
+          const favListUpdate = [...favList, movie_id];
+          this.setState({ favList: [...favListUpdate] });
+          localStorage.setItem("favList", favListUpdate.toString());
+          console.log("FavList:", favListUpdate);
+        }
+      }
+    }
+  }
+  async addMovieToFavList(movie_id, username, token) {
+    const reqInstance = axios.create({
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    try {
+      const res = await reqInstance.patch(
+        `https://musto-movie-api.onrender.com/users/${username}/favorites/${movie_id}`
+      );
+      console.log("Res:", res);
+      return true;
+    } catch (err) {
+      console.error("Error:", err.message);
+      return false;
+    }
+  }
+
+  handleUsernameUpdate = () => {
+    console.log("Username Updated");
+  };
 }
 
 export default MainView;

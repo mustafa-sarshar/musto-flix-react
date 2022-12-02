@@ -72,7 +72,7 @@ class UserProfileView extends React.Component {
                             >
                               <MovieCard
                                 movie={movie}
-                                remove={true}
+                                showRemoveBtn={true}
                                 onRemoveClick={() =>
                                   this.handleRemoveFavMovie(movie._id)
                                 }
@@ -115,7 +115,7 @@ class UserProfileView extends React.Component {
                         >
                           <MovieCard
                             movie={movie}
-                            add={true}
+                            showAddBtn={true}
                             onAddClick={() => this.handleAddFavMovie(movie._id)}
                           />
                         </Col>
@@ -157,7 +157,6 @@ class UserProfileView extends React.Component {
         this.setState({
           user: res.data,
         });
-        console.log("user", this.state.user, this);
       })
       .catch((err) => {
         console.log(err.message);
@@ -185,7 +184,7 @@ class UserProfileView extends React.Component {
           const userUpdate = { ...user };
           userUpdate.favList = [...favListUpdate];
           this.setState({ user: { ...userUpdate } });
-          console.log("FavList:", user.favList);
+          localStorage.setItem("favList", favListUpdate.toString());
         }
       } else {
         console.error("Not enough Info");
@@ -202,7 +201,6 @@ class UserProfileView extends React.Component {
       const res = await reqInstance.delete(
         `https://musto-movie-api.onrender.com/users/${username}/favorites/${movie_id}`
       );
-      console.log("Res:", res);
       return true;
     } catch (err) {
       console.error("Error:", err.message);
@@ -222,9 +220,10 @@ class UserProfileView extends React.Component {
 
         if (res) {
           const userUpdate = { ...user };
-          userUpdate.favList = [...userUpdate.favList, movie_id];
+          const favListUpdate = [...userUpdate.favList, movie_id];
+          userUpdate.favList = [...favListUpdate];
           this.setState({ user: { ...userUpdate } });
-          console.log("FavList:", user.favList);
+          localStorage.setItem("favList", favListUpdate.toString());
         }
       }
     }
@@ -237,7 +236,6 @@ class UserProfileView extends React.Component {
       const res = await reqInstance.patch(
         `https://musto-movie-api.onrender.com/users/${username}/favorites/${movie_id}`
       );
-      console.log("Res:", res);
       return true;
     } catch (err) {
       console.error("Error:", err.message);

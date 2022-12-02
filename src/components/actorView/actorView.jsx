@@ -1,7 +1,6 @@
 // Import Libs
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import dateFormat from "../../utils/dateFormat";
 
 // Import Styles
@@ -19,27 +18,20 @@ const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 const ActorView = (props) => {
   if (DEBUG) console.log("render", this);
 
-  const [actor, setActor] = useState({});
+  const [actor, setActor] = useState();
 
-  const { onBackClick } = props;
+  const { movies, onBackClick } = props;
   const { id: actor_id } = useParams();
-  const token = localStorage.getItem("token");
 
-  const fetchData = (actor_id, token) => {
-    axios
-      .get(`https://musto-movie-api.onrender.com/actors/${actor_id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+  if (!actor) {
+    movies.find((movie) =>
+      movie.stars.find((actor) => {
+        if (actor._id === actor_id) {
+          setActor(actor);
+        }
+        return actor._id === actor_id;
       })
-      .then((res) => {
-        setActor(res.data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
-
-  if (actor_id && token) {
-    fetchData(actor_id, token);
+    );
   }
 
   return (

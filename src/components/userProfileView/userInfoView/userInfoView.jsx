@@ -7,18 +7,21 @@ import dateFormat from "../../../utils/dateFormat";
 import "./userInfoView.scss";
 
 // Import Bootstrap Components
-import { Form, Button, Modal } from "react-bootstrap";
+import { Form, Button, Modal, Row, Col, Card } from "react-bootstrap";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 function UserInfoView(props) {
-  const [username, setUsername] = useState(props.user.username);
-  const [password, setPassword] = useState(props.user.password);
-  const [email, setEmail] = useState(props.user.email);
-  const [birth, setBirth] = useState(props.user.birth);
+  const { username, email, birth } = props.user;
 
   // Declare hook for each input
+  const [usernameUpdate, setUsernameUpdate] = useState();
+  const [passwordUpdate, setPasswordUpdate] = useState();
+  const [emailUpdate, setEmailUpdate] = useState();
+  const [birthUpdate, setBirthUpdate] = useState();
+
+  // Declare hook for each error
   const [usernameErr, setUsernameErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
   const [emailErr, setEmailErr] = useState("");
@@ -35,72 +38,77 @@ function UserInfoView(props) {
     const datePattern = /^\d{4}[./-]\d{2}[./-]\d{2}$/;
     let isReq = true;
 
-    // Reset Errors
-    setUsernameErr("");
-    setEmailErr("");
-    setPasswordErr("");
-    setBirthErr("");
-    setUpdateErr("");
+    // Reset Error Messages
+    resetErrorMessages();
 
-    if (username && username.length < 2) {
+    if (usernameUpdate && usernameUpdate.length < 2) {
       setUsernameErr("Username must be at least 2 characters long");
       isReq = false;
     }
 
-    if (email && !emailPattern.test(email)) {
+    if (emailUpdate && !emailPattern.test(emailUpdate)) {
       setEmailErr("Email Address Not Valid");
       isReq = false;
     }
 
-    if (password && password.length < 6) {
+    if (passwordUpdate && passwordUpdate.length < 6) {
       setPasswordErr("Password must be at least 6 characters long");
       isReq = false;
     }
 
-    if (birth && !datePattern.test(dateFormat(birth))) {
-      console.log(birth);
+    if (birthUpdate && !datePattern.test(dateFormat(birthUpdate))) {
       setBirthErr("Birth Date Not Valid");
       isReq = false;
     }
 
-    console.log(username, password, email, dateFormat(birth));
+    if (!usernameUpdate && !passwordUpdate && !emailUpdate && !birthUpdate) {
+      setUpdateErr("No data is given");
+      isReq = false;
+    }
+
+    console.log(usernameUpdate, passwordUpdate, emailUpdate, birthUpdate);
     return isReq;
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (DEBUG)
-      console.log(
-        "username:",
-        username,
-        "password:",
-        password,
-        "email:",
-        email,
-        "birth:",
-        birth
-      );
+      console.log(usernameUpdate, passwordUpdate, emailUpdate, birthUpdate);
 
     const isReq = validate();
     const token = localStorage.getItem("token");
     if (isReq && token && username) {
       setIsFetching(true);
 
+      const userUpdate = {};
+      if (usernameUpdate) userUpdate.username = usernameUpdate;
+      if (passwordUpdate) userUpdate.pass = passwordUpdate;
+      if (emailUpdate) userUpdate.email = emailUpdate;
+      if (birthUpdate) userUpdate.birth = birthUpdate;
+
+      console.log("UserUpdate:", userUpdate);
+
       const reqInstance = axios.create({
         headers: { Authorization: `Bearer ${token}` },
       });
       reqInstance
-        .put(`https://musto-movie-api.onrender.com/users/${username}`, {
-          username: username,
-          email: email,
-          pass: password,
-          birth: birth,
-        })
+        .put(
+          `https://musto-movie-api.onrender.com/users/${username}`,
+          userUpdate
+        )
         .then((response) => {
           const data = response.data;
           if (DEBUG) console.log(data);
-          alert(`The username '${username}' is successfully updated`);
-          // window.open("/", "_self");
+          alert(`The user data is successfully updated`);
+          if (usernameUpdate) {
+            localStorage.setItem("user", usernameUpdate);
+            window.open("/user-update", "_self");
+            // window.open(`/users/${usernameUpdate}`, "_self");
+          } else {
+            window.open(`/users/${username}`, "_self");
+          }
+          resetUpdateHooks();
+          resetErrorMessages();
         })
         .catch((err) => {
           alert("Unable to update, please try again.");
@@ -148,6 +156,21 @@ function UserInfoView(props) {
     setShowDeleteModal(false);
   };
 
+  const resetErrorMessages = () => {
+    setUsernameErr("");
+    setEmailErr("");
+    setPasswordErr("");
+    setBirthErr("");
+    setUpdateErr("");
+  };
+
+  const resetUpdateHooks = () => {
+    setUsernameUpdate("");
+    setPasswordUpdate("");
+    setBirthUpdate();
+    setEmailUpdate("");
+  };
+
   return (
     <>
       <Modal show={showDeleteModal} onHide={handleCancelDeleteModal}>
@@ -167,92 +190,129 @@ function UserInfoView(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Form autoComplete="on">
-        <Form.Group className="mb-3" controlId="formUsername">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="username"
-            value={username}
-            disabled={isFetching}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <Form.Text className="text-muted">*required</Form.Text>
-          {/* Validation error */}
-          {usernameErr && (
-            <p className="user-info-form__error">{usernameErr}</p>
-          )}{" "}
-        </Form.Group>
+      <Row>
+        <Col xl={4}>
+          <Card className="movie-card">
+            <Card.Body>
+              <Form autoComplete="on">
+                <Form.Group className="mb-3" controlId="formEmailInfo">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Text className="user-info__item">{email}</Form.Text>
+                </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="email@mail.com"
-            value={email}
-            disabled={isFetching}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Form.Text className="text-muted">
-            *required (We'll never share your email with anyone else.)
-          </Form.Text>
-          {/* Validation error */}
-          {emailErr && <p className="user-info-form__error">{emailErr}</p>}
-        </Form.Group>
+                <Form.Group className="mb-3" controlId="formBirthDateInfo">
+                  <Form.Label>Birth date</Form.Label>
+                  <Form.Text className="user-info__item">
+                    {birth ? dateFormat(birth, "toLocaleDateString") : "NA"}
+                  </Form.Text>
+                </Form.Group>
+                <hr />
+                <Form.Group className="mb-3" controlId="formButtonSubmit">
+                  <Button
+                    variant="danger"
+                    type="button"
+                    disabled={isFetching}
+                    onClick={() => setShowDeleteModal(true)}
+                  >
+                    Delete Account
+                  </Button>
+                </Form.Group>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col xl={8}>
+          <Card className="movie-card h-100 w-100">
+            <Card.Body>
+              <Form autoComplete="on">
+                <Form.Group className="mb-3" controlId="formUsername">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control
+                    type="text"
+                    disabled={isFetching}
+                    autoComplete="off"
+                    new-password="true"
+                    onChange={(e) => setUsernameUpdate(e.target.value)}
+                  />
 
-        <Form.Group className="mb-3" controlId="formPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="password"
-            value={password}
-            autoComplete="on"
-            disabled={isFetching}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Form.Text className="text-muted">*required</Form.Text>
-          {/* Validation error */}
-          {passwordErr && (
-            <p className="user-info-form__error">{passwordErr}</p>
-          )}
-        </Form.Group>
+                  {usernameErr && (
+                    <Form.Text className="user-info-form__error">
+                      {usernameErr}
+                    </Form.Text>
+                  )}
+                </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBirthDate">
-          <Form.Label>Birth date</Form.Label>
-          <Form.Control
-            type="date"
-            placeholder="dd-mm-yyyy"
-            value={dateFormat(birth)}
-            disabled={isFetching}
-            onChange={(e) => setBirth(dateFormat(e.target.value))}
-          />
-          <Form.Text className="text-muted">**optional</Form.Text>
-          {/* Validation error */}
-          {birthErr && <p className="user-info-form__error">{birthErr}</p>}
-        </Form.Group>
+                <Form.Group className="mb-3" controlId="formEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    disabled={isFetching}
+                    autoComplete="off"
+                    onChange={(e) => setEmailUpdate(e.target.value)}
+                  />
 
-        <Form.Group className="mb-3" controlId="formButtonSubmit">
-          <Button
-            variant="primary"
-            type="submit"
-            disabled={isFetching}
-            onClick={handleSubmit}
-          >
-            Update
-          </Button>
-          <Button
-            variant="danger"
-            type="button"
-            disabled={isFetching}
-            onClick={() => setShowDeleteModal(true)}
-          >
-            Delete
-          </Button>
-        </Form.Group>
+                  {emailErr && (
+                    <Form.Text className="user-info-form__error">
+                      {emailErr}
+                    </Form.Text>
+                  )}
+                </Form.Group>
 
-        {/* Update error */}
-        {updateErr && <p className="user-info-form__error">{updateErr}</p>}
-      </Form>
+                <Form.Group className="mb-3" controlId="formPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    autoComplete="on"
+                    disabled={isFetching}
+                    new-password="true"
+                    onChange={(e) => setPasswordUpdate(e.target.value)}
+                  />
+
+                  {passwordErr && (
+                    <Form.Text className="user-info-form__error">
+                      {passwordErr}
+                    </Form.Text>
+                  )}
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBirthDate">
+                  <Form.Label>Birth date</Form.Label>
+                  <Form.Control
+                    type="date"
+                    disabled={isFetching}
+                    autoComplete="off"
+                    onChange={(e) => setBirthUpdate(dateFormat(e.target.value))}
+                  />
+
+                  {birthErr && (
+                    <Form.Text className="user-info-form__error">
+                      {birthErr}
+                    </Form.Text>
+                  )}
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formButtonSubmit">
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    disabled={isFetching}
+                    onClick={handleSubmit}
+                  >
+                    Update
+                  </Button>
+                </Form.Group>
+
+                {updateErr && (
+                  <Form.Text className="user-info-form__error">
+                    {updateErr}
+                  </Form.Text>
+                )}
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+
       <br />
       <br />
     </>

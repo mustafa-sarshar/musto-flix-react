@@ -1,7 +1,6 @@
 // Import Libs
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 
 // Import Styles
 import "./genreView.scss";
@@ -18,27 +17,20 @@ const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 const GenreView = (props) => {
   if (DEBUG) console.log("render", this);
 
-  const [genre, setGenre] = useState({});
+  const [genre, setGenre] = useState();
 
-  const { onBackClick } = props;
+  const { movies, onBackClick } = props;
   const { id: genre_id } = useParams();
-  const token = localStorage.getItem("token");
 
-  const fetchData = (genre_id, token) => {
-    axios
-      .get(`https://musto-movie-api.onrender.com/genres/${genre_id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+  if (!genre) {
+    movies.find((movie) =>
+      movie.genres.find((genre) => {
+        if (genre._id === genre_id) {
+          setGenre(genre);
+        }
+        return genre._id === genre_id;
       })
-      .then((res) => {
-        setGenre(res.data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
-
-  if (genre_id && token) {
-    fetchData(genre_id, token);
+    );
   }
 
   return (

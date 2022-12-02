@@ -15,7 +15,14 @@ const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 const MovieCard = (props) => {
   if (DEBUG) console.log("render", this);
 
-  const { movie, add, remove, onAddClick, onRemoveClick } = props;
+  const {
+    movie,
+    showAddBtn,
+    showRemoveBtn,
+    showOpenBtn,
+    onAddClick,
+    onRemoveClick,
+  } = props;
   return (
     <Card className="movie-card h-100 w-100">
       <Card.Img variant="top" src={movie.image_url} />
@@ -23,34 +30,29 @@ const MovieCard = (props) => {
         <Card.Text>{movie.title}</Card.Text>
       </Card.Body>
       <Card.Footer className="text-right">
-        {add && (
-          <Button variant="link" onClick={onAddClick}>
+        {showAddBtn && (
+          <Button variant="link" className="text-success" onClick={onAddClick}>
             Add
           </Button>
         )}
-        {remove && (
-          <Button variant="link" onClick={onRemoveClick}>
+        {showRemoveBtn && (
+          <Button
+            variant="link"
+            className="text-danger"
+            onClick={onRemoveClick}
+          >
             Remove
           </Button>
         )}
-        {add || remove ? (
-          <>
-            {/* <Link
-              to={{
-                pathname: `/movies/${movie._id}/details`,
-              }}
-              target={"_blank"}
-            >
-              <Button variant="link">Open</Button>
-            </Link> */}
-          </>
-        ) : (
+        {showOpenBtn && (
           <Link
             to={{
               pathname: `/movies/${movie._id}`,
             }}
           >
-            <Button variant="link">Open</Button>
+            <Button variant="link" className="text-primary">
+              Open
+            </Button>
           </Link>
         )}
       </Card.Footer>
