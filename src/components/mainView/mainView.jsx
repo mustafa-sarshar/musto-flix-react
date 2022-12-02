@@ -282,7 +282,6 @@ class MainView extends React.Component {
                     </Col>
                   );
                 }
-                this.handleUsernameUpdate();
                 return <Redirect to="/" />;
               }}
             />
@@ -429,10 +428,6 @@ class MainView extends React.Component {
       return false;
     }
   }
-
-  handleUsernameUpdate = () => {
-    console.log("Username Updated");
-  };
 }
 
 export default MainView;

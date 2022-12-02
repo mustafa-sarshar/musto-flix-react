@@ -192,7 +192,7 @@ function UserInfoView(props) {
       </Modal>
       <Row>
         <Col xl={4}>
-          <Card className="movie-card">
+          <Card className="movie-card mb-3">
             <Card.Body>
               <Form autoComplete="on">
                 <Form.Group className="mb-3" controlId="formEmailInfo">

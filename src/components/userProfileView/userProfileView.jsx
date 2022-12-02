@@ -76,6 +76,7 @@ class UserProfileView extends React.Component {
                                 onRemoveClick={() =>
                                   this.handleRemoveFavMovie(movie._id)
                                 }
+                                showOpenBtn={true}
                               />
                             </Col>
                           );
@@ -117,6 +118,7 @@ class UserProfileView extends React.Component {
                             movie={movie}
                             showAddBtn={true}
                             onAddClick={() => this.handleAddFavMovie(movie._id)}
+                            showOpenBtn={true}
                           />
                         </Col>
                       );
