@@ -3,13 +3,13 @@ import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { setMovies, setFavorites, setAlert } from "../../actions/actions";
+import { setMovies, setFavorites } from "../../actions/actions";
 
 // Import Styles
 import "./mainView.scss";
 
 // Import Bootstrap Components
-import { Row, Col, Alert } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 // Import Custom Components
 import LoginView from "../loginView/loginView";
@@ -42,16 +42,12 @@ class MainView extends React.Component {
     if (DEBUG) console.log("render:", this);
 
     const { user, favorites } = this.state;
-    const { movies, alertMessage } = this.props;
-    console.log("Movies:", movies, "Alert:", alertMessage);
+    const { movies } = this.props;
 
     return (
       <>
         <MenuBar user={user} />
         <hr />
-        {alertMessage.value && (
-          <Alert variant={alertMessage.variant}>{alertMessage.value}</Alert>
-        )}
         <Row className="main-view justify-content-md-center mt-5">
           <Switch>
             <Route
@@ -296,7 +292,7 @@ class MainView extends React.Component {
     if (accessToken !== null) {
       this.setState({
         user: localStorage.getItem("user"),
-        // favList: localStorage.getItem("favList").split(","),
+        favorites: localStorage.getItem("favorites").split(","),
       });
       this.getMovies(accessToken);
     }
@@ -425,13 +421,8 @@ const mapStateToProps = (state) => {
   return {
     movies: state.movies,
     favorites: state.favorites,
-    alertMessage: state.alertMessage,
   };
 };
 
 // #8
-export default connect(mapStateToProps, { setMovies, setFavorites, setAlert })(
-  MainView
-);
-
-// export default MainView;
+export default connect(mapStateToProps, { setMovies, setFavorites })(MainView);

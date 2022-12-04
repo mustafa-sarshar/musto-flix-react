@@ -80,8 +80,11 @@ class MoviesListView extends React.Component {
     }
   }
 
+  componentDidMount() {
+    console.log("Mounted:", this.props);
+  }
   async handleRemoveFavorite(movie_id) {
-    const { favorites } = this.props;
+    const { favorites } = localStorage.getItem("favorites").split(",");
     const found = favorites.indexOf(movie_id);
 
     if (found > -1) {

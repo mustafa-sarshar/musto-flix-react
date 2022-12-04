@@ -2,12 +2,7 @@
 import { combineReducers } from "redux";
 
 // Import Actions
-import {
-  SET_FILTER,
-  SET_MOVIES,
-  SET_FAVORITES,
-  SET_ALERT,
-} from "../actions/actions";
+import { SET_FILTER, SET_MOVIES, SET_FAVORITES } from "../actions/actions";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
@@ -42,30 +37,10 @@ const favorites = (state = [], action) => {
   }
 };
 
-const alertMessage = (state = {}, action) => {
-  if (DEBUG) console.log("alertMessage:", state, action);
-  switch (action.type) {
-    case SET_ALERT:
-      return { value: action.value, variant: action.variant };
-    default:
-      return state;
-  }
-};
-
-// const moviesApp = (state = {}, action) => {
-//   return {
-//     visibilityFilter: visibilityFilter(state.visibilityFilter, action),
-//     movies: movies(state.movies, action),
-//     favorites: favorites(state.movies, action),
-//     alertMessage: alertMessage(state.movies, action),
-//   };
-// };
-
 const moviesAppReducer = combineReducers({
   visibilityFilter,
   movies,
   favorites,
-  alertMessage,
 });
 
 export default moviesAppReducer;

@@ -2,10 +2,9 @@
 import React from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom/cjs/react-router-dom.min";
-import { createStore, applyMiddleware } from "redux";
+import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { devToolsEnhancer } from "redux-devtools-extension";
-import logger from "redux-logger";
 import moviesAppReducer from "./reducers/reducers";
 
 // Import Styles
@@ -18,12 +17,7 @@ import { Container } from "react-bootstrap";
 import MainView from "./components/mainView/mainView";
 
 // Initialize the Redux
-const store = createStore(
-  moviesAppReducer,
-  {},
-  devToolsEnhancer()
-  // applyMiddleware(logger)
-);
+const store = createStore(moviesAppReducer, {}, devToolsEnhancer());
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
