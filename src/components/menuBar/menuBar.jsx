@@ -1,5 +1,6 @@
 // Import Libs
 import React from "react";
+import PropTypes from "prop-types";
 
 // Import Custom Styles
 import "./menuBar.scss";
@@ -52,6 +53,10 @@ const MenuBar = ({ user }) => {
       </Container>
     </Navbar>
   );
+};
+
+MenuBar.propTypes = {
+  user: PropTypes.string.isRequired,
 };
 
 export default MenuBar;

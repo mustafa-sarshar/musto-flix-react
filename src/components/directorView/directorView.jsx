@@ -1,5 +1,6 @@
 // Import Libs
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import dateFormat from "../../utils/dateFormat";
 
@@ -82,6 +83,11 @@ const DirectorView = (props) => {
       </Col>
     </Row>
   );
+};
+
+DirectorView.propTypes = {
+  movies: PropTypes.array.isRequired,
+  onBackClick: PropTypes.func.isRequired,
 };
 
 export default DirectorView;

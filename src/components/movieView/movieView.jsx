@@ -23,7 +23,7 @@ class MovieView extends React.Component {
   }
 
   render() {
-    const { movie, onBackClick, exitButton } = this.props;
+    const { movie, onBackClick } = this.props;
 
     return (
       <Row>
@@ -92,17 +92,13 @@ class MovieView extends React.Component {
                 <p className="movie-description">{movie && movie.des}</p>
               </Card.Body>
               <Card.Footer className="text-left">
-                {exitButton ? (
-                  <div>Hi</div>
-                ) : (
-                  <MyButton
-                    btnStyle="text-green border-none cursor-pointer add-padding--5px background-transparent"
-                    btnLabel="Back"
-                    btnOnClick={() => {
-                      onBackClick();
-                    }}
-                  />
-                )}
+                <MyButton
+                  btnStyle="text-green border-none cursor-pointer add-padding--5px background-transparent"
+                  btnLabel="Back"
+                  btnOnClick={() => {
+                    onBackClick();
+                  }}
+                />
               </Card.Footer>
             </Card>
           </div>
@@ -116,6 +112,9 @@ MovieView.propTypes = {
   movie: PropTypes.shape({
     title: PropTypes.string.isRequired,
     des: PropTypes.string.isRequired,
+    directors: PropTypes.array.isRequired,
+    genres: PropTypes.array.isRequired,
+    stars: PropTypes.array.isRequired,
     image_url: PropTypes.string.isRequired,
   }).isRequired,
   onBackClick: PropTypes.func.isRequired,

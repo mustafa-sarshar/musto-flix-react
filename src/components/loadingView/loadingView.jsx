@@ -13,18 +13,10 @@ const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 class LoadingView extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      user: null,
-    };
   }
   componentDidMount() {
     const user = localStorage.getItem("user");
-    if (user) {
-      this.setState({
-        user: user,
-      });
-    } else {
+    if (!user) {
       window.open("/", "_self");
     }
   }

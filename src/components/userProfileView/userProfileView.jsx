@@ -1,6 +1,7 @@
 // Import Libs
 import React from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 // Import Styles
 import "./userProfileView.scss";
@@ -24,15 +25,19 @@ class UserProfileView extends React.Component {
     if (DEBUG) console.log("render", this);
 
     this.state = {
-      user: null,
+      userData: null,
     };
   }
 
   render() {
     const { movies, onBackClick } = this.props;
-    const { user } = this.state;
+    const { userData } = this.state;
+    const movieDefault = {
+      title: "no favorite movie yet ❗",
+      image_url: "https://via.placeholder.com/50",
+    };
 
-    if (!user) {
+    if (!userData) {
       return (
         <Col>
           <LoadingView />
@@ -46,42 +51,48 @@ class UserProfileView extends React.Component {
             <Card>
               <Card.Header>
                 <div className="user-title">
-                  <h2>{user && user.username}</h2>
+                  <h2>{userData && userData.username}</h2>
                 </div>
               </Card.Header>
               <Card.Body>
                 <Row>
                   <Col>
-                    <UserInfoView user={user} />
+                    <UserInfoView userData={userData} />
                   </Col>
                 </Row>
                 <Card>
                   <Card.Header>Favorite Movies:</Card.Header>
                   <Card.Body>
                     <Row>
-                      {movies.map((movie) => {
-                        if (user.favList.indexOf(movie._id) > -1) {
-                          return (
-                            <Col
-                              xl={3}
-                              lg={4}
-                              md={6}
-                              sm={12}
-                              key={movie._id}
-                              className="mb-1"
-                            >
-                              <MovieCard
-                                movie={movie}
-                                showRemoveBtn={true}
-                                onRemoveClick={() =>
-                                  this.handleRemoveFavorites(movie._id)
-                                }
-                                showOpenBtn={true}
-                              />
-                            </Col>
-                          );
-                        }
-                      })}
+                      {userData.favList.length === 0 ? (
+                        <Col xl={3} lg={4} md={6} sm={12} className="mb-1">
+                          <MovieCard movie={movieDefault} />
+                        </Col>
+                      ) : (
+                        movies.map((movie) => {
+                          if (userData.favList.indexOf(movie._id) > -1) {
+                            return (
+                              <Col
+                                xl={3}
+                                lg={4}
+                                md={6}
+                                sm={12}
+                                key={movie._id}
+                                className="mb-1"
+                              >
+                                <MovieCard
+                                  movie={movie}
+                                  showRemoveBtn={true}
+                                  onRemoveClick={() =>
+                                    this.handleRemoveFavorites(movie._id)
+                                  }
+                                  showOpenBtn={true}
+                                />
+                              </Col>
+                            );
+                          }
+                        })
+                      )}
                     </Row>
                   </Card.Body>
                 </Card>
@@ -104,7 +115,7 @@ class UserProfileView extends React.Component {
               <Card.Body>
                 <Row>
                   {movies.map((movie) => {
-                    if (user.favList.indexOf(movie._id) === -1) {
+                    if (userData.favList.indexOf(movie._id) === -1) {
                       return (
                         <Col
                           xl={3}
@@ -159,7 +170,7 @@ class UserProfileView extends React.Component {
       .get(`https://musto-movie-api.onrender.com/users/${username}`)
       .then((res) => {
         this.setState({
-          user: res.data,
+          userData: res.data,
         });
       })
       .catch((err) => {
@@ -168,12 +179,12 @@ class UserProfileView extends React.Component {
   }
 
   async handleRemoveFavorites(movie_id) {
-    const { user } = this.state;
-    const found = user.favList.indexOf(movie_id);
+    const { userData } = this.state;
+    const found = userData.favList.indexOf(movie_id);
 
     if (found > -1) {
       const token = localStorage.getItem("token");
-      const { username } = user;
+      const { username } = userData;
       if (movie_id && username && token) {
         const res = await this.removeMovieFromFavorites(
           movie_id,
@@ -182,12 +193,12 @@ class UserProfileView extends React.Component {
         );
 
         if (res) {
-          const favoritesUpdate = user.favList.filter(
+          const favoritesUpdate = userData.favList.filter(
             (item) => item !== movie_id
           );
-          const userUpdate = { ...user };
+          const userUpdate = { ...userData };
           userUpdate.favList = [...favoritesUpdate];
-          this.setState({ user: { ...userUpdate } });
+          this.setState({ userData: { ...userUpdate } });
           localStorage.setItem("favorites", favoritesUpdate.toString());
         }
       } else {
@@ -213,20 +224,20 @@ class UserProfileView extends React.Component {
   }
 
   async handleAddFavorites(movie_id) {
-    const { user } = this.state;
-    const duplicate = user.favList.indexOf(movie_id);
+    const { userData } = this.state;
+    const duplicate = userData.favList.indexOf(movie_id);
 
     if (duplicate === -1) {
       const token = localStorage.getItem("token");
-      const { username } = user;
+      const { username } = userData;
       if (movie_id && username && token) {
         const res = await this.addMovieToFavorites(movie_id, username, token);
 
         if (res) {
-          const userUpdate = { ...user };
+          const userUpdate = { ...userData };
           const favoritesUpdate = [...userUpdate.favList, movie_id];
           userUpdate.favList = [...favoritesUpdate];
-          this.setState({ user: { ...userUpdate } });
+          this.setState({ userData: { ...userUpdate } });
           localStorage.setItem("favorites", favoritesUpdate.toString());
         }
       }
@@ -247,5 +258,11 @@ class UserProfileView extends React.Component {
     }
   }
 }
+
+UserProfileView.propTypes = {
+  movies: PropTypes.array.isRequired,
+  username: PropTypes.string.isRequired,
+  onBackClick: PropTypes.func.isRequired,
+};
 
 export default UserProfileView;

@@ -1,5 +1,6 @@
 // Import Libs
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 
 // Import Styles
@@ -60,6 +61,11 @@ const GenreView = (props) => {
       </Col>
     </Row>
   );
+};
+
+GenreView.propTypes = {
+  movies: PropTypes.array.isRequired,
+  onBackClick: PropTypes.func.isRequired,
 };
 
 export default GenreView;

@@ -1,5 +1,6 @@
 // Import Libs
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 import dateFormat from "../../../utils/dateFormat";
 
@@ -13,7 +14,7 @@ import { Form, Button, Modal, Row, Col, Card } from "react-bootstrap";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 const UserInfoView = (props) => {
-  const { username, email, birth } = props.user;
+  const { username, email, birth } = props.userData;
 
   // Declare hook for each input
   const [usernameUpdate, setUsernameUpdate] = useState();
@@ -109,7 +110,6 @@ const UserInfoView = (props) => {
           if (usernameUpdate) {
             localStorage.setItem("user", usernameUpdate);
             window.open("/user-update", "_self");
-            // window.open(`/users/${usernameUpdate}`, "_self");
           } else {
             window.open(`/users/${username}`, "_self");
           }
@@ -323,6 +323,14 @@ const UserInfoView = (props) => {
       <br />
     </>
   );
+};
+
+UserInfoView.propTypes = {
+  userData: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    birth: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default UserInfoView;

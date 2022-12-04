@@ -3,7 +3,7 @@ import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { setMovies } from "../../actions/actions";
+import { setMovies, setUser, setFavorites } from "../../actions/actions";
 
 // Import Styles
 import "./mainView.scss";
@@ -27,21 +27,14 @@ import MoviesListView from "../moviesListView/moviesListView";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 class MainView extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     if (DEBUG) console.log("constructor:", this);
-
-    // Initial state is set to null
-    this.state = {
-      user: null,
-    };
   }
 
   render() {
     if (DEBUG) console.log("render:", this);
-
-    const { user } = this.state;
-    const { movies } = this.props;
+    const { user, movies } = this.props;
 
     return (
       <>
@@ -68,7 +61,7 @@ class MainView extends React.Component {
                     </Col>
                   );
                 }
-                return <MoviesListView movies={movies} />;
+                return <MoviesListView />;
               }}
             />
 
@@ -271,11 +264,9 @@ class MainView extends React.Component {
             <Route
               exact
               path={"/logout"}
-              render={() => {
+              render={async () => {
                 localStorage.clear();
-                this.setState({
-                  user: null,
-                });
+                await this.props.setUser("");
                 window.open("/", "_self");
               }}
             />
@@ -289,10 +280,8 @@ class MainView extends React.Component {
 
     const accessToken = localStorage.getItem("token");
     if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem("user"),
-        favorites: localStorage.getItem("favorites").split(","),
-      });
+      this.props.setUser(localStorage.getItem("user"));
+      this.props.setFavorites(localStorage.getItem("favorites").split(","));
       this.getMovies(accessToken);
     }
   }
@@ -307,10 +296,8 @@ class MainView extends React.Component {
   onLoggedIn(authData) {
     if (DEBUG) console.log("AuthData:", authData);
 
-    this.setState({
-      user: authData.user.username,
-      favorites: authData.user.favList,
-    });
+    this.props.setUser(authData.user.username);
+    this.props.setFavorites(authData.user.favList);
 
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.username);
@@ -325,9 +312,6 @@ class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        // this.setState({
-        //   movies: response.data,
-        // });
         this.props.setMovies(response.data);
       })
       .catch((err) => {
@@ -336,8 +320,8 @@ class MainView extends React.Component {
   }
 
   async handleRemoveFavMovie(movie_id) {
-    const { favList } = this.state;
-    const found = favList.indexOf(movie_id);
+    const { favorites } = this.props;
+    const found = favorites.indexOf(movie_id);
 
     if (found > -1) {
       const token = localStorage.getItem("token");
@@ -351,9 +335,9 @@ class MainView extends React.Component {
         );
 
         if (res) {
-          const favListUpdate = favList.filter((item) => item !== movie_id);
-          this.setState({ favList: [...favListUpdate] });
-          localStorage.setItem("favList", favListUpdate.toString());
+          const favoritesUpdate = favorites.filter((item) => item !== movie_id);
+          this.props.setFavorites([...favoritesUpdate]);
+          localStorage.setItem("favorites", favoritesUpdate.toString());
         }
       } else {
         console.error("Not enough Info");
@@ -379,20 +363,20 @@ class MainView extends React.Component {
   }
 
   async handleAddFavMovie(movie_id) {
-    const { favList } = this.state;
-    const duplicate = favList.indexOf(movie_id);
+    const { favorites } = this.props;
+    const duplicate = favorites.indexOf(movie_id);
 
     if (duplicate === -1) {
       const token = localStorage.getItem("token");
-      const { user: username } = this.state;
+      const { user: username } = this.props;
       if (movie_id && username && token) {
         const res = await this.addMovieToFavList(movie_id, username, token);
 
         if (res) {
-          const favListUpdate = [...favList, movie_id];
-          this.setState({ favList: [...favListUpdate] });
-          localStorage.setItem("favList", favListUpdate.toString());
-          console.log("FavList:", favListUpdate);
+          const favoritesUpdate = [...favList, movie_id];
+          this.props.setFavorites([...favoritesUpdate]);
+          localStorage.setItem("favorites", favoritesUpdate.toString());
+          console.log("favorites:", favoritesUpdate);
         }
       }
     }
@@ -414,13 +398,15 @@ class MainView extends React.Component {
   }
 }
 
-// #7
 const mapStateToProps = (state) => {
   if (DEBUG) console.log("mapStateToProps", state);
   return {
+    user: state.user,
     movies: state.movies,
+    favorites: state.favorites,
   };
 };
 
-// #8
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect(mapStateToProps, { setUser, setMovies, setFavorites })(
+  MainView
+);
