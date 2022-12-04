@@ -67,8 +67,8 @@ function LoginView(props) {
           },
         })
         .then((response) => {
-          const data = response.data;
-          props.onLoggedIn(data);
+          const authData = response.data;
+          props.onLoggedIn({ ...authData });
         })
         .catch((err) => {
           console.error(err.message);

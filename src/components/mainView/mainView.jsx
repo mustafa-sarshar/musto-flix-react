@@ -3,18 +3,17 @@ import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { setMovies, setFavorites } from "../../actions/actions";
+import { setMovies, setFavorites, setAlert } from "../../actions/actions";
 
 // Import Styles
 import "./mainView.scss";
 
 // Import Bootstrap Components
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Alert } from "react-bootstrap";
 
 // Import Custom Components
 import LoginView from "../loginView/loginView";
 import RegistrationView from "../registrationView/registrationView";
-// import MovieCard from "../movieCard/movieCard";
 import MovieView from "../movieView/movieView";
 import UserProfileView from "../userProfileView/userProfileView";
 import DirectorView from "../directorView/directorView";
@@ -34,23 +33,25 @@ class MainView extends React.Component {
 
     // Initial state is set to null
     this.state = {
-      // movies: [],
       user: null,
-      // favList: null,
+      favorites: null,
     };
   }
 
   render() {
     if (DEBUG) console.log("render:", this);
 
-    let { user } = this.state;
-    let { movies, favorites } = this.props;
-    console.log("Movies:", movies);
+    const { user, favorites } = this.state;
+    const { movies, alertMessage } = this.props;
+    console.log("Movies:", movies, "Alert:", alertMessage);
 
     return (
       <>
         <MenuBar user={user} />
         <hr />
+        {alertMessage.value && (
+          <Alert variant={alertMessage.variant}>{alertMessage.value}</Alert>
+        )}
         <Row className="main-view justify-content-md-center mt-5">
           <Switch>
             <Route
@@ -72,27 +73,7 @@ class MainView extends React.Component {
                     </Col>
                   );
                 }
-                return <MoviesListView movies={movies} />;
-                // if (user && favList) {
-                //   return movies.map((movie) => (
-                //     <Col lg={3} md={4} sm={6} key={movie._id} className="mb-3">
-                //       <MovieCard
-                //         showAddBtn={
-                //           !favList.find((movie_id) => movie_id === movie._id)
-                //         }
-                //         onAddClick={() => this.handleAddFavMovie(movie._id)}
-                //         showRemoveBtn={favList.find(
-                //           (movie_id) => movie_id === movie._id
-                //         )}
-                //         onRemoveClick={() =>
-                //           this.handleRemoveFavMovie(movie._id)
-                //         }
-                //         showOpenBtn={true}
-                //         movie={movie}
-                //       />
-                //     </Col>
-                //   ));
-                // }
+                return <MoviesListView movies={movies} favorites={favorites} />;
               }}
             />
 
@@ -330,15 +311,15 @@ class MainView extends React.Component {
   // When a user successfully logs in, this function updates the `user` property in state to that *particular user
   onLoggedIn(authData) {
     if (DEBUG) console.log("AuthData:", authData);
+
     this.setState({
       user: authData.user.username,
+      favorites: authData.user.favList,
     });
 
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.username);
-    // localStorage.setItem("favList", authData.user.favList.toString());
-    // this.props.setFavorites(authData.user.favList);
-    this.props.setFavorites(["12312312"]);
+    localStorage.setItem("favorites", authData.user.favList.toString());
     this.getMovies(authData.token);
   }
 
@@ -444,11 +425,13 @@ const mapStateToProps = (state) => {
   return {
     movies: state.movies,
     favorites: state.favorites,
-    abc: "abc",
+    alertMessage: state.alertMessage,
   };
 };
 
 // #8
-export default connect(mapStateToProps, { setMovies, setFavorites })(MainView);
+export default connect(mapStateToProps, { setMovies, setFavorites, setAlert })(
+  MainView
+);
 
 // export default MainView;

@@ -14,6 +14,9 @@ import { Col } from "react-bootstrap";
 import MovieCard from "../movieCard/movieCard";
 import LoadingView from "../loadingView/loadingView";
 
+// Debugger
+const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
+
 const mapStateToProps = (state) => {
   const { visibilityFilter, favorites } = state;
   return { visibilityFilter, favorites };
@@ -27,15 +30,17 @@ class MoviesListView extends React.Component {
   render() {
     const { movies, visibilityFilter } = this.props;
     let { favorites } = this.props;
-    console.log(
-      "MoviesListView",
-      "Movies::",
-      movies,
-      "visibilityFilter:",
-      visibilityFilter,
-      "favorites:",
-      favorites
-    );
+    console.log("Favs:", favorites);
+    if (DEBUG)
+      console.log(
+        "MoviesListView",
+        "Movies::",
+        movies,
+        "visibilityFilter:",
+        visibilityFilter,
+        "favorites:",
+        favorites
+      );
 
     if (movies.length > 0) {
       let filteredMovies = movies;
