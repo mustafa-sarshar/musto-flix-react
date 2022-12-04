@@ -186,7 +186,7 @@ class UserProfileView extends React.Component {
             (item) => item !== movie_id
           );
           const userUpdate = { ...user };
-          userUpdate.favorites = [...favoritesUpdate];
+          userUpdate.favList = [...favoritesUpdate];
           this.setState({ user: { ...userUpdate } });
           localStorage.setItem("favorites", favoritesUpdate.toString());
         }

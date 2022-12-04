@@ -26,6 +26,7 @@ function LoginView(props) {
 
   // validate user inputs
   const validate = () => {
+    const usernamePattern = /^[a-z0-9]+$/i;
     let isReq = true;
 
     // Reset Errors
@@ -36,15 +37,19 @@ function LoginView(props) {
     if (!username) {
       setUsernameErr("Username Required");
       isReq = false;
-    } else if (username.length < 2) {
-      setUsernameErr("Username must be at least 2 characters long");
+    } else if (username.length < 5) {
+      setUsernameErr("Username must be at least 5 characters long");
+      isReq = false;
+    } else if (!usernamePattern.test(username)) {
+      setUsernameErr("Username can contain only alphanumeric characters");
       isReq = false;
     }
+
     if (!password) {
       setPasswordErr("Password Required");
       isReq = false;
-    } else if (password.length < 6) {
-      setPasswordErr("Password must be at least 6 characters long");
+    } else if (password.length < 5) {
+      setPasswordErr("Password must be at least 5 characters long");
       isReq = false;
     }
 

@@ -7,11 +7,12 @@ import { connect } from "react-redux";
 import "./moviesListView.scss";
 
 // Import Bootstrap Components
-import { Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 // Import Custom Components
 import MovieCard from "../movieCard/movieCard";
 import LoadingView from "../loadingView/loadingView";
+import VisibilityFilterView from "../visibilityFilterView/visibilityFilterView";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
@@ -60,31 +61,33 @@ class MoviesListView extends React.Component {
           </Col>
         );
 
-      return filteredMovies.map((movie) => (
-        <Col lg={3} md={4} sm={6} key={movie._id} className="mb-3">
-          <MovieCard
-            showAddBtn={!favorites.find((movie_id) => movie_id === movie._id)}
-            onAddClick={async () => {
-              await this.handleAddFavorite(movie._id);
-            }}
-            showRemoveBtn={favorites.find((movie_id) => movie_id === movie._id)}
-            onRemoveClick={async () => {
-              const favoritesUpdate = favorites.filter(
-                (favorite) => favorite !== movie._id
-              );
-              localStorage.setItem(
-                "favorites",
-                [...favoritesUpdate].toString()
-              );
-              this.setState({
-                favorites: [...favoritesUpdate],
-              });
-            }}
-            showOpenBtn={true}
-            movie={movie}
-          />
-        </Col>
-      ));
+      return (
+        <>
+          <Col md={12} className="mb-2">
+            <VisibilityFilterView visibilityFilter={visibilityFilter} />
+          </Col>
+          {filteredMovies.map((movie) => (
+            <Col lg={3} md={4} sm={6} key={movie._id} className="mb-3">
+              <MovieCard
+                showAddBtn={
+                  !favorites.find((movie_id) => movie_id === movie._id)
+                }
+                onAddClick={async () => {
+                  await this.handleAddFavorite(movie._id);
+                }}
+                showRemoveBtn={favorites.find(
+                  (movie_id) => movie_id === movie._id
+                )}
+                onRemoveClick={async () => {
+                  await this.handleRemoveFavorite(movie._id);
+                }}
+                showOpenBtn={true}
+                movie={movie}
+              />
+            </Col>
+          ))}
+        </>
+      );
     }
   }
 
@@ -103,7 +106,7 @@ class MoviesListView extends React.Component {
       const username = localStorage.getItem("user");
 
       if (movie_id && username && token) {
-        const res = await this.removeMovieFromFavList(
+        const res = await this.removeMovieFromFavorites(
           movie_id,
           username,
           token
@@ -123,7 +126,7 @@ class MoviesListView extends React.Component {
       console.error("Not Found in the FavList");
     }
   }
-  async removeMovieFromFavList(movie_id, username, token) {
+  async removeMovieFromFavorites(movie_id, username, token) {
     const reqInstance = axios.create({
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -147,7 +150,7 @@ class MoviesListView extends React.Component {
       const token = localStorage.getItem("token");
       const username = localStorage.getItem("user");
       if (movie_id && username && token) {
-        const res = await this.addMovieToFavList(movie_id, username, token);
+        const res = await this.addMovieToFavorites(movie_id, username, token);
 
         if (res) {
           const favoritesUpdate = [...favorites, movie_id];
@@ -159,7 +162,7 @@ class MoviesListView extends React.Component {
       }
     }
   }
-  async addMovieToFavList(movie_id, username, token) {
+  async addMovieToFavorites(movie_id, username, token) {
     const reqInstance = axios.create({
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -176,4 +179,4 @@ class MoviesListView extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, {})(MoviesListView);
+export default connect(mapStateToProps)(MoviesListView);

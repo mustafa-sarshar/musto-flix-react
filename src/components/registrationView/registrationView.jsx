@@ -1,8 +1,6 @@
 // Import Libs
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import axios from "axios";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import dateFormat from "../../utils/dateFormat";
 
 // Import Styles
@@ -32,6 +30,7 @@ function RegistrationView(props) {
 
   // validate user inputs
   const validate = () => {
+    const usernamePattern = /^[a-z0-9]+$/i;
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     const datePattern = /^\d{4}[./-]\d{2}[./-]\d{2}$/;
     let isReq = true;
@@ -46,10 +45,14 @@ function RegistrationView(props) {
     if (!username) {
       setUsernameErr("Username Required");
       isReq = false;
-    } else if (username.length < 2) {
-      setUsernameErr("Username must be at least 2 characters long");
+    } else if (username.length < 5) {
+      setUsernameErr("Username must be at least 5 characters long");
+      isReq = false;
+    } else if (!usernamePattern.test(username)) {
+      setUsernameErr("Username can contain only alphanumeric characters");
       isReq = false;
     }
+
     if (!email) {
       setEmailErr("Email Required");
       isReq = false;
@@ -60,8 +63,8 @@ function RegistrationView(props) {
     if (!password) {
       setPasswordErr("Password Required");
       isReq = false;
-    } else if (password.length < 6) {
-      setPasswordErr("Password must be at least 6 characters long");
+    } else if (password.length < 5) {
+      setPasswordErr("Password must be at least 5 characters long");
       isReq = false;
     }
     if (birth && !datePattern.test(birth)) {
@@ -173,9 +176,9 @@ function RegistrationView(props) {
           <Form.Control
             type="date"
             placeholder="yyyy-MM-dd"
-            value={dateFormat(birth)}
+            max={dateFormat(new Date())}
             disabled={isFetching}
-            onChange={(e) => setBirth(dateFormat(e.target.value))}
+            onChange={(e) => setBirth(e.target.value)}
           />
           <Form.Text className="text-muted">**optional</Form.Text>
           {/* Validation error */}

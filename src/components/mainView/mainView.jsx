@@ -47,7 +47,7 @@ class MainView extends React.Component {
       <>
         <MenuBar user={user} />
         <hr />
-        <Row className="main-view justify-content-md-center mt-5">
+        <Row className="main-view justify-content-md-center mt-1">
           <Switch>
             <Route
               path="/"

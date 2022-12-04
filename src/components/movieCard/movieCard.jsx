@@ -65,7 +65,6 @@ MovieCard.propTypes = {
     title: PropTypes.string.isRequired,
     image_url: PropTypes.string.isRequired,
   }).isRequired,
-  // onMovieClick: PropTypes.func.isRequired,
 };
 
 export default MovieCard;

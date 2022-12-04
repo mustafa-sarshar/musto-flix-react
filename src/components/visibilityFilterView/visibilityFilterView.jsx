@@ -7,16 +7,21 @@ import { setFilter } from "../../actions/actions";
 import "./visibilityFilterView.scss";
 
 // Import Bootstrap Components
-import Form from "react-bootstrap/Form";
+import { Form } from "react-bootstrap";
 
 function VisibilityFilterView(props) {
   console.log("VisibilityFilterView:", this);
   return (
-    <Form.Control
-      onChange={(evt) => props.setFilter(evt.target.value)}
-      value={props.visibilityFilter}
-      placeholder="filter"
-    />
+    <Form>
+      <Form.Group>
+        <Form.Text>Search movie:</Form.Text>
+        <Form.Control
+          onChange={(evt) => props.setFilter(evt.target.value)}
+          value={props.visibilityFilter}
+          placeholder="filter"
+        />
+      </Form.Group>
+    </Form>
   );
 }
 

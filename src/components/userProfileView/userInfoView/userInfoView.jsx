@@ -34,6 +34,7 @@ const UserInfoView = (props) => {
 
   // validate user inputs
   const validate = () => {
+    const usernamePattern = /^[a-z0-9]+$/i;
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     const datePattern = /^\d{4}[./-]\d{2}[./-]\d{2}$/;
     let isReq = true;
@@ -41,9 +42,14 @@ const UserInfoView = (props) => {
     // Reset Error Messages
     resetErrorMessages();
 
-    if (usernameUpdate && usernameUpdate.length < 2) {
-      setUsernameErr("Username must be at least 2 characters long");
-      isReq = false;
+    if (usernameUpdate) {
+      if (usernameUpdate.length < 5) {
+        setUsernameErr("Username must be at least 5 characters long");
+        isReq = false;
+      } else if (!usernamePattern.test(usernameUpdate)) {
+        setUsernameErr("Username can contain only alphanumeric characters");
+        isReq = false;
+      }
     }
 
     if (emailUpdate && !emailPattern.test(emailUpdate)) {
@@ -51,8 +57,8 @@ const UserInfoView = (props) => {
       isReq = false;
     }
 
-    if (passwordUpdate && passwordUpdate.length < 6) {
-      setPasswordErr("Password must be at least 6 characters long");
+    if (passwordUpdate && passwordUpdate.length < 5) {
+      setPasswordErr("Password must be at least 5 characters long");
       isReq = false;
     }
 
