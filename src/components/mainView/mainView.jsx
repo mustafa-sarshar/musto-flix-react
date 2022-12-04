@@ -3,7 +3,7 @@ import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { setMovies, setFavorites } from "../../actions/actions";
+import { setMovies } from "../../actions/actions";
 
 // Import Styles
 import "./mainView.scss";
@@ -34,14 +34,13 @@ class MainView extends React.Component {
     // Initial state is set to null
     this.state = {
       user: null,
-      favorites: null,
     };
   }
 
   render() {
     if (DEBUG) console.log("render:", this);
 
-    const { user, favorites } = this.state;
+    const { user } = this.state;
     const { movies } = this.props;
 
     return (
@@ -69,7 +68,7 @@ class MainView extends React.Component {
                     </Col>
                   );
                 }
-                return <MoviesListView movies={movies} favorites={favorites} />;
+                return <MoviesListView movies={movies} />;
               }}
             />
 
@@ -420,9 +419,8 @@ const mapStateToProps = (state) => {
   if (DEBUG) console.log("mapStateToProps", state);
   return {
     movies: state.movies,
-    favorites: state.favorites,
   };
 };
 
 // #8
-export default connect(mapStateToProps, { setMovies, setFavorites })(MainView);
+export default connect(mapStateToProps, { setMovies })(MainView);

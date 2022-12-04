@@ -2,7 +2,6 @@
 import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import { setFavorites } from "../../actions/actions";
 
 // Import Styles
 import "./moviesListView.scss";
@@ -18,19 +17,22 @@ import LoadingView from "../loadingView/loadingView";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 const mapStateToProps = (state) => {
-  const { visibilityFilter, favorites } = state;
-  return { visibilityFilter, favorites };
+  const { visibilityFilter } = state;
+  return { visibilityFilter };
 };
 
 class MoviesListView extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      favorites: [],
+    };
   }
 
   render() {
     const { movies, visibilityFilter } = this.props;
-    let { favorites } = this.props;
-    console.log("Favs:", favorites);
+    const { favorites } = this.state;
     if (DEBUG)
       console.log(
         "MoviesListView",
@@ -70,7 +72,13 @@ class MoviesListView extends React.Component {
               const favoritesUpdate = favorites.filter(
                 (favorite) => favorite !== movie._id
               );
-              await this.props.setFavorites([...favoritesUpdate]);
+              localStorage.setItem(
+                "favorites",
+                [...favoritesUpdate].toString()
+              );
+              this.setState({
+                favorites: [...favoritesUpdate],
+              });
             }}
             showOpenBtn={true}
             movie={movie}
@@ -81,10 +89,13 @@ class MoviesListView extends React.Component {
   }
 
   componentDidMount() {
-    console.log("Mounted:", this.props);
+    this.setState({
+      favorites: localStorage.getItem("favorites").split(","),
+    });
   }
+
   async handleRemoveFavorite(movie_id) {
-    const { favorites } = localStorage.getItem("favorites").split(",");
+    const { favorites } = this.state;
     const found = favorites.indexOf(movie_id);
 
     if (found > -1) {
@@ -100,8 +111,10 @@ class MoviesListView extends React.Component {
 
         if (res) {
           const favoritesUpdate = favorites.filter((item) => item !== movie_id);
-          this.props.setState({ favorites: [...favoritesUpdate] });
           localStorage.setItem("favorites", favoritesUpdate.toString());
+          this.setState({
+            favorites: [...favoritesUpdate],
+          });
         }
       } else {
         console.error("Not enough Info");
@@ -127,7 +140,7 @@ class MoviesListView extends React.Component {
   }
 
   async handleAddFavorite(movie_id) {
-    const { favorites } = this.props;
+    const { favorites } = this.state;
     const duplicate = favorites.indexOf(movie_id);
 
     if (duplicate === -1) {
@@ -138,8 +151,10 @@ class MoviesListView extends React.Component {
 
         if (res) {
           const favoritesUpdate = [...favorites, movie_id];
-          this.props.setFavorites([...favoritesUpdate]);
-          console.log("Favorites:", favoritesUpdate);
+          localStorage.setItem("favorites", [...favoritesUpdate].toString());
+          this.setState({
+            favorites: [...favoritesUpdate],
+          });
         }
       }
     }
@@ -161,4 +176,4 @@ class MoviesListView extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, { setFavorites })(MoviesListView);
+export default connect(mapStateToProps, {})(MoviesListView);

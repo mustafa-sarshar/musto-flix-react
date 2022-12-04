@@ -74,7 +74,7 @@ class UserProfileView extends React.Component {
                                 movie={movie}
                                 showRemoveBtn={true}
                                 onRemoveClick={() =>
-                                  this.handleRemoveFavMovie(movie._id)
+                                  this.handleRemoveFavorites(movie._id)
                                 }
                                 showOpenBtn={true}
                               />
@@ -117,7 +117,9 @@ class UserProfileView extends React.Component {
                           <MovieCard
                             movie={movie}
                             showAddBtn={true}
-                            onAddClick={() => this.handleAddFavMovie(movie._id)}
+                            onAddClick={() =>
+                              this.handleAddFavorites(movie._id)
+                            }
                             showOpenBtn={true}
                           />
                         </Col>
@@ -165,7 +167,7 @@ class UserProfileView extends React.Component {
       });
   }
 
-  async handleRemoveFavMovie(movie_id) {
+  async handleRemoveFavorites(movie_id) {
     const { user } = this.state;
     const found = user.favList.indexOf(movie_id);
 
@@ -173,20 +175,20 @@ class UserProfileView extends React.Component {
       const token = localStorage.getItem("token");
       const { username } = user;
       if (movie_id && username && token) {
-        const res = await this.removeMovieFromFavList(
+        const res = await this.removeMovieFromFavorites(
           movie_id,
           username,
           token
         );
 
         if (res) {
-          const favListUpdate = user.favList.filter(
+          const favoritesUpdate = user.favList.filter(
             (item) => item !== movie_id
           );
           const userUpdate = { ...user };
-          userUpdate.favList = [...favListUpdate];
+          userUpdate.favorites = [...favoritesUpdate];
           this.setState({ user: { ...userUpdate } });
-          localStorage.setItem("favList", favListUpdate.toString());
+          localStorage.setItem("favorites", favoritesUpdate.toString());
         }
       } else {
         console.error("Not enough Info");
@@ -195,7 +197,7 @@ class UserProfileView extends React.Component {
       console.error("Not Found in the FavList");
     }
   }
-  async removeMovieFromFavList(movie_id, username, token) {
+  async removeMovieFromFavorites(movie_id, username, token) {
     const reqInstance = axios.create({
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -210,7 +212,7 @@ class UserProfileView extends React.Component {
     }
   }
 
-  async handleAddFavMovie(movie_id) {
+  async handleAddFavorites(movie_id) {
     const { user } = this.state;
     const duplicate = user.favList.indexOf(movie_id);
 
@@ -218,19 +220,19 @@ class UserProfileView extends React.Component {
       const token = localStorage.getItem("token");
       const { username } = user;
       if (movie_id && username && token) {
-        const res = await this.addMovieToFavList(movie_id, username, token);
+        const res = await this.addMovieToFavorites(movie_id, username, token);
 
         if (res) {
           const userUpdate = { ...user };
-          const favListUpdate = [...userUpdate.favList, movie_id];
-          userUpdate.favList = [...favListUpdate];
+          const favoritesUpdate = [...userUpdate.favList, movie_id];
+          userUpdate.favList = [...favoritesUpdate];
           this.setState({ user: { ...userUpdate } });
-          localStorage.setItem("favList", favListUpdate.toString());
+          localStorage.setItem("favorites", favoritesUpdate.toString());
         }
       }
     }
   }
-  async addMovieToFavList(movie_id, username, token) {
+  async addMovieToFavorites(movie_id, username, token) {
     const reqInstance = axios.create({
       headers: { Authorization: `Bearer ${token}` },
     });

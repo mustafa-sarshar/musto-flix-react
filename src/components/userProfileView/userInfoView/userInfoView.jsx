@@ -12,7 +12,7 @@ import { Form, Button, Modal, Row, Col, Card } from "react-bootstrap";
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
-function UserInfoView(props) {
+const UserInfoView = (props) => {
   const { username, email, birth } = props.user;
 
   // Declare hook for each input
@@ -317,6 +317,6 @@ function UserInfoView(props) {
       <br />
     </>
   );
-}
+};
 
 export default UserInfoView;
