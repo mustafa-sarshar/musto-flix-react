@@ -133,7 +133,7 @@ const UserInfoView = (props) => {
           resetErrorMessages();
         })
         .catch((err) => {
-          alert("Unable to update, please try again.");
+          notifier.notifyError("Unable to update, please try again.");
           console.error("Error in updating:\n", err);
           setUpdateErr(err.response.data.message);
         })
@@ -167,7 +167,7 @@ const UserInfoView = (props) => {
           );
         })
         .catch((err) => {
-          alert("Unable to delete, please try again.");
+          notifier.notifyError("Unable to delete, please try again.");
           console.error("Error in deleting:\n", err);
         })
         .finally(() => {
