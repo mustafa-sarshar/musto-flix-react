@@ -3,34 +3,28 @@ const SET_MOVIES = "SET_MOVIES";
 const SET_FILTER = "SET_FILTER";
 const SET_FAVORITES = "SET_FAVORITES";
 const SET_USER = "SET_USER";
-const SET_NOTIFICATION = "SET_NOTIFICATION";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
-const setMovies = (value) => {
-  if (DEBUG) console.log("SetMovies:", value);
-  return { type: SET_MOVIES, value };
+const setMovies = (payload) => {
+  if (DEBUG) console.log("SetMovies:", payload);
+  return { type: SET_MOVIES, payload };
 };
 
-const setFilter = (value) => {
-  if (DEBUG) console.log("SetFilter:", value);
-  return { type: SET_FILTER, value };
+const setFilter = (payload) => {
+  if (DEBUG) console.log("SetFilter:", payload);
+  return { type: SET_FILTER, payload };
 };
 
-const setFavorites = (value) => {
-  if (DEBUG) console.log("setFavorites:", value);
-  return { type: SET_FAVORITES, value };
+const setFavorites = (payload) => {
+  if (DEBUG) console.log("setFavorites:", payload);
+  return { type: SET_FAVORITES, payload };
 };
 
-const setUser = (value) => {
-  if (DEBUG) console.log("setUser:", value);
-  return { type: SET_USER, value };
-};
-
-const setNotification = (value, variant) => {
-  if (DEBUG) console.log("setNotification:", value);
-  return { type: SET_NOTIFICATION, value, variant };
+const setUser = (payload) => {
+  if (DEBUG) console.log("setUser:", payload);
+  return { type: SET_USER, payload };
 };
 
 export {
@@ -42,6 +36,4 @@ export {
   setFavorites,
   SET_USER,
   setUser,
-  SET_NOTIFICATION,
-  setNotification,
 };

@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { connect } from "react-redux";
 import notifier from "../../utils/notifiers";
 
 // Import Styles
@@ -63,6 +62,41 @@ function LoginView(props) {
     return isReq;
   };
 
+  const getUserData = (username, password) => {
+    axios
+      .post("https://musto-movie-api.onrender.com/login", null, {
+        params: {
+          username: username,
+          pass: password,
+        },
+      })
+      .then((response) => {
+        const authData = response.data;
+        notifier.notifySuccess(`Welcome ${username}`, {
+          position: "top-center",
+          autoClose: 1000,
+          onClose: () => {
+            props.onLoggedIn({ ...authData });
+            window.open("/", "_self");
+          },
+        });
+      })
+      .catch((err) => {
+        if (err.response?.data) {
+          console.error("Error in login:\n", err.response.data);
+          setLoginErr(err.response.data.message);
+          notifier.notifyError(err.response.data.message);
+        } else {
+          console.error("Error in login:\n", err.message);
+          setLoginErr(err.message);
+          notifier.notifyError(err.message);
+        }
+      })
+      .finally(() => {
+        setIsFetching(false);
+      });
+  };
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (DEBUG) console.log("username:", username, "password:", password);
@@ -70,26 +104,7 @@ function LoginView(props) {
     const isReq = validate();
     if (isReq) {
       setIsFetching(true);
-      /* Send a request to the server for authentication */
-      axios
-        .post("https://musto-movie-api.onrender.com/login", null, {
-          params: {
-            username: username,
-            pass: password,
-          },
-        })
-        .then((response) => {
-          const authData = response.data;
-          props.onLoggedIn({ ...authData });
-        })
-        .catch((err) => {
-          console.error(err.message);
-          notifier.notifyError(err.response.data.message);
-          setLoginErr(err.response.data.message);
-        })
-        .finally(() => {
-          setIsFetching(false);
-        });
+      getUserData(username, password);
     }
   };
 
@@ -157,11 +172,4 @@ LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  if (DEBUG) console.log("mapStateToProps", state);
-  return {
-    notification: state.notification,
-  };
-};
-
-export default connect(mapStateToProps, {})(LoginView);
+export default LoginView;

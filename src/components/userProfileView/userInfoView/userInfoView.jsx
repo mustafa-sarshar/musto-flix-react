@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import dateFormat from "../../../utils/dateFormat";
+import notifier from "../../../utils/notifiers";
 
 // Import Styles
 import "./userInfoView.scss";
@@ -46,34 +47,46 @@ const UserInfoView = (props) => {
     if (usernameUpdate) {
       if (usernameUpdate.length < 5) {
         setUsernameErr("Username must be at least 5 characters long");
+        notifier.notifyError("Username must be at least 5 characters long");
+
         isReq = false;
       } else if (!usernamePattern.test(usernameUpdate)) {
         setUsernameErr("Username can contain only alphanumeric characters");
+        notifier.notifyError(
+          "Username can contain only alphanumeric characters"
+        );
+
         isReq = false;
       }
     }
 
     if (emailUpdate && !emailPattern.test(emailUpdate)) {
       setEmailErr("Email Address Not Valid");
+      notifier.notifyError("Email Address Not Valid");
+
       isReq = false;
     }
 
     if (passwordUpdate && passwordUpdate.length < 5) {
       setPasswordErr("Password must be at least 5 characters long");
+      notifier.notifyError("Password must be at least 5 characters long");
+
       isReq = false;
     }
 
     if (birthUpdate && !datePattern.test(dateFormat(birthUpdate))) {
       setBirthErr("Birth Date Not Valid");
+      notifier.notifyError("Birth Date Not Valid");
+
       isReq = false;
     }
 
     if (!usernameUpdate && !passwordUpdate && !emailUpdate && !birthUpdate) {
       setUpdateErr("No data is given");
+      notifier.notifyWarn("No data is given");
       isReq = false;
     }
 
-    console.log(usernameUpdate, passwordUpdate, emailUpdate, birthUpdate);
     return isReq;
   };
 
@@ -106,12 +119,15 @@ const UserInfoView = (props) => {
         .then((response) => {
           const data = response.data;
           if (DEBUG) console.log(data);
-          alert(`The user data is successfully updated`);
           if (usernameUpdate) {
             localStorage.setItem("user", usernameUpdate);
             window.open("/user-update", "_self");
           } else {
-            window.open(`/users/${username}`, "_self");
+            notifier.notifySuccess("Data updated successfully", {
+              position: "top-center",
+              autoClose: 1000,
+              onClose: () => window.open(`/users/${username}`, "_self"),
+            });
           }
           resetUpdateHooks();
           resetErrorMessages();
@@ -141,8 +157,14 @@ const UserInfoView = (props) => {
         .then((response) => {
           const data = response.data;
           if (DEBUG) console.log(data);
-          alert(`The username '${username}' is successfully deleted`);
-          window.open("/logout", "_self");
+          notifier.notifySuccess(
+            `The user with username '${username}'\nis successfully deleted`,
+            {
+              position: "top-center",
+              autoClose: 2500,
+              onClose: () => window.open("/logout", "_self"),
+            }
+          );
         })
         .catch((err) => {
           alert("Unable to delete, please try again.");
@@ -329,7 +351,6 @@ UserInfoView.propTypes = {
   userData: PropTypes.shape({
     username: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-    birth: PropTypes.string.isRequired,
   }).isRequired,
 };
 

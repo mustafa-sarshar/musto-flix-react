@@ -9,8 +9,11 @@ import "./visibilityFilterView.scss";
 // Import Bootstrap Components
 import { Form } from "react-bootstrap";
 
+// Debugger
+const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
+
 function VisibilityFilterView(props) {
-  console.log("VisibilityFilterView:", this);
+  if (DEBUG) console.log("VisibilityFilterView:", this);
   return (
     <Form>
       <Form.Group>
@@ -20,7 +23,7 @@ function VisibilityFilterView(props) {
         <Form.Control
           onChange={(evt) => props.setFilter(evt.target.value)}
           value={props.visibilityFilter}
-          placeholder="filter"
+          placeholder="movie title"
         />
       </Form.Group>
     </Form>

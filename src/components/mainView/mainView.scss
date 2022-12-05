@@ -3,5 +3,7 @@ $color: steelblue;
 .main {
   &-view {
     color: $color;
+    padding-top: 30px;
+    padding-bottom: 50px;
   }
 }

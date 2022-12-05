@@ -1,8 +1,6 @@
 // Import Libs
 import React, { useState } from "react";
 import axios from "axios";
-import { connect } from "react-redux";
-import { setNotification } from "../../actions/actions";
 import dateFormat from "../../utils/dateFormat";
 import notifier from "../../utils/notifiers";
 
@@ -115,11 +113,14 @@ function RegistrationView(props) {
         .then(async (response) => {
           const data = response.data;
           if (DEBUG) console.log(data);
-          await props.setNotification(
-            `The username '${username}' is successfully registered`,
-            "success"
+          notifier.notifySuccess(
+            `The user with username: '${username}'\nis successfully registered`,
+            {
+              position: "top-center",
+              autoClose: 2500,
+              onClose: () => window.open("/", "_self"),
+            }
           );
-          window.open("/", "_self");
         })
         .catch((err) => {
           notifier.notifyWarn("Unable to register, please try again.");
@@ -230,11 +231,4 @@ function RegistrationView(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  if (DEBUG) console.log("mapStateToProps", state);
-  return {
-    notification: state.notification,
-  };
-};
-
-export default connect(mapStateToProps, { setNotification })(RegistrationView);
+export default RegistrationView;

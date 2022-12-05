@@ -3,13 +3,13 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // Import Custom Styles
-import "./menuBar.scss";
+import "./menuBarView.scss";
 
 // Import Bootstrap Components
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-const MenuBar = ({ user }) => {
+const MenuBarView = ({ user }) => {
   const isAuth = () => {
     if (typeof window == "undefined") {
       return false;
@@ -24,7 +24,7 @@ const MenuBar = ({ user }) => {
   return (
     <Navbar
       className="main-nav"
-      sticky="top"
+      fixed="top"
       bg="dark"
       expand="lg"
       variant="dark"
@@ -55,8 +55,8 @@ const MenuBar = ({ user }) => {
   );
 };
 
-MenuBar.propTypes = {
+MenuBarView.propTypes = {
   user: PropTypes.string.isRequired,
 };
 
-export default MenuBar;
+export default MenuBarView;

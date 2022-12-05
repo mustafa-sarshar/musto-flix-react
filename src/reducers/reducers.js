@@ -7,7 +7,6 @@ import {
   SET_MOVIES,
   SET_FAVORITES,
   SET_USER,
-  SET_NOTIFICATION,
 } from "../actions/actions";
 
 // Debugger
@@ -17,50 +16,40 @@ const visibilityFilter = (state = "", action) => {
   if (DEBUG) console.log("ReducerVisibilityFilter:", state, action);
   switch (action.type) {
     case SET_FILTER:
-      return action.value;
-    default:
-      return state;
+      state = action.payload;
+      break;
   }
+  return state;
 };
 
 const movies = (state = [], action) => {
   if (DEBUG) console.log("ReducerMovies:", state, action);
   switch (action.type) {
     case SET_MOVIES:
-      return action.value;
-    default:
-      return state;
+      state = action.payload;
+      break;
   }
+  return state;
 };
 
 const favorites = (state = [], action) => {
   if (DEBUG) console.log("ReducerFavorites:", state, action);
   switch (action.type) {
     case SET_FAVORITES:
-      return action.value;
-    default:
-      return state;
+      state = action.payload;
+      break;
   }
+  return state;
 };
 
 const user = (state = "", action) => {
   if (DEBUG) console.log("User:", state, action);
   switch (action.type) {
     case SET_USER:
-      return action.value;
-    default:
-      return state;
+      state = action.payload;
+      break;
   }
-};
-
-const notification = (state = "", action) => {
-  if (DEBUG) console.log("User:", state, action);
-  switch (action.type) {
-    case SET_NOTIFICATION:
-      return { value: action.value, variant: action.variant };
-    default:
-      return state;
-  }
+  return state;
 };
 
 const moviesAppReducer = combineReducers({
@@ -68,7 +57,6 @@ const moviesAppReducer = combineReducers({
   movies,
   favorites,
   user,
-  notification,
 });
 
 export default moviesAppReducer;

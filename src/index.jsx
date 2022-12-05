@@ -2,11 +2,13 @@
 import React from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom/cjs/react-router-dom.min";
+import { ToastContainer } from "react-toastify";
+
+// Import Redux
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { devToolsEnhancer } from "redux-devtools-extension";
 import moviesAppReducer from "./reducers/reducers";
-import { ToastContainer } from "react-toastify";
 
 // Import Styles
 import "./index.scss";

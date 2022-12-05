@@ -19,6 +19,8 @@ const notifier = ((
     draggable: draggable,
     progress: progress,
     theme: theme,
+    onOpen: null,
+    onClose: null,
   };
   const notifyError = (message, toastOptions = toastDefaultOption) => {
     const toastOpt = { ...toastDefaultOption, ...toastOptions };

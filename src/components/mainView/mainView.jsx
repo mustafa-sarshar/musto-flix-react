@@ -15,13 +15,14 @@ import { Row, Col } from "react-bootstrap";
 import LoginView from "../loginView/loginView";
 import RegistrationView from "../registrationView/registrationView";
 import MovieView from "../movieView/movieView";
+import MoviesListView from "../moviesListView/moviesListView";
 import UserProfileView from "../userProfileView/userProfileView";
 import DirectorView from "../directorView/directorView";
 import ActorView from "../actorView/actorView";
 import GenreView from "../genreView/genreView";
-import MenuBar from "../menuBar/menuBar";
+import MenuBarView from "../menuBarView/menuBarView";
+import FooterView from "../footerView/footerView";
 import LoadingView from "../loadingView/loadingView";
-import MoviesListView from "../moviesListView/moviesListView";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
@@ -34,11 +35,11 @@ class MainView extends React.Component {
 
   render() {
     if (DEBUG) console.log("render:", this);
-    const { user, movies, notification } = this.props;
+    const { user, movies } = this.props;
 
     return (
       <>
-        <MenuBar user={user} />
+        <MenuBarView user={user} />
         <hr />
         <Row className="main-view justify-content-md-center mt-1">
           <Switch>
@@ -238,7 +239,6 @@ class MainView extends React.Component {
                 return (
                   <Col>
                     <UserProfileView
-                      movies={movies}
                       username={match.params.username}
                       onBackClick={() => history.goBack()}
                     />
@@ -272,6 +272,7 @@ class MainView extends React.Component {
             />
           </Switch>
         </Row>
+        <FooterView />
       </>
     );
   }
@@ -404,7 +405,6 @@ const mapStateToProps = (state) => {
     user: state.user,
     movies: state.movies,
     favorites: state.favorites,
-    notification: state.notification,
   };
 };
 
