@@ -7,6 +7,7 @@ import {
   SET_MOVIES,
   SET_FAVORITES,
   SET_USER,
+  SET_NOTIFICATION,
 } from "../actions/actions";
 
 // Debugger
@@ -51,11 +52,23 @@ const user = (state = "", action) => {
       return state;
   }
 };
+
+const notification = (state = "", action) => {
+  if (DEBUG) console.log("User:", state, action);
+  switch (action.type) {
+    case SET_NOTIFICATION:
+      return { value: action.value, variant: action.variant };
+    default:
+      return state;
+  }
+};
+
 const moviesAppReducer = combineReducers({
   visibilityFilter,
   movies,
   favorites,
   user,
+  notification,
 });
 
 export default moviesAppReducer;

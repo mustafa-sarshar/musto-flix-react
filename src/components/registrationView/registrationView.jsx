@@ -1,7 +1,10 @@
 // Import Libs
 import React, { useState } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
+import { setNotification } from "../../actions/actions";
 import dateFormat from "../../utils/dateFormat";
+import notifier from "../../utils/notifiers";
 
 // Import Styles
 import "./registrationView.scss";
@@ -44,31 +47,41 @@ function RegistrationView(props) {
 
     if (!username) {
       setUsernameErr("Username Required");
+      notifier.notifyWarn("Username Required");
       isReq = false;
     } else if (username.length < 5) {
       setUsernameErr("Username must be at least 5 characters long");
+      notifier.notifyError("Username must be at least 5 characters long");
       isReq = false;
     } else if (!usernamePattern.test(username)) {
       setUsernameErr("Username can contain only alphanumeric characters");
+      notifier.notifyError("Username can contain only alphanumeric characters");
       isReq = false;
     }
 
     if (!email) {
       setEmailErr("Email Required");
+      notifier.notifyWarn("Email Required");
       isReq = false;
     } else if (!emailPattern.test(email)) {
       setEmailErr("Email Address Not Valid");
+      notifier.notifyError("Email Address Not Valid");
       isReq = false;
     }
+
     if (!password) {
       setPasswordErr("Password Required");
+      notifier.notifyWarn("Password Required");
       isReq = false;
     } else if (password.length < 5) {
       setPasswordErr("Password must be at least 5 characters long");
+      notifier.notifyError("Password must be at least 5 characters long");
       isReq = false;
     }
+
     if (birth && !datePattern.test(birth)) {
       setBirthErr("Birth Date Not Valid");
+      notifier.notifyError("Birth Date Not Valid");
       isReq = false;
     }
 
@@ -99,16 +112,26 @@ function RegistrationView(props) {
           { username: username, pass: password, email: email, birth: birth },
           null
         )
-        .then((response) => {
+        .then(async (response) => {
           const data = response.data;
           if (DEBUG) console.log(data);
-          alert(`The username '${username}' is successfully registered`);
+          await props.setNotification(
+            `The username '${username}' is successfully registered`,
+            "success"
+          );
           window.open("/", "_self");
         })
         .catch((err) => {
-          alert("Unable to register, please try again.");
-          console.error("Error in updating:\n", err.response.data);
-          setRegistrationErr(err.response.data.message);
+          notifier.notifyWarn("Unable to register, please try again.");
+          if (err.response?.data) {
+            console.error("Error in registration:\n", err.response.data);
+            setRegistrationErr(err.response.data.message);
+            notifier.notifyError(err.response.data.message);
+          } else {
+            console.error("Error in registration:\n", err.message);
+            setRegistrationErr(err.message);
+            notifier.notifyError(err.message);
+          }
         })
         .finally(() => {
           setIsFetching(false);
@@ -207,4 +230,11 @@ function RegistrationView(props) {
   );
 }
 
-export default RegistrationView;
+const mapStateToProps = (state) => {
+  if (DEBUG) console.log("mapStateToProps", state);
+  return {
+    notification: state.notification,
+  };
+};
+
+export default connect(mapStateToProps, { setNotification })(RegistrationView);

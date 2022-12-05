@@ -2,6 +2,7 @@
 import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import notifier from "../../utils/notifiers";
 
 // Import Styles
 import "./userProfileView.scss";
@@ -84,7 +85,10 @@ class UserProfileView extends React.Component {
                                   movie={movie}
                                   showRemoveBtn={true}
                                   onRemoveClick={() =>
-                                    this.handleRemoveFavorites(movie._id)
+                                    this.handleRemoveFavorites(
+                                      movie._id,
+                                      movie.title
+                                    )
                                   }
                                   showOpenBtn={true}
                                 />
@@ -129,7 +133,7 @@ class UserProfileView extends React.Component {
                             movie={movie}
                             showAddBtn={true}
                             onAddClick={() =>
-                              this.handleAddFavorites(movie._id)
+                              this.handleAddFavorites(movie._id, movie.title)
                             }
                             showOpenBtn={true}
                           />
@@ -178,28 +182,31 @@ class UserProfileView extends React.Component {
       });
   }
 
-  async handleRemoveFavorites(movie_id) {
+  async handleRemoveFavorites(movieId, movieTitle) {
     const { userData } = this.state;
-    const found = userData.favList.indexOf(movie_id);
+    const found = userData.favList.indexOf(movieId);
 
     if (found > -1) {
       const token = localStorage.getItem("token");
       const { username } = userData;
-      if (movie_id && username && token) {
+      if (movieId && username && token) {
         const res = await this.removeMovieFromFavorites(
-          movie_id,
+          movieId,
           username,
           token
         );
 
         if (res) {
           const favoritesUpdate = userData.favList.filter(
-            (item) => item !== movie_id
+            (item) => item !== movieId
           );
           const userUpdate = { ...userData };
           userUpdate.favList = [...favoritesUpdate];
           this.setState({ userData: { ...userUpdate } });
           localStorage.setItem("favorites", favoritesUpdate.toString());
+          notifier.notifyInfo(`${movieTitle} removed.`, {
+            autoClose: 2000,
+          });
         }
       } else {
         console.error("Not enough Info");
@@ -208,13 +215,13 @@ class UserProfileView extends React.Component {
       console.error("Not Found in the FavList");
     }
   }
-  async removeMovieFromFavorites(movie_id, username, token) {
+  async removeMovieFromFavorites(movieId, username, token) {
     const reqInstance = axios.create({
       headers: { Authorization: `Bearer ${token}` },
     });
     try {
       const res = await reqInstance.delete(
-        `https://musto-movie-api.onrender.com/users/${username}/favorites/${movie_id}`
+        `https://musto-movie-api.onrender.com/users/${username}/favorites/${movieId}`
       );
       return true;
     } catch (err) {
@@ -223,33 +230,36 @@ class UserProfileView extends React.Component {
     }
   }
 
-  async handleAddFavorites(movie_id) {
+  async handleAddFavorites(movieId, movieTitle) {
     const { userData } = this.state;
-    const duplicate = userData.favList.indexOf(movie_id);
+    const duplicate = userData.favList.indexOf(movieId);
 
     if (duplicate === -1) {
       const token = localStorage.getItem("token");
       const { username } = userData;
-      if (movie_id && username && token) {
-        const res = await this.addMovieToFavorites(movie_id, username, token);
+      if (movieId && username && token) {
+        const res = await this.addMovieToFavorites(movieId, username, token);
 
         if (res) {
           const userUpdate = { ...userData };
-          const favoritesUpdate = [...userUpdate.favList, movie_id];
+          const favoritesUpdate = [...userUpdate.favList, movieId];
           userUpdate.favList = [...favoritesUpdate];
           this.setState({ userData: { ...userUpdate } });
           localStorage.setItem("favorites", favoritesUpdate.toString());
+          notifier.notifySuccess(`${movieTitle} added.`, {
+            autoClose: 2000,
+          });
         }
       }
     }
   }
-  async addMovieToFavorites(movie_id, username, token) {
+  async addMovieToFavorites(movieId, username, token) {
     const reqInstance = axios.create({
       headers: { Authorization: `Bearer ${token}` },
     });
     try {
       const res = await reqInstance.patch(
-        `https://musto-movie-api.onrender.com/users/${username}/favorites/${movie_id}`
+        `https://musto-movie-api.onrender.com/users/${username}/favorites/${movieId}`
       );
       return true;
     } catch (err) {

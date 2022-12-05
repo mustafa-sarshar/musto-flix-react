@@ -3,6 +3,7 @@ const SET_MOVIES = "SET_MOVIES";
 const SET_FILTER = "SET_FILTER";
 const SET_FAVORITES = "SET_FAVORITES";
 const SET_USER = "SET_USER";
+const SET_NOTIFICATION = "SET_NOTIFICATION";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
@@ -27,6 +28,11 @@ const setUser = (value) => {
   return { type: SET_USER, value };
 };
 
+const setNotification = (value, variant) => {
+  if (DEBUG) console.log("setNotification:", value);
+  return { type: SET_NOTIFICATION, value, variant };
+};
+
 export {
   SET_MOVIES,
   setMovies,
@@ -36,4 +42,6 @@ export {
   setFavorites,
   SET_USER,
   setUser,
+  SET_NOTIFICATION,
+  setNotification,
 };

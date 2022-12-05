@@ -14,7 +14,9 @@ function VisibilityFilterView(props) {
   return (
     <Form>
       <Form.Group>
-        <Form.Text>Search movie:</Form.Text>
+        <Form.Text>
+          <span className={"glyphicon glyphicon-search"}></span>Search movie:
+        </Form.Text>
         <Form.Control
           onChange={(evt) => props.setFilter(evt.target.value)}
           value={props.visibilityFilter}

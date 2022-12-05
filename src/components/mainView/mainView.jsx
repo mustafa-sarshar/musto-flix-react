@@ -34,7 +34,7 @@ class MainView extends React.Component {
 
   render() {
     if (DEBUG) console.log("render:", this);
-    const { user, movies } = this.props;
+    const { user, movies, notification } = this.props;
 
     return (
       <>
@@ -404,6 +404,7 @@ const mapStateToProps = (state) => {
     user: state.user,
     movies: state.movies,
     favorites: state.favorites,
+    notification: state.notification,
   };
 };
 

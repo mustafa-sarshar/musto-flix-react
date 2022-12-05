@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { connect } from "react-redux";
+import notifier from "../../utils/notifiers";
 
 // Import Styles
 import "./loginView.scss";
@@ -36,20 +38,25 @@ function LoginView(props) {
 
     if (!username) {
       setUsernameErr("Username Required");
+      notifier.notifyWarn("Username Required");
       isReq = false;
     } else if (username.length < 5) {
       setUsernameErr("Username must be at least 5 characters long");
+      notifier.notifyError("Username must be at least 5 characters long");
       isReq = false;
     } else if (!usernamePattern.test(username)) {
       setUsernameErr("Username can contain only alphanumeric characters");
+      notifier.notifyError("Username can contain only alphanumeric characters");
       isReq = false;
     }
 
     if (!password) {
       setPasswordErr("Password Required");
+      notifier.notifyWarn("Password Required");
       isReq = false;
     } else if (password.length < 5) {
       setPasswordErr("Password must be at least 5 characters long");
+      notifier.notifyError("Password must be at least 5 characters long");
       isReq = false;
     }
 
@@ -77,6 +84,7 @@ function LoginView(props) {
         })
         .catch((err) => {
           console.error(err.message);
+          notifier.notifyError(err.response.data.message);
           setLoginErr(err.response.data.message);
         })
         .finally(() => {
@@ -84,6 +92,14 @@ function LoginView(props) {
         });
     }
   };
+
+  const { notification } = props;
+  console.log("LoginView:", notification);
+  if (notification) {
+    if (notification.variant === "success") {
+      notifier.notifySuccess(notification.value);
+    }
+  }
 
   return (
     <>
@@ -141,4 +157,11 @@ LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
 };
 
-export default LoginView;
+const mapStateToProps = (state) => {
+  if (DEBUG) console.log("mapStateToProps", state);
+  return {
+    notification: state.notification,
+  };
+};
+
+export default connect(mapStateToProps, {})(LoginView);

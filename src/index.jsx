@@ -6,9 +6,11 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { devToolsEnhancer } from "redux-devtools-extension";
 import moviesAppReducer from "./reducers/reducers";
+import { ToastContainer } from "react-toastify";
 
 // Import Styles
 import "./index.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 // Import Bootstrap Components
 import { Container } from "react-bootstrap";
@@ -31,6 +33,7 @@ class MyFlixApplication extends React.Component {
       <Provider store={store}>
         <Router>
           <Container>
+            <ToastContainer />
             <MainView />
           </Container>
         </Router>
