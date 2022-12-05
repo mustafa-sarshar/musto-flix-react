@@ -1,15 +1,27 @@
 // Import Libs
 import React from "react";
 import ReactDom from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom/cjs/react-router-dom.min";
+import { ToastContainer } from "react-toastify";
+
+// Import Redux
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import { devToolsEnhancer } from "redux-devtools-extension";
+import moviesAppReducer from "./reducers/reducers";
 
 // Import Styles
 import "./index.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 // Import Bootstrap Components
 import { Container } from "react-bootstrap";
 
 // Import Custom Components
 import MainView from "./components/mainView/mainView";
+
+// Initialize the Redux
+const store = createStore(moviesAppReducer, {}, devToolsEnhancer());
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
@@ -20,9 +32,14 @@ class MyFlixApplication extends React.Component {
     if (DEBUG) console.log("render", this);
 
     return (
-      <Container>
-        <MainView />
-      </Container>
+      <Provider store={store}>
+        <Router>
+          <Container>
+            <ToastContainer />
+            <MainView />
+          </Container>
+        </Router>
+      </Provider>
     );
   }
 }

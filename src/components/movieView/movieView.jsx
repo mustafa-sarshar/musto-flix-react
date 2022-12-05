@@ -1,13 +1,13 @@
 // Import Libs
 import React from "react";
-import axios from "axios";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 // Import Styles
 import "./movieView.scss";
 
 // Import Bootstrap Components
-import { Row, Col, Table, Card } from "react-bootstrap";
+import { Row, Col, Table, Card, Button } from "react-bootstrap";
 
 // Import Custom Components
 import { MyButton } from "../myButton/myButton";
@@ -19,59 +19,10 @@ class MovieView extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      director: "",
-      genre: "",
-      stars: [],
-    };
-
-    if (this.props.movie.director_id) {
-      axios
-        .get(
-          `https://musto-movie-api.herokuapp.com/directors/${this.props.movie.director_id}`,
-        )
-        .then((res) => {
-          this.setState({ director: res.data.name });
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    }
-    if (this.props.movie.genre_id) {
-      axios
-        .get(
-          `https://musto-movie-api.herokuapp.com/genres/${this.props.movie.genre_id}`,
-        )
-        .then((res) => {
-          this.setState({ genre: res.data.name });
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    }
-    if (this.props.movie.stars.length > 0) {
-      this.props.movie.stars.map((star) => {
-        axios
-          .get(`https://musto-movie-api.herokuapp.com/actors/${star}`)
-          .then((res) => {
-            this.setState({
-              stars: [...this.state.stars, res.data.name],
-            });
-            console.log(res.data.name);
-          })
-          .catch((err) => {
-            console.log(err.message);
-            this.setState({
-              stars: [...this.state.stars, "NA"],
-            });
-          });
-      });
-    }
+    if (DEBUG) console.log("render", this);
   }
 
   render() {
-    if (DEBUG) console.log("render", this);
-
     const { movie, onBackClick } = this.props;
 
     return (
@@ -81,37 +32,71 @@ class MovieView extends React.Component {
             <Card>
               <Card.Header>
                 <div className="movie-title">
-                  <h2>{movie.title}</h2>
+                  <h2>{movie && movie.title}</h2>
                 </div>
               </Card.Header>
               <Card.Body>
                 <div className="movie-poster">
-                  <img src={movie.image_url} />
+                  <img src={movie && movie.image_url} />
                 </div>
                 <Table striped bordered hover size="sm" className="movie-table">
                   <tbody>
                     <tr>
-                      <th scope="row">Genre</th>
-                      <td>{this.state.genre}</td>
+                      <th scope="row">Genre(s)</th>
+                      <td>
+                        {movie.genres.map((genre) => {
+                          return (
+                            <Link key={genre._id} to={`/genres/${genre._id}`}>
+                              <Button key={genre._id} variant="link">
+                                {genre.name}
+                              </Button>
+                            </Link>
+                          );
+                        })}
+                      </td>
                     </tr>
                     <tr>
-                      <th scope="row">Director</th>
-                      <td>{this.state.director}</td>
+                      <th scope="row">Director(s)</th>
+                      <td>
+                        {movie.directors.map((director) => {
+                          return (
+                            <Link
+                              key={director._id}
+                              to={`/directors/${director._id}`}
+                              state={{ director: movie.director }}
+                            >
+                              <Button key={director._id} variant="link">
+                                {director.name}
+                              </Button>
+                            </Link>
+                          );
+                        })}
+                      </td>
                     </tr>
                     <tr>
-                      <th scope="row">Stars</th>
-                      <td>{this.state.stars.join(" | ")}</td>
+                      <th scope="row">Star(s)</th>
+                      <td>
+                        {movie.stars.map((star) => {
+                          return (
+                            <Link key={star._id} to={`/actors/${star._id}`}>
+                              <Button key={star._id} variant="link">
+                                {star.name}
+                              </Button>
+                            </Link>
+                          );
+                        })}
+                      </td>
                     </tr>
                   </tbody>
                 </Table>
-                <p className="movie-description">{movie.des}</p>
+                <p className="movie-description">{movie && movie.des}</p>
               </Card.Body>
               <Card.Footer className="text-left">
                 <MyButton
                   btnStyle="text-green border-none cursor-pointer add-padding--5px background-transparent"
-                  btnLabel="back"
+                  btnLabel="Back"
                   btnOnClick={() => {
-                    onBackClick(null);
+                    onBackClick();
                   }}
                 />
               </Card.Footer>
@@ -121,21 +106,15 @@ class MovieView extends React.Component {
       </Row>
     );
   }
-  componentDidMount() {
-    if (DEBUG) console.log("componentDidMount", this);
-  }
-  componentDidUpdate() {
-    if (DEBUG) console.log("componentDidUpdate", this);
-  }
-  componentWillUnmount() {
-    if (DEBUG) console.log("componentWillUnmount", this);
-  }
 }
 
 MovieView.propTypes = {
   movie: PropTypes.shape({
     title: PropTypes.string.isRequired,
     des: PropTypes.string.isRequired,
+    directors: PropTypes.array.isRequired,
+    genres: PropTypes.array.isRequired,
+    stars: PropTypes.array.isRequired,
     image_url: PropTypes.string.isRequired,
   }).isRequired,
   onBackClick: PropTypes.func.isRequired,

@@ -1,0 +1,13 @@
+$color: steelblue;
+
+.loading {
+  &-view {
+    color: $color;
+    text-align: center;
+
+    &__message {
+      font-size: large;
+      color: darkgreen;
+    }
+  }
+}
