@@ -108,14 +108,6 @@ function LoginView(props) {
     }
   };
 
-  const { notification } = props;
-  console.log("LoginView:", notification);
-  if (notification) {
-    if (notification.variant === "success") {
-      notifier.notifySuccess(notification.value);
-    }
-  }
-
   return (
     <>
       <h1 className="login-title">Login 😊</h1>
