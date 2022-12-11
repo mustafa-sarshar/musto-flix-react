@@ -1,6 +1,5 @@
 // Import Libs
 import React from "react";
-import ReactDom from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom/cjs/react-router-dom.min";
 import { ToastContainer } from "react-toastify";
 
@@ -27,7 +26,7 @@ const store = createStore(moviesAppReducer, {}, devToolsEnhancer());
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 // Main component (will eventually use all the others)
-class MyFlixApplication extends React.Component {
+class MustoFlix extends React.Component {
   render() {
     if (DEBUG) console.log("render", this);
 
@@ -44,8 +43,9 @@ class MyFlixApplication extends React.Component {
   }
 }
 
-// Find the root of the App
-const container = document.getElementsByClassName("app-container")[0];
+// Finds the root of the app
+const container = document.querySelector("#root");
+const root = createRoot(container);
 
-// Tell React to render the app in the root DOM element
-ReactDom.render(React.createElement(MyFlixApplication), container);
+// Tells React to render the app in the root DOM element
+root.render(<MustoFlix />);
