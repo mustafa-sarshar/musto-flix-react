@@ -1,6 +1,7 @@
 // Import Libs
 import React from "react";
 import axios from "axios";
+import SERVER_ADDRESS from "../../../config/serverInfo";
 
 // Import Redux
 import { connect } from "react-redux";
@@ -17,7 +18,7 @@ import { Card, Row, Col } from "react-bootstrap";
 import VisibilityFilterView from "../../visibilityFilterView/visibilityFilterView";
 import MovieCard from "../../movieCard/movieCard";
 
-// Debugger
+// EnvVars
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 const UserAllMoviesView = (props) => {
@@ -59,12 +60,13 @@ const UserAllMoviesView = (props) => {
     }
   };
   const addMovieToFavorites = async (movieId, username, token) => {
+    console.log("Add");
     const reqInstance = axios.create({
       headers: { Authorization: `Bearer ${token}` },
     });
     try {
       const res = await reqInstance.patch(
-        `https://musto-movie-api.onrender.com/users/${username}/favorites/${movieId}`
+        `${SERVER_ADDRESS}/users/${username}/favorites/${movieId}`
       );
       return true;
     } catch (err) {

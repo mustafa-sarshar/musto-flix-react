@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import dateFormat from "../../utils/dateFormat";
 import notifier from "../../utils/notifiers";
+import SERVER_ADDRESS from "../../config/serverInfo";
 
 // Import Styles
 import "./registrationView.scss";
@@ -10,7 +11,7 @@ import "./registrationView.scss";
 // Import Bootstrap Components
 import { Form, Button } from "react-bootstrap";
 
-// Debugger
+// EnvVars
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 function RegistrationView(props) {
@@ -106,7 +107,7 @@ function RegistrationView(props) {
       /* Send a request to the server for authentication */
       axios
         .post(
-          "https://musto-movie-api.onrender.com/users",
+          `${SERVER_ADDRESS}/users`,
           { username: username, pass: password, email: email, birth: birth },
           null
         )

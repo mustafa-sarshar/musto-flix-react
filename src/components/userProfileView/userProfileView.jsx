@@ -2,6 +2,7 @@
 import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import SERVER_ADDRESS from "../../config/serverInfo";
 
 // Import Redux
 import { connect } from "react-redux";
@@ -19,7 +20,7 @@ import UserInfoView from "./userInfoView/userInfoView";
 import UserFavoriteMoviesView from "./userFavoriteMoviesView/userFavoriteMoviesView";
 import UserAllMoviesView from "./userAllMoviesView/userAllMoviesView";
 
-// Debugger
+// EnvVars
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 class UserProfileView extends React.Component {
@@ -126,7 +127,7 @@ class UserProfileView extends React.Component {
       headers: { Authorization: `Bearer ${token}` },
     });
     reqInstance
-      .get(`https://musto-movie-api.onrender.com/users/${username}`)
+      .get(`${SERVER_ADDRESS}/users/${username}`)
       .then((res) => {
         this.setState({
           userData: res.data,

@@ -13,7 +13,7 @@ import { Row, Col, Table, Card } from "react-bootstrap";
 // Import Custom Components
 import { MyButton } from "../myButton/myButton";
 
-// Debugger
+// EnvVars
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 const DirectorView = (props) => {

@@ -9,7 +9,7 @@ import "./visibilityFilterView.scss";
 // Import Bootstrap Components
 import { Form } from "react-bootstrap";
 
-// Debugger
+// EnvVars
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 function VisibilityFilterView(props) {

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import notifier from "../../utils/notifiers";
+import SERVER_ADDRESS from "../../config/serverInfo";
 
 // Import Styles
 import "./loginView.scss";
@@ -10,7 +11,7 @@ import "./loginView.scss";
 // Import Bootstrap Components
 import { Button, Form } from "react-bootstrap";
 
-// Debugger
+// EnvVars
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 function LoginView(props) {
@@ -64,7 +65,7 @@ function LoginView(props) {
 
   const getUserData = (username, password) => {
     axios
-      .post("https://musto-movie-api.onrender.com/login", null, {
+      .post(`${SERVER_ADDRESS}/login`, null, {
         params: {
           username: username,
           pass: password,

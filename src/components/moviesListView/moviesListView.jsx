@@ -4,6 +4,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 
 import { setFavorites } from "../../actions/actions";
+import SERVER_ADDRESS from "../../config/serverInfo";
 
 // Import Styles
 import "./moviesListView.scss";
@@ -16,7 +17,7 @@ import MovieCard from "../movieCard/movieCard";
 import LoadingView from "../loadingView/loadingView";
 import VisibilityFilterView from "../visibilityFilterView/visibilityFilterView";
 
-// Debugger
+// EnvVars
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 class MoviesListView extends React.Component {
@@ -117,7 +118,7 @@ class MoviesListView extends React.Component {
     });
     try {
       const res = await reqInstance.delete(
-        `https://musto-movie-api.onrender.com/users/${username}/favorites/${movie_id}`
+        `${SERVER_ADDRESS}/users/${username}/favorites/${movie_id}`
       );
       console.log("Res:", res);
       return true;
@@ -151,7 +152,7 @@ class MoviesListView extends React.Component {
     });
     try {
       const res = await reqInstance.patch(
-        `https://musto-movie-api.onrender.com/users/${username}/favorites/${movie_id}`
+        `${SERVER_ADDRESS}/users/${username}/favorites/${movie_id}`
       );
       console.log("Res:", res);
       return true;

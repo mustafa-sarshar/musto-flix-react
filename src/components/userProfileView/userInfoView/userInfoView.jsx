@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import dateFormat from "../../../utils/dateFormat";
 import notifier from "../../../utils/notifiers";
+import SERVER_ADDRESS from "../../../config/serverInfo";
 
 // Import Styles
 import "./userInfoView.scss";
@@ -11,7 +12,7 @@ import "./userInfoView.scss";
 // Import Bootstrap Components
 import { Form, Button, Modal, Row, Col, Card } from "react-bootstrap";
 
-// Debugger
+// EnvVars
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 const UserInfoView = (props) => {
@@ -112,10 +113,7 @@ const UserInfoView = (props) => {
         headers: { Authorization: `Bearer ${token}` },
       });
       reqInstance
-        .put(
-          `https://musto-movie-api.onrender.com/users/${username}`,
-          userUpdate
-        )
+        .put(`${SERVER_ADDRESS}/users/${username}`, userUpdate)
         .then((response) => {
           const data = response.data;
           if (DEBUG) console.log(data);
@@ -153,7 +151,7 @@ const UserInfoView = (props) => {
         headers: { Authorization: `Bearer ${token}` },
       });
       reqInstance
-        .delete(`https://musto-movie-api.onrender.com/users/${username}`)
+        .delete(`${SERVER_ADDRESS}/users/${username}`)
         .then((response) => {
           const data = response.data;
           if (DEBUG) console.log(data);

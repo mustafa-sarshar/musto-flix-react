@@ -4,6 +4,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { setMovies, setUser, setFavorites } from "../../actions/actions";
+import SERVER_ADDRESS from "../../config/serverInfo";
 
 // Import Styles
 import "./mainView.scss";
@@ -24,7 +25,7 @@ import MenuBarView from "../menuBarView/menuBarView";
 import FooterView from "../footerView/footerView";
 import LoadingView from "../loadingView/loadingView";
 
-// Debugger
+// EnvVars
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 class MainView extends React.Component {
@@ -309,7 +310,7 @@ class MainView extends React.Component {
   // Fetching methods
   getMovies(token) {
     axios
-      .get("https://musto-movie-api.onrender.com/movies/populated", {
+      .get(`${SERVER_ADDRESS}/movies/populated`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -353,7 +354,7 @@ class MainView extends React.Component {
     });
     try {
       const res = await reqInstance.delete(
-        `https://musto-movie-api.onrender.com/users/${username}/favorites/${movie_id}`
+        `${SERVER_ADDRESS}/users/${username}/favorites/${movie_id}`
       );
       console.log("Res:", res);
       return true;
@@ -388,7 +389,7 @@ class MainView extends React.Component {
     });
     try {
       const res = await reqInstance.patch(
-        `https://musto-movie-api.onrender.com/users/${username}/favorites/${movie_id}`
+        `${SERVER_ADDRESS}/users/${username}/favorites/${movie_id}`
       );
       console.log("Res:", res);
       return true;

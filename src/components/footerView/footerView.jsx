@@ -1,13 +1,11 @@
 // Import Libs
 import React from "react";
-import PropTypes from "prop-types";
 
 // Import Custom Styles
 import "./footerView.scss";
 
 // Import Bootstrap Components
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Navbar, Container, Nav } from "react-bootstrap";
 
 const FooterView = ({ user }) => {
   return (

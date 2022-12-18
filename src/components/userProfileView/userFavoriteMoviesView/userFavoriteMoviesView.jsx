@@ -1,6 +1,7 @@
 // Import Libs
 import React from "react";
 import axios from "axios";
+import SERVER_ADDRESS from "../../../config/serverInfo";
 
 // Import Redux
 import { connect } from "react-redux";
@@ -71,7 +72,7 @@ const UserFavoriteMoviesView = (props) => {
     });
     try {
       const res = await reqInstance.delete(
-        `https://musto-movie-api.onrender.com/users/${username}/favorites/${movieId}`
+        `${SERVER_ADDRESS}/users/${username}/favorites/${movieId}`
       );
       return true;
     } catch (err) {
