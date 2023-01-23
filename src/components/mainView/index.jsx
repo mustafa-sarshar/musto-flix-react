@@ -3,27 +3,27 @@ import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { setMovies, setUser, setFavorites } from "../../actions/actions";
+import { setMovies, setUser, setFavorites } from "../../store/actions";
 import SERVER_ADDRESS from "../../config/serverInfo";
 
 // Import Styles
-import "./mainView.scss";
+import "./styles.scss";
 
 // Import Bootstrap Components
 import { Row, Col } from "react-bootstrap";
 
 // Import Custom Components
-import LoginView from "../loginView/loginView";
-import RegistrationView from "../registrationView/registrationView";
-import MovieView from "../movieView/movieView";
-import MoviesListView from "../moviesListView/moviesListView";
-import UserProfileView from "../userProfileView/userProfileView";
-import DirectorView from "../directorView/directorView";
-import ActorView from "../actorView/actorView";
-import GenreView from "../genreView/genreView";
-import MenuBarView from "../menuBarView/menuBarView";
-import FooterView from "../footerView/footerView";
-import LoadingView from "../loadingView/loadingView";
+import LoginView from "../loginView";
+import RegistrationView from "../registrationView";
+import MovieView from "../movieView";
+import MoviesListView from "../moviesListView";
+import UserProfileView from "../userProfileView";
+import DirectorView from "../directorView";
+import ActorView from "../actorView";
+import GenreView from "../genreView";
+import MenuBarView from "../menuBarView";
+import FooterView from "../footerView";
+import LoadingView from "../loadingView";
 
 // EnvVars
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;

@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { devToolsEnhancer } from "redux-devtools-extension";
-import moviesAppReducer from "./reducers/reducers";
+import moviesAppReducer from "./store/reducers";
 
 // Import Styles
 import "./index.scss";
@@ -18,7 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Container } from "react-bootstrap";
 
 // Import Custom Components
-import MainView from "./components/mainView/mainView";
+import MainView from "./components/mainView";
 
 // Initialize the Redux
 const store = createStore(moviesAppReducer, {}, devToolsEnhancer());

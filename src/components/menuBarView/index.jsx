@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // Import Custom Styles
-import "./menuBarView.scss";
+import "./styles.scss";
 
 // Import Bootstrap Components
 import { Navbar, Container, Nav, Button } from "react-bootstrap";

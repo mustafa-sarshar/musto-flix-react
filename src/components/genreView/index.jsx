@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 
 // Import Styles
-import "./genreView.scss";
+import "./styles.scss";
 
 // Import Bootstrap Components
 import { Row, Col, Card } from "react-bootstrap";
 
 // Import Custom Components
-import { MyButton } from "../myButton/myButton";
+import { MyButton } from "../myButton";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;

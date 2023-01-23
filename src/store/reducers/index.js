@@ -2,12 +2,7 @@
 import { combineReducers } from "redux";
 
 // Import Actions
-import {
-  SET_FILTER,
-  SET_MOVIES,
-  SET_FAVORITES,
-  SET_USER,
-} from "../actions/actions";
+import { SET_FILTER, SET_MOVIES, SET_FAVORITES, SET_USER } from "../actions";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;

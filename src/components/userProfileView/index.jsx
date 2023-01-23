@@ -8,17 +8,17 @@ import SERVER_ADDRESS from "../../config/serverInfo";
 import { connect } from "react-redux";
 
 // Import Styles
-import "./userProfileView.scss";
+import "./styles.scss";
 
 // Import Bootstrap Components
 import { Row, Col, Card } from "react-bootstrap";
 
 // Import Custom Components
-import { MyButton } from "../myButton/myButton";
-import LoadingView from "../loadingView/loadingView";
-import UserInfoView from "./userInfoView/userInfoView";
-import UserFavoriteMoviesView from "./userFavoriteMoviesView/userFavoriteMoviesView";
-import UserAllMoviesView from "./userAllMoviesView/userAllMoviesView";
+import { MyButton } from "../myButton";
+import LoadingView from "../loadingView";
+import UserInfoView from "./userInfoView";
+import UserFavoriteMoviesView from "./userFavoriteMoviesView";
+import UserAllMoviesView from "./userAllMoviesView";
 
 // EnvVars
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;

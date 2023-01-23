@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 // Import Styles
-import "./movieView.scss";
+import "./styles.scss";
 
 // Import Bootstrap Components
 import { Row, Col, Table, Card, Button } from "react-bootstrap";
 
 // Import Custom Components
-import { MyButton } from "../myButton/myButton";
+import { MyButton } from "../myButton";
 
 // EnvVars
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;

@@ -1,5 +1,5 @@
 // Import Styles
-import "./myButton.scss";
+import "./styles.scss";
 
 // Create a function component
 function MyButton(props) {

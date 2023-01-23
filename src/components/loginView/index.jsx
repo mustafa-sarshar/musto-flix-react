@@ -6,7 +6,7 @@ import notifier from "../../utils/notifiers";
 import SERVER_ADDRESS from "../../config/serverInfo";
 
 // Import Styles
-import "./loginView.scss";
+import "./styles.scss";
 
 // Import Bootstrap Components
 import { Button, Form } from "react-bootstrap";

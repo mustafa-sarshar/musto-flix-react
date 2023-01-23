@@ -7,7 +7,7 @@ import notifier from "../../../utils/notifiers";
 import SERVER_ADDRESS from "../../../config/serverInfo";
 
 // Import Styles
-import "./userInfoView.scss";
+import "./styles.scss";
 
 // Import Bootstrap Components
 import { Form, Button, Modal, Row, Col, Card } from "react-bootstrap";

@@ -3,19 +3,19 @@ import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 
-import { setFavorites } from "../../actions/actions";
+import { setFavorites } from "../../store/actions";
 import SERVER_ADDRESS from "../../config/serverInfo";
 
 // Import Styles
-import "./moviesListView.scss";
+import "./styles.scss";
 
 // Import Bootstrap Components
 import { Col } from "react-bootstrap";
 
 // Import Custom Components
-import MovieCard from "../movieCard/movieCard";
-import LoadingView from "../loadingView/loadingView";
-import VisibilityFilterView from "../visibilityFilterView/visibilityFilterView";
+import MovieCard from "../movieCard";
+import LoadingView from "../loadingView";
+import VisibilityFilterView from "../visibilityFilterView";
 
 // EnvVars
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;

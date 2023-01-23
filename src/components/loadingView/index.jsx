@@ -2,7 +2,7 @@
 import React from "react";
 
 // Import Styles
-import "./loadingView.scss";
+import "./styles.scss";
 
 // Import Bootstrap Components
 import { Row, Col } from "react-bootstrap";

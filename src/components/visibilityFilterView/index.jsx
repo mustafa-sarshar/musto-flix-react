@@ -1,10 +1,10 @@
 // Import Libs
 import React from "react";
 import { connect } from "react-redux";
-import { setFilter } from "../../actions/actions";
+import { setFilter } from "../../store/actions";
 
 // Import Styles
-import "./visibilityFilterView.scss";
+import "./styles.scss";
 
 // Import Bootstrap Components
 import { Form } from "react-bootstrap";

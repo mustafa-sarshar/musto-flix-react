@@ -5,32 +5,32 @@ import { useParams } from "react-router-dom";
 import dateFormat from "../../utils/dateFormat";
 
 // Import Styles
-import "./directorView.scss";
+import "./styles.scss";
 
 // Import Bootstrap Components
 import { Row, Col, Table, Card } from "react-bootstrap";
 
 // Import Custom Components
-import { MyButton } from "../myButton/myButton";
+import { MyButton } from "../myButton";
 
 // EnvVars
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
-const DirectorView = (props) => {
+const ActorView = (props) => {
   if (DEBUG) console.log("render", this);
 
-  const [director, setDirector] = useState();
+  const [actor, setActor] = useState();
 
   const { movies, onBackClick } = props;
-  const { id: director_id } = useParams();
+  const { id: actor_id } = useParams();
 
-  if (!director) {
+  if (!actor) {
     movies.find((movie) =>
-      movie.directors.find((director) => {
-        if (director._id === director_id) {
-          setDirector(director);
+      movie.stars.find((actor) => {
+        if (actor._id === actor_id) {
+          setActor(actor);
         }
-        return director._id === director_id;
+        return actor._id === actor_id;
       })
     );
   }
@@ -38,36 +38,36 @@ const DirectorView = (props) => {
   return (
     <Row>
       <Col>
-        <div className="director-view">
+        <div className="actor-view">
           <Card>
             <Card.Header>
-              <div className="director-title">
-                <h2>{director?.name && director.name}</h2>
+              <div className="actor-title">
+                <h2>{actor?.name && actor.name}</h2>
               </div>
             </Card.Header>
             <Card.Body>
-              <div className="director-poster">
+              <div className="actor-poster">
                 <img src="https://via.placeholder.com/250" />
               </div>
-              <Table striped bordered hover size="sm" className="movie-table">
+              <Table striped bordered hover size="sm" className="actor-table">
                 <tbody>
                   <tr>
                     <th scope="row">Birth date</th>
                     <td>
-                      {director?.birth &&
-                        dateFormat(director.birth, "toLocaleDateString")}
+                      {actor?.birth &&
+                        dateFormat(actor.birth, "toLocaleDateString")}
                     </td>
                   </tr>
                   <tr>
                     <th scope="row">Death date</th>
                     <td>
-                      {director?.death &&
-                        dateFormat(director.death, "toLocaleDateString")}
+                      {actor?.death &&
+                        dateFormat(actor.death, "toLocaleDateString")}
                     </td>
                   </tr>
                 </tbody>
               </Table>
-              <p className="director-bio">{director?.bio && director.bio}</p>
+              <p className="actor-bio">{actor?.bio && actor.bio}</p>
             </Card.Body>
             <Card.Footer className="text-left">
               <MyButton
@@ -85,9 +85,9 @@ const DirectorView = (props) => {
   );
 };
 
-DirectorView.propTypes = {
+ActorView.propTypes = {
   movies: PropTypes.array.isRequired,
   onBackClick: PropTypes.func.isRequired,
 };
 
-export default DirectorView;
+export default ActorView;

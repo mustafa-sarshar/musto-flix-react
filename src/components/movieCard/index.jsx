@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 // Import Styles
-import "./movieCard.scss";
+import "./styles.scss";
 
 // Import Bootstrap Components
 import { Card, Button } from "react-bootstrap";

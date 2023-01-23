@@ -2,7 +2,7 @@
 import React from "react";
 
 // Import Custom Styles
-import "./footerView.scss";
+import "./styles.scss";
 
 // Import Bootstrap Components
 import { Navbar, Container, Nav } from "react-bootstrap";

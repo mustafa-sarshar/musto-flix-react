@@ -5,18 +5,18 @@ import SERVER_ADDRESS from "../../../config/serverInfo";
 
 // Import Redux
 import { connect } from "react-redux";
-import { setFilter } from "../../../actions/actions";
+import { setFilter } from "../../../store/actions";
 import notifier from "../../../utils/notifiers";
 
 // Import Styles
-import "./userFavoriteMoviesView.scss";
+import "./styles.scss";
 
 // Import Bootstrap Components
 import { Card, Row, Col } from "react-bootstrap";
 
 // Import Custom Components
-import VisibilityFilterView from "../../visibilityFilterView/visibilityFilterView";
-import MovieCard from "../../movieCard/movieCard";
+import VisibilityFilterView from "../../visibilityFilterView";
+import MovieCard from "../../movieCard";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
