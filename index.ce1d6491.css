@@ -9,6 +9,159 @@ main {
   margin: 20px auto;
 }
 
+
+
+
+
+.user-info-title {
+  text-align: center;
+  margin: 10px auto;
+}
+
+.user-info-form {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 20px auto;
+  padding: 10px;
+  box-shadow: 1px 1px 2px #80808080, -1px -1px 2px #80808080;
+}
+
+.user-info-form__groups {
+  width: 100%;
+  padding: 5px;
+}
+
+.user-info-form input {
+  width: 70%;
+  float: right;
+}
+
+.user-info-form label {
+  width: 30%;
+  float: left;
+}
+
+.user-info-form button {
+  float: right;
+  padding: 1px 5px;
+}
+
+.user-info-form__error {
+  color: red;
+  font-size: small;
+}
+
+.user-info__item {
+  color: #000;
+  font-size: medium;
+}
+
+.clear-fix {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.user-view {
+  color: #4682b4;
+}
+
+.registration-title {
+  text-align: center;
+  margin: 10px auto;
+}
+
+.registration-form {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 20px auto;
+  padding: 10px;
+  box-shadow: 1px 1px 2px #80808080, -1px -1px 2px #80808080;
+}
+
+.registration-form__groups {
+  width: 100%;
+  padding: 5px;
+}
+
+.registration-form input {
+  width: 70%;
+  float: right;
+}
+
+.registration-form label {
+  width: 30%;
+  float: left;
+}
+
+.registration-form button {
+  float: right;
+  padding: 1px 5px;
+}
+
+.registration-form__error {
+  color: red;
+  font-size: small;
+}
+
+.clear-fix {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.movie-view {
+  border: 1px solid #0000ff3a;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.movie-poster img {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  padding: 5px 0;
+}
+
+.movie-title {
+  text-align: center;
+  margin: 10px auto;
+}
+
+.movie-title h2 {
+  border-bottom: 1px solid green;
+}
+
+.movie-description {
+  padding: 10px;
+}
+
+.movie-table {
+  text-align: left;
+}
+
+.movie-table tbody tr td, .movie-table tbody tr th {
+  vertical-align: middle;
+}
+
+
+
+.movie-card:hover {
+  box-shadow: 2px 2px 4px #0008;
+}
+
+
+
+.loading-view {
+  color: #4682b4;
+  text-align: center;
+}
+
+.loading-view__message {
+  color: #006400;
+  font-size: large;
+}
+
 .navbar__username {
   color: #fff;
   border-bottom: 1px solid #fff;
@@ -82,115 +235,6 @@ main {
   vertical-align: middle;
 }
 
-.director-view {
-  border: 1px solid #0000ff3a;
-  border-radius: 5px;
-  padding: 5px;
-}
-
-.director-poster img {
-  height: 100%;
-  width: 100%;
-  margin: auto;
-  padding: 5px 0;
-}
-
-.director-title {
-  text-align: center;
-  margin: 10px auto;
-}
-
-.director-title h2 {
-  border-bottom: 1px solid green;
-}
-
-.director-bio {
-  padding: 10px;
-}
-
-.director-table {
-  text-align: left;
-}
-
-.director-table tbody tr td, .director-table tbody tr th {
-  vertical-align: middle;
-}
-
-
-
-
-
-.user-info-title {
-  text-align: center;
-  margin: 10px auto;
-}
-
-.user-info-form {
-  width: -moz-fit-content;
-  width: fit-content;
-  margin: 20px auto;
-  padding: 10px;
-  box-shadow: 1px 1px 2px #80808080, -1px -1px 2px #80808080;
-}
-
-.user-info-form__groups {
-  width: 100%;
-  padding: 5px;
-}
-
-.user-info-form input {
-  width: 70%;
-  float: right;
-}
-
-.user-info-form label {
-  width: 30%;
-  float: left;
-}
-
-.user-info-form button {
-  float: right;
-  padding: 1px 5px;
-}
-
-.user-info-form__error {
-  color: red;
-  font-size: small;
-}
-
-.user-info__item {
-  color: #000;
-  font-size: medium;
-}
-
-.clear-fix {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-.user-view {
-  color: #4682b4;
-}
-
-
-
-.loading-view {
-  color: #4682b4;
-  text-align: center;
-}
-
-.loading-view__message {
-  color: #006400;
-  font-size: large;
-}
-
-.movie-card:hover {
-  box-shadow: 2px 2px 4px #0008;
-}
-
-
-
 .border-none {
   border: none;
 }
@@ -246,82 +290,38 @@ main {
   background-color: #add8e6;
 }
 
-.movie-view {
+.director-view {
   border: 1px solid #0000ff3a;
   border-radius: 5px;
   padding: 5px;
 }
 
-.movie-poster img {
+.director-poster img {
   height: 100%;
   width: 100%;
   margin: auto;
   padding: 5px 0;
 }
 
-.movie-title {
+.director-title {
   text-align: center;
   margin: 10px auto;
 }
 
-.movie-title h2 {
+.director-title h2 {
   border-bottom: 1px solid green;
 }
 
-.movie-description {
+.director-bio {
   padding: 10px;
 }
 
-.movie-table {
+.director-table {
   text-align: left;
 }
 
-.movie-table tbody tr td, .movie-table tbody tr th {
+.director-table tbody tr td, .director-table tbody tr th {
   vertical-align: middle;
-}
-
-.registration-title {
-  text-align: center;
-  margin: 10px auto;
-}
-
-.registration-form {
-  width: -moz-fit-content;
-  width: fit-content;
-  margin: 20px auto;
-  padding: 10px;
-  box-shadow: 1px 1px 2px #80808080, -1px -1px 2px #80808080;
-}
-
-.registration-form__groups {
-  width: 100%;
-  padding: 5px;
-}
-
-.registration-form input {
-  width: 70%;
-  float: right;
-}
-
-.registration-form label {
-  width: 30%;
-  float: left;
-}
-
-.registration-form button {
-  float: right;
-  padding: 1px 5px;
-}
-
-.registration-form__error {
-  color: red;
-  font-size: small;
-}
-
-.clear-fix {
-  content: "";
-  clear: both;
-  display: table;
 }
 
 * {
