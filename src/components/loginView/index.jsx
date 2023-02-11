@@ -111,7 +111,7 @@ function LoginView(props) {
 
   return (
     <>
-      <h1 className="login-title">Login 😊</h1>
+      <h1 className="login-title">Sign In 😊</h1>
       <Form autoComplete="on">
         <Form.Group className="mb-3" controlId="formUsername">
           <Form.Label>Username</Form.Label>

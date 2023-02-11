@@ -264,7 +264,7 @@ class MainView extends React.Component {
 
             <Route
               exact
-              path={"/logout"}
+              path="/logout"
               render={async () => {
                 localStorage.clear();
                 await this.props.setUser("");

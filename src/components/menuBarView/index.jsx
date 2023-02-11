@@ -30,24 +30,36 @@ const MenuBarView = ({ user }) => {
       variant="dark"
     >
       <Container>
-        <Navbar.Brand className="navbar-logo" href="/">
-          Musto Flix
+        <Navbar.Brand className="navbar-logo">
+          <Link to="/">
+            <span className="navbar-brand">Musto Flix</span>
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
             {isAuth() && (
-              <Nav.Link href={`/users/${user}`}>
-                Signed in as: <span className="navbar__username">{user}</span>{" "}
-              </Nav.Link>
-            )}
-            {isAuth() && (
-              <Link to={"/logout"}>
-                <Button variant="link">Logout</Button>
+              <Link to={`/users/${user}`}>
+                <Button variant="link-outlined text-secondary">
+                  Signed in as: <span className="navbar__username">{user}</span>{" "}
+                </Button>
               </Link>
             )}
-            {!isAuth() && <Nav.Link href="/">Sign-in</Nav.Link>}
-            {!isAuth() && <Nav.Link href="/register">Sign-up</Nav.Link>}
+            {isAuth() && (
+              <Link to="/logout">
+                <Button variant="link-outlined text-secondary">Logout</Button>
+              </Link>
+            )}
+            {!isAuth() && (
+              <Link to="/">
+                <Button variant="link-outlined text-secondary">Sign In</Button>
+              </Link>
+            )}
+            {!isAuth() && (
+              <Link to="/register">
+                <Button variant="link-outlined text-secondary">Sign Up</Button>
+              </Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

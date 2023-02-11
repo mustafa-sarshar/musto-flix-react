@@ -11,10 +11,6 @@ const FooterView = ({ user }) => {
   return (
     <Navbar className="main-nav" fixed="bottom" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand
-          className="navbar-logo text-center"
-          href="/"
-        ></Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">

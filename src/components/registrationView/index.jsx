@@ -143,7 +143,7 @@ function RegistrationView(props) {
 
   return (
     <>
-      <h1 className="registration-title">Registration Form 👌</h1>
+      <h1 className="registration-title">Sign Up Form 👌</h1>
       <hr />
       <hr />
       <Form autoComplete="on">
