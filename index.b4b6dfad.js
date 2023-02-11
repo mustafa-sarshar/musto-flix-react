@@ -50632,7 +50632,7 @@ function LoginView(props) {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
                 className: "login-title",
-                children: "Login \uD83D\uDE0A"
+                children: "Sign In \uD83D\uDE0A"
             }, void 0, false, {
                 fileName: "src/components/loginView/index.jsx",
                 lineNumber: 114,
@@ -51503,8 +51503,21 @@ const MenuBarView = ({ user  })=>{
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Brand, {
                     className: "navbar-logo",
-                    href: "/",
-                    children: "Musto Flix"
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
+                        to: "/",
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                            className: "navbar-brand",
+                            children: "Musto Flix"
+                        }, void 0, false, {
+                            fileName: "src/components/menuBarView/index.jsx",
+                            lineNumber: 35,
+                            columnNumber: 13
+                        }, undefined)
+                    }, void 0, false, {
+                        fileName: "src/components/menuBarView/index.jsx",
+                        lineNumber: 34,
+                        columnNumber: 11
+                    }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/menuBarView/index.jsx",
                     lineNumber: 33,
@@ -51514,7 +51527,7 @@ const MenuBarView = ({ user  })=>{
                     "aria-controls": "responsive-navbar-nav"
                 }, void 0, false, {
                     fileName: "src/components/menuBarView/index.jsx",
-                    lineNumber: 36,
+                    lineNumber: 38,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
@@ -51522,91 +51535,86 @@ const MenuBarView = ({ user  })=>{
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav), {
                         className: "ml-auto",
                         children: [
-                            isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                href: `/users/${user}`,
-                                children: [
-                                    "Signed in as: ",
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                                        className: "navbar__username",
-                                        children: user
-                                    }, void 0, false, {
-                                        fileName: "src/components/menuBarView/index.jsx",
-                                        lineNumber: 41,
-                                        columnNumber: 31
-                                    }, undefined),
-                                    " "
-                                ]
-                            }, void 0, true, {
+                            isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
+                                to: `/users/${user}`,
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                    variant: "link-outlined text-secondary",
+                                    children: [
+                                        "Signed in as: ",
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                            className: "navbar__username",
+                                            children: user
+                                        }, void 0, false, {
+                                            fileName: "src/components/menuBarView/index.jsx",
+                                            lineNumber: 44,
+                                            columnNumber: 33
+                                        }, undefined),
+                                        " "
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/menuBarView/index.jsx",
+                                    lineNumber: 43,
+                                    columnNumber: 17
+                                }, undefined)
+                            }, void 0, false, {
                                 fileName: "src/components/menuBarView/index.jsx",
-                                lineNumber: 40,
+                                lineNumber: 42,
                                 columnNumber: 15
                             }, undefined),
                             isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
                                 to: "/logout",
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                    variant: "link",
+                                    variant: "link-outlined text-secondary",
                                     children: "Logout"
                                 }, void 0, false, {
                                     fileName: "src/components/menuBarView/index.jsx",
-                                    lineNumber: 46,
+                                    lineNumber: 50,
                                     columnNumber: 17
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/menuBarView/index.jsx",
-                                lineNumber: 45,
+                                lineNumber: 49,
                                 columnNumber: 15
                             }, undefined),
-                            !isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
-                                    to: "/",
-                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        variant: "link",
-                                        children: "Sign-in"
-                                    }, void 0, false, {
-                                        fileName: "src/components/menuBarView/index.jsx",
-                                        lineNumber: 52,
-                                        columnNumber: 19
-                                    }, undefined)
+                            !isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
+                                to: "/",
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                    variant: "link-outlined text-secondary",
+                                    children: "Sign In"
                                 }, void 0, false, {
                                     fileName: "src/components/menuBarView/index.jsx",
-                                    lineNumber: 51,
+                                    lineNumber: 55,
                                     columnNumber: 17
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/menuBarView/index.jsx",
-                                lineNumber: 50,
+                                lineNumber: 54,
                                 columnNumber: 15
                             }, undefined),
-                            !isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
-                                    to: "/register",
-                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        variant: "link",
-                                        children: "Sign-up"
-                                    }, void 0, false, {
-                                        fileName: "src/components/menuBarView/index.jsx",
-                                        lineNumber: 59,
-                                        columnNumber: 19
-                                    }, undefined)
+                            !isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
+                                to: "/register",
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                    variant: "link-outlined text-secondary",
+                                    children: "Sign Up"
                                 }, void 0, false, {
                                     fileName: "src/components/menuBarView/index.jsx",
-                                    lineNumber: 58,
+                                    lineNumber: 60,
                                     columnNumber: 17
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/menuBarView/index.jsx",
-                                lineNumber: 57,
+                                lineNumber: 59,
                                 columnNumber: 15
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/menuBarView/index.jsx",
-                        lineNumber: 38,
+                        lineNumber: 40,
                         columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/menuBarView/index.jsx",
-                    lineNumber: 37,
+                    lineNumber: 39,
                     columnNumber: 9
                 }, undefined)
             ]
@@ -51659,19 +51667,11 @@ const FooterView = ({ user  })=>{
         variant: "dark",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
             children: [
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Brand, {
-                    className: "navbar-logo text-center",
-                    href: "/"
-                }, void 0, false, {
-                    fileName: "src/components/footerView/index.jsx",
-                    lineNumber: 14,
-                    columnNumber: 9
-                }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Toggle, {
                     "aria-controls": "responsive-navbar-nav"
                 }, void 0, false, {
                     fileName: "src/components/footerView/index.jsx",
-                    lineNumber: 18,
+                    lineNumber: 14,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
@@ -51683,7 +51683,7 @@ const FooterView = ({ user  })=>{
                                 children: "Designed and Developed by:"
                             }, void 0, false, {
                                 fileName: "src/components/footerView/index.jsx",
-                                lineNumber: 21,
+                                lineNumber: 17,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -51692,18 +51692,18 @@ const FooterView = ({ user  })=>{
                                 children: "Musto"
                             }, void 0, false, {
                                 fileName: "src/components/footerView/index.jsx",
-                                lineNumber: 22,
+                                lineNumber: 18,
                                 columnNumber: 13
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/footerView/index.jsx",
-                        lineNumber: 20,
+                        lineNumber: 16,
                         columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/footerView/index.jsx",
-                    lineNumber: 19,
+                    lineNumber: 15,
                     columnNumber: 9
                 }, undefined)
             ]
@@ -52595,7 +52595,7 @@ function RegistrationView(props) {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
                 className: "registration-title",
-                children: "Registration Form \uD83D\uDC4C"
+                children: "Sign Up Form \uD83D\uDC4C"
             }, void 0, false, {
                 fileName: "src/components/registrationView/index.jsx",
                 lineNumber: 146,
