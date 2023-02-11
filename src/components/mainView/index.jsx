@@ -68,7 +68,7 @@ class MainView extends React.Component {
             />
 
             <Route
-              path={APP_MODE === "prod" ? `$APP_ADDRESS/register` : "/register"}
+              path={APP_MODE === "prod" ? `${APP_ADDRESS}/register` : "/register"}
               render={() => {
                 if (user)
                   return (
