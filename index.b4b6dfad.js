@@ -50703,7 +50703,7 @@ parcelHelpers.export(exports, "APP_MODE", ()=>APP_MODE);
 parcelHelpers.export(exports, "APP_ADDRESS", ()=>APP_ADDRESS);
 const SERVER_ADDRESS = "https://musto-movie-api-vf0k.onrender.com";
 const APP_ADDRESS = "/musto-flix-react";
-const APP_MODE = "dev";
+const APP_MODE = "prod";
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"km3Ru":[function(require,module,exports) {
 "use strict";
