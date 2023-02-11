@@ -8,8 +8,8 @@ import "./styles.scss";
 import { Row, Col } from "react-bootstrap";
 
 // Debugger
-const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 import { APP_MODE, APP_ADDRESS } from "../../config";
+const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 class LoadingView extends React.Component {
   constructor(props) {

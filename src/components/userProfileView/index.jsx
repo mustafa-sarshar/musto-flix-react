@@ -21,6 +21,7 @@ import UserFavoriteMoviesView from "./userFavoriteMoviesView";
 import UserAllMoviesView from "./userAllMoviesView";
 
 // Configs
+import { APP_MODE, APP_ADDRESS } from "../../config";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 class UserProfileView extends React.Component {
@@ -40,7 +41,7 @@ class UserProfileView extends React.Component {
 
     if (user !== username) {
       console.log("Hack attack detected");
-      window.open("/", "_self");
+      window.open(APP_MODE === "prod" ? APP_ADDRESS : "/", "_self");
     }
 
     if (!userData) {

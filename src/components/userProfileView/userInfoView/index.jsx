@@ -12,7 +12,7 @@ import "./styles.scss";
 import { Form, Button, Modal, Row, Col, Card } from "react-bootstrap";
 
 // Configs
-import { SERVER_ADDRESS } from "../../../config";
+import { SERVER_ADDRESS, APP_MODE, APP_ADDRESS } from "../../../config";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 const UserInfoView = (props) => {
@@ -119,12 +119,23 @@ const UserInfoView = (props) => {
           if (DEBUG) console.log(data);
           if (usernameUpdate) {
             localStorage.setItem("user", usernameUpdate);
-            window.open("/user-update", "_self");
+            window.open(
+              APP_MODE === "prod"
+                ? `${APP_ADDRESS}/user-update`
+                : "/user-update",
+              "_self"
+            );
           } else {
             notifier.notifySuccess("Data updated successfully", {
               position: "top-center",
               autoClose: 1000,
-              onClose: () => window.open(`/users/${username}`, "_self"),
+              onClose: () =>
+                window.open(
+                  APP_MODE === "prod"
+                    ? `${APP_ADDRESS}/users/${username}`
+                    : `/users/${username}`,
+                  "_self"
+                ),
             });
           }
           resetUpdateHooks();
@@ -160,7 +171,11 @@ const UserInfoView = (props) => {
             {
               position: "top-center",
               autoClose: 2500,
-              onClose: () => window.open("/logout", "_self"),
+              onClose: () =>
+                window.open(
+                  APP_MODE === "prod" ? `${APP_ADDRESS}/logout` : "/logout",
+                  "_self"
+                ),
             }
           );
         })

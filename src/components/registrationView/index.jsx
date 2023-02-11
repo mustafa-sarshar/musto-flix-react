@@ -11,7 +11,7 @@ import "./styles.scss";
 import { Form, Button } from "react-bootstrap";
 
 // Configs
-import { SERVER_ADDRESS } from "../../config";
+import { SERVER_ADDRESS, APP_MODE, APP_ADDRESS } from "../../config";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 function RegistrationView(props) {
@@ -119,7 +119,8 @@ function RegistrationView(props) {
             {
               position: "top-center",
               autoClose: 2500,
-              onClose: () => window.open("/", "_self"),
+              onClose: () =>
+                window.open(APP_MODE === "prod" ? APP_ADDRESS : "/", "_self"),
             }
           );
         })
