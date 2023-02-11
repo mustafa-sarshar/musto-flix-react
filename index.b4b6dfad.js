@@ -45625,7 +45625,9 @@ class MainView extends (0, _reactDefault.default).Component {
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Switch), {
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                                path: (0, _config.APP_MODE) === "prod" ? (0, _config.APP_ADDRESS) : "/",
+                                path: {
+                                    pathname: "/"
+                                },
                                 exact: true,
                                 render: ()=>{
                                     if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -45649,7 +45651,9 @@ class MainView extends (0, _reactDefault.default).Component {
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                                path: (0, _config.APP_MODE) === "prod" ? `$APP_ADDRESS/register` : "/register",
+                                path: {
+                                    pathname: "/register"
+                                },
                                 render: ()=>{
                                     if (user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Redirect), {
                                         to: (0, _config.APP_MODE) === "prod" ? (0, _config.APP_ADDRESS) : "/"
@@ -45662,7 +45666,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/mainView/index.jsx",
-                                lineNumber: 70,
+                                lineNumber: 72,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -45691,7 +45695,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/mainView/index.jsx",
-                                lineNumber: 84,
+                                lineNumber: 88,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -45720,7 +45724,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/mainView/index.jsx",
-                                lineNumber: 115,
+                                lineNumber: 119,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -45749,7 +45753,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/mainView/index.jsx",
-                                lineNumber: 150,
+                                lineNumber: 154,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -45778,7 +45782,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/mainView/index.jsx",
-                                lineNumber: 183,
+                                lineNumber: 187,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -45804,7 +45808,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/mainView/index.jsx",
-                                lineNumber: 216,
+                                lineNumber: 220,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -45824,7 +45828,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/mainView/index.jsx",
-                                lineNumber: 249,
+                                lineNumber: 253,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -45841,7 +45845,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/mainView/index.jsx",
-                                lineNumber: 274,
+                                lineNumber: 278,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -45850,11 +45854,11 @@ class MainView extends (0, _reactDefault.default).Component {
                                 render: async ()=>{
                                     localStorage.clear();
                                     await this.props.setUser("");
-                                    window.open("/", "_self");
+                                    window.open((0, _config.APP_MODE) === "prod" ? (0, _config.APP_ADDRESS) : "/", "_self");
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/mainView/index.jsx",
-                                lineNumber: 294,
+                                lineNumber: 298,
                                 columnNumber: 13
                             }, this)
                         ]
@@ -45870,7 +45874,7 @@ class MainView extends (0, _reactDefault.default).Component {
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _footerViewDefault.default), {}, void 0, false, {
                     fileName: "src/components/mainView/index.jsx",
-                    lineNumber: 305,
+                    lineNumber: 309,
                     columnNumber: 9
                 }, this)
             ]
@@ -50460,7 +50464,7 @@ function LoginView(props) {
                     props.onLoggedIn({
                         ...authData
                     });
-                    window.open("/", "_self");
+                    window.open((0, _config.APP_MODE) === "prod" ? (0, _config.APP_ADDRESS) : "/", "_self");
                 }
             });
         }).catch((err)=>{
@@ -51898,6 +51902,7 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _stylesScss = require("./styles.scss");
 // Import Bootstrap Components
 var _reactBootstrap = require("react-bootstrap");
+var _config = require("../../config");
 // Debugger
 const DEBUG = Boolean(undefined) || false;
 class LoadingView extends (0, _reactDefault.default).Component {
@@ -51906,7 +51911,7 @@ class LoadingView extends (0, _reactDefault.default).Component {
     }
     componentDidMount() {
         const user = localStorage.getItem("user");
-        if (!user) window.open("/", "_self");
+        if (!user) window.open((0, _config.APP_MODE) === "prod" ? (0, _config.APP_ADDRESS) : "/", "_self");
     }
     render() {
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -51918,22 +51923,22 @@ class LoadingView extends (0, _reactDefault.default).Component {
                         children: "Data is loading ..."
                     }, void 0, false, {
                         fileName: "src/components/loadingView/index.jsx",
-                        lineNumber: 28,
+                        lineNumber: 29,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "src/components/loadingView/index.jsx",
-                    lineNumber: 27,
+                    lineNumber: 28,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "src/components/loadingView/index.jsx",
-                lineNumber: 26,
+                lineNumber: 27,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "src/components/loadingView/index.jsx",
-            lineNumber: 25,
+            lineNumber: 26,
             columnNumber: 7
         }, this);
     }
@@ -51945,7 +51950,7 @@ exports.default = LoadingView;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./styles.scss":"2DK4I","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"2DK4I":[function() {},{}],"4ZxyJ":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./styles.scss":"2DK4I","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../../config":"jJOdS"}],"2DK4I":[function() {},{}],"4ZxyJ":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$9962 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -53837,6 +53842,8 @@ var _stylesScss = require("./styles.scss");
 // Import Bootstrap Components
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDomMin = require("react-router-dom/cjs/react-router-dom.min");
+// Configs
+var _config = require("../../config");
 const MenuBarView = ({ user  })=>{
     const isAuth = ()=>{
         if (typeof window == "undefined") return false;
@@ -53854,30 +53861,30 @@ const MenuBarView = ({ user  })=>{
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Brand, {
                     className: "navbar-logo",
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
-                        to: "/",
+                        to: (0, _config.APP_MODE) === "prod" ? (0, _config.APP_ADDRESS) : "/",
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
                             className: "navbar-brand",
                             children: "Musto Flix"
                         }, void 0, false, {
                             fileName: "src/components/menuBarView/index.jsx",
-                            lineNumber: 35,
+                            lineNumber: 38,
                             columnNumber: 13
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/menuBarView/index.jsx",
-                        lineNumber: 34,
+                        lineNumber: 37,
                         columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/menuBarView/index.jsx",
-                    lineNumber: 33,
+                    lineNumber: 36,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Toggle, {
                     "aria-controls": "responsive-navbar-nav"
                 }, void 0, false, {
                     fileName: "src/components/menuBarView/index.jsx",
-                    lineNumber: 38,
+                    lineNumber: 41,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
@@ -53886,7 +53893,7 @@ const MenuBarView = ({ user  })=>{
                         className: "ml-auto",
                         children: [
                             isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
-                                to: `/users/${user}`,
+                                to: (0, _config.APP_MODE) === "prod" ? `${0, _config.APP_ADDRESS}/users/${user}` : `/users/${user}`,
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                     variant: "link-outlined text-secondary",
                                     children: [
@@ -53896,86 +53903,85 @@ const MenuBarView = ({ user  })=>{
                                             children: user
                                         }, void 0, false, {
                                             fileName: "src/components/menuBarView/index.jsx",
-                                            lineNumber: 44,
+                                            lineNumber: 53,
                                             columnNumber: 33
-                                        }, undefined),
-                                        " "
+                                        }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/menuBarView/index.jsx",
-                                    lineNumber: 43,
+                                    lineNumber: 52,
                                     columnNumber: 17
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/menuBarView/index.jsx",
-                                lineNumber: 42,
+                                lineNumber: 45,
                                 columnNumber: 15
                             }, undefined),
                             isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
-                                to: "/logout",
+                                to: (0, _config.APP_MODE) === "prod" ? `${0, _config.APP_ADDRESS}/logout` : "/logout",
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                     variant: "link-outlined text-secondary",
                                     children: "Logout"
                                 }, void 0, false, {
                                     fileName: "src/components/menuBarView/index.jsx",
-                                    lineNumber: 50,
+                                    lineNumber: 61,
                                     columnNumber: 17
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/menuBarView/index.jsx",
-                                lineNumber: 49,
+                                lineNumber: 58,
                                 columnNumber: 15
                             }, undefined),
                             !isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
-                                to: "/",
+                                to: (0, _config.APP_MODE) === "prod" ? (0, _config.APP_ADDRESS) : "/",
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                     variant: "link-outlined text-secondary",
                                     children: "Sign In"
                                 }, void 0, false, {
                                     fileName: "src/components/menuBarView/index.jsx",
-                                    lineNumber: 55,
+                                    lineNumber: 66,
                                     columnNumber: 17
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/menuBarView/index.jsx",
-                                lineNumber: 54,
+                                lineNumber: 65,
                                 columnNumber: 15
                             }, undefined),
                             !isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
-                                to: "/register",
+                                to: (0, _config.APP_MODE) === "prod" ? `${0, _config.APP_ADDRESS}/register` : "/register",
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                     variant: "link-outlined text-secondary",
                                     children: "Sign Up"
                                 }, void 0, false, {
                                     fileName: "src/components/menuBarView/index.jsx",
-                                    lineNumber: 60,
+                                    lineNumber: 75,
                                     columnNumber: 17
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/menuBarView/index.jsx",
-                                lineNumber: 59,
+                                lineNumber: 70,
                                 columnNumber: 15
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/menuBarView/index.jsx",
-                        lineNumber: 40,
+                        lineNumber: 43,
                         columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/menuBarView/index.jsx",
-                    lineNumber: 39,
+                    lineNumber: 42,
                     columnNumber: 9
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/menuBarView/index.jsx",
-            lineNumber: 32,
+            lineNumber: 35,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/menuBarView/index.jsx",
-        lineNumber: 25,
+        lineNumber: 28,
         columnNumber: 5
     }, undefined);
 };
@@ -53992,7 +53998,7 @@ $RefreshReg$(_c, "MenuBarView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","prop-types":"7wKI2","./styles.scss":"hpKY8","react-bootstrap":"3AD9A","react-router-dom/cjs/react-router-dom.min":"4Y83O","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"hpKY8":[function() {},{}],"i9DyO":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","prop-types":"7wKI2","./styles.scss":"hpKY8","react-bootstrap":"3AD9A","react-router-dom/cjs/react-router-dom.min":"4Y83O","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../../config":"jJOdS"}],"hpKY8":[function() {},{}],"i9DyO":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$3257 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
