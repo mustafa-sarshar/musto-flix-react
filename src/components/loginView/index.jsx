@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import notifier from "../../utils/notifiers";
-import SERVER_ADDRESS from "../../config/serverInfo";
 
 // Import Styles
 import "./styles.scss";
@@ -11,7 +10,8 @@ import "./styles.scss";
 // Import Bootstrap Components
 import { Button, Form } from "react-bootstrap";
 
-// EnvVars
+// Configs
+import { SERVER_ADDRESS } from "../../config";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 function LoginView(props) {

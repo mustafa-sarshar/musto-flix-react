@@ -2,7 +2,6 @@
 import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import SERVER_ADDRESS from "../../config/serverInfo";
 
 // Import Redux
 import { connect } from "react-redux";
@@ -11,6 +10,7 @@ import { connect } from "react-redux";
 import "./styles.scss";
 
 // Import Bootstrap Components
+import { SERVER_ADDRESS } from "../../config";
 import { Row, Col, Card } from "react-bootstrap";
 
 // Import Custom Components
@@ -20,7 +20,7 @@ import UserInfoView from "./userInfoView";
 import UserFavoriteMoviesView from "./userFavoriteMoviesView";
 import UserAllMoviesView from "./userAllMoviesView";
 
-// EnvVars
+// Configs
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 class UserProfileView extends React.Component {

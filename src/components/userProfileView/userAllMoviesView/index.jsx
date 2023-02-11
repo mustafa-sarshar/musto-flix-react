@@ -1,7 +1,6 @@
 // Import Libs
 import React from "react";
 import axios from "axios";
-import SERVER_ADDRESS from "../../../config/serverInfo";
 
 // Import Redux
 import { connect } from "react-redux";
@@ -18,7 +17,8 @@ import { Card, Row, Col } from "react-bootstrap";
 import VisibilityFilterView from "../../visibilityFilterView";
 import MovieCard from "../../movieCard";
 
-// EnvVars
+// Configs
+import { SERVER_ADDRESS } from "../../../config";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 const UserAllMoviesView = (props) => {

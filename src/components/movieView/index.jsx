@@ -12,7 +12,7 @@ import { Row, Col, Table, Card, Button } from "react-bootstrap";
 // Import Custom Components
 import { MyButton } from "../myButton";
 
-// EnvVars
+// Configs
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 class MovieView extends React.Component {

@@ -23,7 +23,7 @@ import MainView from "./components/mainView";
 // Initialize the Redux
 const store = createStore(moviesAppReducer, {}, devToolsEnhancer());
 
-// EnvVars
+// Configs
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 // Main component (will eventually use all the others)

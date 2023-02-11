@@ -4,7 +4,6 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { setMovies, setUser, setFavorites } from "../../store/actions";
-import SERVER_ADDRESS from "../../config/serverInfo";
 
 // Import Styles
 import "./styles.scss";
@@ -25,7 +24,8 @@ import MenuBarView from "../menuBarView";
 import FooterView from "../footerView";
 import LoadingView from "../loadingView";
 
-// EnvVars
+// Configs
+import { SERVER_ADDRESS, APP_MODE, APP_ADDRESS } from "../../config";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 class MainView extends React.Component {
@@ -45,7 +45,7 @@ class MainView extends React.Component {
         <Row className="main-view justify-content-md-center mt-1">
           <Switch>
             <Route
-              path="/"
+              path={APP_MODE === "prod" ? APP_ADDRESS : "/"}
               exact
               render={() => {
                 if (!user) {
@@ -68,9 +68,12 @@ class MainView extends React.Component {
             />
 
             <Route
-              path="/register"
+              path={APP_MODE === "prod" ? `$APP_ADDRESS/register` : "/register"}
               render={() => {
-                if (user) return <Redirect to="/" />;
+                if (user)
+                  return (
+                    <Redirect to={APP_MODE === "prod" ? APP_ADDRESS : "/"} />
+                  );
                 return (
                   <Col sm={12} lg={8}>
                     <RegistrationView />
@@ -110,7 +113,11 @@ class MainView extends React.Component {
             />
 
             <Route
-              path="/movies/:id/details"
+              path={
+                APP_MODE === "prod"
+                  ? `${APP_ADDRESS}/movies/:id/details`
+                  : "/movies/:id/details"
+              }
               render={({ match }) => {
                 if (!user) {
                   return (
@@ -141,7 +148,11 @@ class MainView extends React.Component {
             />
 
             <Route
-              path="/directors/:id"
+              path={
+                APP_MODE === "prod"
+                  ? `${APP_ADDRESS}/directors/:id`
+                  : "/directors/:id"
+              }
               render={({ history }) => {
                 if (!user) {
                   return (
@@ -170,7 +181,11 @@ class MainView extends React.Component {
             />
 
             <Route
-              path="/actors/:id"
+              path={
+                APP_MODE === "prod"
+                  ? `${APP_ADDRESS}/actors/:id`
+                  : "/actors/:id"
+              }
               render={({ history }) => {
                 if (!user) {
                   return (
@@ -199,7 +214,11 @@ class MainView extends React.Component {
             />
 
             <Route
-              path="/genres/:id"
+              path={
+                APP_MODE === "prod"
+                  ? `${APP_ADDRESS}/genres/:id`
+                  : "/genres/:id"
+              }
               render={({ history }) => {
                 if (!user) {
                   return (
@@ -228,7 +247,11 @@ class MainView extends React.Component {
             />
 
             <Route
-              path={`/users/:username`}
+              path={
+                APP_MODE === "prod"
+                  ? `${APP_ADDRESS}/users/:username`
+                  : "/users/:username"
+              }
               render={({ match, history }) => {
                 if (!user) {
                   return (
@@ -249,7 +272,11 @@ class MainView extends React.Component {
             />
 
             <Route
-              path={`/user-update`}
+              path={
+                APP_MODE === "prod"
+                  ? `${APP_ADDRESS}/user-update`
+                  : "/user-update"
+              }
               render={({ match, history }) => {
                 if (!user) {
                   return (
@@ -258,13 +285,15 @@ class MainView extends React.Component {
                     </Col>
                   );
                 }
-                return <Redirect to="/" />;
+                return (
+                  <Redirect to={APP_MODE === "prod" ? APP_ADDRESS : "/"} />
+                );
               }}
             />
 
             <Route
               exact
-              path="/logout"
+              path={APP_MODE === "prod" ? `${APP_ADDRESS}/logout` : "/logout"}
               render={async () => {
                 localStorage.clear();
                 await this.props.setUser("");

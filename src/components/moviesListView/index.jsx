@@ -4,7 +4,6 @@ import axios from "axios";
 import { connect } from "react-redux";
 
 import { setFavorites } from "../../store/actions";
-import SERVER_ADDRESS from "../../config/serverInfo";
 
 // Import Styles
 import "./styles.scss";
@@ -17,7 +16,8 @@ import MovieCard from "../movieCard";
 import LoadingView from "../loadingView";
 import VisibilityFilterView from "../visibilityFilterView";
 
-// EnvVars
+// Configs
+import { SERVER_ADDRESS } from "../../config";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 class MoviesListView extends React.Component {

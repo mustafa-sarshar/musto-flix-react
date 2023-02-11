@@ -13,7 +13,7 @@ import { Row, Col, Table, Card } from "react-bootstrap";
 // Import Custom Components
 import { MyButton } from "../myButton";
 
-// EnvVars
+// Configs
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 const ActorView = (props) => {

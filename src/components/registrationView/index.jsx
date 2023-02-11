@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import dateFormat from "../../utils/dateFormat";
 import notifier from "../../utils/notifiers";
-import SERVER_ADDRESS from "../../config/serverInfo";
 
 // Import Styles
 import "./styles.scss";
@@ -11,7 +10,8 @@ import "./styles.scss";
 // Import Bootstrap Components
 import { Form, Button } from "react-bootstrap";
 
-// EnvVars
+// Configs
+import { SERVER_ADDRESS } from "../../config";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 function RegistrationView(props) {

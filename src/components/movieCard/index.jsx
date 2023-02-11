@@ -9,7 +9,7 @@ import "./styles.scss";
 // Import Bootstrap Components
 import { Card, Button } from "react-bootstrap";
 
-// EnvVars
+// Configs
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 const MovieCard = (props) => {

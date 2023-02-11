@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import dateFormat from "../../../utils/dateFormat";
 import notifier from "../../../utils/notifiers";
-import SERVER_ADDRESS from "../../../config/serverInfo";
 
 // Import Styles
 import "./styles.scss";
@@ -12,7 +11,8 @@ import "./styles.scss";
 // Import Bootstrap Components
 import { Form, Button, Modal, Row, Col, Card } from "react-bootstrap";
 
-// EnvVars
+// Configs
+import { SERVER_ADDRESS } from "../../../config";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 const UserInfoView = (props) => {
