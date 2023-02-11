@@ -51272,6 +51272,7 @@ var _stylesScss = require("./styles.scss");
 var _reactBootstrap = require("react-bootstrap");
 // Import Custom Components
 var _myButton = require("../myButton");
+var _config = require("../../config");
 // Configs
 const DEBUG = Boolean(undefined) || false;
 class MovieView extends (0, _reactDefault.default).Component {
@@ -51294,17 +51295,17 @@ class MovieView extends (0, _reactDefault.default).Component {
                                         children: movie && movie.title
                                     }, void 0, false, {
                                         fileName: "src/components/movieView/index.jsx",
-                                        lineNumber: 35,
+                                        lineNumber: 36,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "src/components/movieView/index.jsx",
-                                    lineNumber: 34,
+                                    lineNumber: 35,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/movieView/index.jsx",
-                                lineNumber: 33,
+                                lineNumber: 34,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
@@ -51315,12 +51316,12 @@ class MovieView extends (0, _reactDefault.default).Component {
                                             src: movie && movie.image_url
                                         }, void 0, false, {
                                             fileName: "src/components/movieView/index.jsx",
-                                            lineNumber: 40,
+                                            lineNumber: 41,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "src/components/movieView/index.jsx",
-                                        lineNumber: 39,
+                                        lineNumber: 40,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Table), {
@@ -51338,36 +51339,36 @@ class MovieView extends (0, _reactDefault.default).Component {
                                                             children: "Genre(s)"
                                                         }, void 0, false, {
                                                             fileName: "src/components/movieView/index.jsx",
-                                                            lineNumber: 45,
+                                                            lineNumber: 46,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                                             children: movie.genres.map((genre)=>{
                                                                 return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
-                                                                    to: `/genres/${genre._id}`,
+                                                                    to: (0, _config.APP_MODE) === "prod" ? `${0, _config.APP_ADDRESS}/genres/${genre._id}` : `/genres/${genre._id}`,
                                                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                                                         variant: "link",
                                                                         children: genre.name
                                                                     }, genre._id, false, {
                                                                         fileName: "src/components/movieView/index.jsx",
-                                                                        lineNumber: 50,
+                                                                        lineNumber: 58,
                                                                         columnNumber: 31
                                                                     }, this)
                                                                 }, genre._id, false, {
                                                                     fileName: "src/components/movieView/index.jsx",
-                                                                    lineNumber: 49,
+                                                                    lineNumber: 50,
                                                                     columnNumber: 29
                                                                 }, this);
                                                             })
                                                         }, void 0, false, {
                                                             fileName: "src/components/movieView/index.jsx",
-                                                            lineNumber: 46,
+                                                            lineNumber: 47,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "src/components/movieView/index.jsx",
-                                                    lineNumber: 44,
+                                                    lineNumber: 45,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
@@ -51377,13 +51378,13 @@ class MovieView extends (0, _reactDefault.default).Component {
                                                             children: "Director(s)"
                                                         }, void 0, false, {
                                                             fileName: "src/components/movieView/index.jsx",
-                                                            lineNumber: 59,
+                                                            lineNumber: 67,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                                             children: movie.directors.map((director)=>{
                                                                 return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
-                                                                    to: `/directors/${director._id}`,
+                                                                    to: (0, _config.APP_MODE) === "prod" ? `${0, _config.APP_ADDRESS}/directors/${director._id}` : `/directors/${director._id}`,
                                                                     state: {
                                                                         director: movie.director
                                                                     },
@@ -51392,24 +51393,24 @@ class MovieView extends (0, _reactDefault.default).Component {
                                                                         children: director.name
                                                                     }, director._id, false, {
                                                                         fileName: "src/components/movieView/index.jsx",
-                                                                        lineNumber: 68,
+                                                                        lineNumber: 80,
                                                                         columnNumber: 31
                                                                     }, this)
                                                                 }, director._id, false, {
                                                                     fileName: "src/components/movieView/index.jsx",
-                                                                    lineNumber: 63,
+                                                                    lineNumber: 71,
                                                                     columnNumber: 29
                                                                 }, this);
                                                             })
                                                         }, void 0, false, {
                                                             fileName: "src/components/movieView/index.jsx",
-                                                            lineNumber: 60,
+                                                            lineNumber: 68,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "src/components/movieView/index.jsx",
-                                                    lineNumber: 58,
+                                                    lineNumber: 66,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
@@ -51419,47 +51420,47 @@ class MovieView extends (0, _reactDefault.default).Component {
                                                             children: "Star(s)"
                                                         }, void 0, false, {
                                                             fileName: "src/components/movieView/index.jsx",
-                                                            lineNumber: 77,
+                                                            lineNumber: 89,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                                             children: movie.stars.map((star)=>{
                                                                 return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
-                                                                    to: `/actors/${star._id}`,
+                                                                    to: (0, _config.APP_MODE) === "prod" ? `${0, _config.APP_ADDRESS}/actors/${star._id}` : `/actors/${star._id}`,
                                                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                                                         variant: "link",
                                                                         children: star.name
                                                                     }, star._id, false, {
                                                                         fileName: "src/components/movieView/index.jsx",
-                                                                        lineNumber: 82,
+                                                                        lineNumber: 101,
                                                                         columnNumber: 31
                                                                     }, this)
                                                                 }, star._id, false, {
                                                                     fileName: "src/components/movieView/index.jsx",
-                                                                    lineNumber: 81,
+                                                                    lineNumber: 93,
                                                                     columnNumber: 29
                                                                 }, this);
                                                             })
                                                         }, void 0, false, {
                                                             fileName: "src/components/movieView/index.jsx",
-                                                            lineNumber: 78,
+                                                            lineNumber: 90,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "src/components/movieView/index.jsx",
-                                                    lineNumber: 76,
+                                                    lineNumber: 88,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/movieView/index.jsx",
-                                            lineNumber: 43,
+                                            lineNumber: 44,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "src/components/movieView/index.jsx",
-                                        lineNumber: 42,
+                                        lineNumber: 43,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -51467,13 +51468,13 @@ class MovieView extends (0, _reactDefault.default).Component {
                                         children: movie && movie.des
                                     }, void 0, false, {
                                         fileName: "src/components/movieView/index.jsx",
-                                        lineNumber: 92,
+                                        lineNumber: 111,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/movieView/index.jsx",
-                                lineNumber: 38,
+                                lineNumber: 39,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Footer, {
@@ -51486,33 +51487,33 @@ class MovieView extends (0, _reactDefault.default).Component {
                                     }
                                 }, void 0, false, {
                                     fileName: "src/components/movieView/index.jsx",
-                                    lineNumber: 95,
+                                    lineNumber: 114,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/movieView/index.jsx",
-                                lineNumber: 94,
+                                lineNumber: 113,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movieView/index.jsx",
-                        lineNumber: 32,
+                        lineNumber: 33,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "src/components/movieView/index.jsx",
-                    lineNumber: 31,
+                    lineNumber: 32,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "src/components/movieView/index.jsx",
-                lineNumber: 30,
+                lineNumber: 31,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "src/components/movieView/index.jsx",
-            lineNumber: 29,
+            lineNumber: 30,
             columnNumber: 7
         }, this);
     }
