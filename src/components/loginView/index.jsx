@@ -11,7 +11,7 @@ import "./styles.scss";
 import { Button, Form } from "react-bootstrap";
 
 // Configs
-import { SERVER_ADDRESS } from "../../config";
+import { SERVER_ADDRESS, APP_MODE, APP_ADDRESS } from "../../config";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 function LoginView(props) {
@@ -78,7 +78,7 @@ function LoginView(props) {
           autoClose: 1000,
           onClose: () => {
             props.onLoggedIn({ ...authData });
-            window.open("/", "_self");
+            window.open(APP_MODE === "prod" ? APP_ADDRESS : "/", "_self");
           },
         });
       })

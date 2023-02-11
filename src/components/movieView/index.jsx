@@ -14,6 +14,7 @@ import { MyButton } from "../myButton";
 
 // Configs
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
+import { APP_MODE, APP_ADDRESS } from "../../config";
 
 class MovieView extends React.Component {
   constructor(props) {
@@ -46,7 +47,14 @@ class MovieView extends React.Component {
                       <td>
                         {movie.genres.map((genre) => {
                           return (
-                            <Link key={genre._id} to={`/genres/${genre._id}`}>
+                            <Link
+                              key={genre._id}
+                              to={
+                                APP_MODE === "prod"
+                                  ? `${APP_ADDRESS}/genres/${genre._id}`
+                                  : `/genres/${genre._id}`
+                              }
+                            >
                               <Button key={genre._id} variant="link">
                                 {genre.name}
                               </Button>
@@ -62,7 +70,11 @@ class MovieView extends React.Component {
                           return (
                             <Link
                               key={director._id}
-                              to={`/directors/${director._id}`}
+                              to={
+                                APP_MODE === "prod"
+                                  ? `${APP_ADDRESS}/directors/${director._id}`
+                                  : `/directors/${director._id}`
+                              }
                               state={{ director: movie.director }}
                             >
                               <Button key={director._id} variant="link">
@@ -78,7 +90,14 @@ class MovieView extends React.Component {
                       <td>
                         {movie.stars.map((star) => {
                           return (
-                            <Link key={star._id} to={`/actors/${star._id}`}>
+                            <Link
+                              key={star._id}
+                              to={
+                                APP_MODE === "prod"
+                                  ? `${APP_ADDRESS}/actors/${star._id}`
+                                  : `/actors/${star._id}`
+                              }
+                            >
                               <Button key={star._id} variant="link">
                                 {star.name}
                               </Button>

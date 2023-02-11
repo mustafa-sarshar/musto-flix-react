@@ -50,7 +50,7 @@ const MenuBarView = ({ user }) => {
                 }
               >
                 <Button variant="link-outlined text-secondary">
-                  Signed in as: <span className="navbar__username">{user}</span>{" "}
+                  Signed in as: <span className="navbar__username">{user}</span>
                 </Button>
               </Link>
             )}

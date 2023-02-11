@@ -9,6 +9,7 @@ import { Row, Col } from "react-bootstrap";
 
 // Debugger
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
+import { APP_MODE, APP_ADDRESS } from "../../config";
 
 class LoadingView extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class LoadingView extends React.Component {
   componentDidMount() {
     const user = localStorage.getItem("user");
     if (!user) {
-      window.open("/", "_self");
+      window.open(APP_MODE === "prod" ? APP_ADDRESS : "/", "_self");
     }
   }
   render() {

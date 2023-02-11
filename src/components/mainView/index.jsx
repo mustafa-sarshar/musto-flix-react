@@ -68,7 +68,9 @@ class MainView extends React.Component {
             />
 
             <Route
-              path={APP_MODE === "prod" ? `${APP_ADDRESS}/register` : "/register"}
+              path={
+                APP_MODE === "prod" ? `${APP_ADDRESS}/register` : "/register"
+              }
               render={() => {
                 if (user)
                   return (
@@ -297,7 +299,7 @@ class MainView extends React.Component {
               render={async () => {
                 localStorage.clear();
                 await this.props.setUser("");
-                window.open("/", "_self");
+                window.open(APP_MODE === "prod" ? APP_ADDRESS : "/", "_self");
               }}
             />
           </Switch>
