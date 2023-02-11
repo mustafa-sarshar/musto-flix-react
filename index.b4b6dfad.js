@@ -51557,20 +51557,46 @@ const MenuBarView = ({ user  })=>{
                                 columnNumber: 15
                             }, undefined),
                             !isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                href: "/",
-                                children: "Sign-in"
-                            }, void 0, false, {
-                                fileName: "src/components/menuBarView/index.jsx",
-                                lineNumber: 49,
-                                columnNumber: 27
-                            }, undefined),
-                            !isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                href: "/register",
-                                children: "Sign-up"
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
+                                    to: "/",
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                        variant: "link",
+                                        children: "Sign-in"
+                                    }, void 0, false, {
+                                        fileName: "src/components/menuBarView/index.jsx",
+                                        lineNumber: 52,
+                                        columnNumber: 19
+                                    }, undefined)
+                                }, void 0, false, {
+                                    fileName: "src/components/menuBarView/index.jsx",
+                                    lineNumber: 51,
+                                    columnNumber: 17
+                                }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/menuBarView/index.jsx",
                                 lineNumber: 50,
-                                columnNumber: 27
+                                columnNumber: 15
+                            }, undefined),
+                            !isAuth() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDomMin.Link), {
+                                    to: "/register",
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                        variant: "link",
+                                        children: "Sign-up"
+                                    }, void 0, false, {
+                                        fileName: "src/components/menuBarView/index.jsx",
+                                        lineNumber: 59,
+                                        columnNumber: 19
+                                    }, undefined)
+                                }, void 0, false, {
+                                    fileName: "src/components/menuBarView/index.jsx",
+                                    lineNumber: 58,
+                                    columnNumber: 17
+                                }, undefined)
+                            }, void 0, false, {
+                                fileName: "src/components/menuBarView/index.jsx",
+                                lineNumber: 57,
+                                columnNumber: 15
                             }, undefined)
                         ]
                     }, void 0, true, {
