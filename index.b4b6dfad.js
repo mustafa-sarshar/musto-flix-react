@@ -45856,7 +45856,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 exact: true,
                                 path: (0, _config.APP_MODE) === "prod" ? `${0, _config.APP_ADDRESS}/logout` : "/logout",
                                 render: async ()=>{
-                                    localStorage.clear();
+                                    await localStorage.clear();
                                     await this.props.setUser("");
                                     window.open((0, _config.APP_MODE) === "prod" ? `${0, _config.APP_ADDRESS}/` : "/", "_self");
                                 }
@@ -52413,6 +52413,7 @@ const UserInfoView = (props)=>{
             reqInstance.put(`${(0, _config.SERVER_ADDRESS)}/users/${username}`, userUpdate).then((response)=>{
                 const data = response.data;
                 if (DEBUG) console.log(data);
+                console.log("Location:", location);
                 if (usernameUpdate) {
                     localStorage.setItem("user", usernameUpdate);
                     window.open((0, _config.APP_MODE) === "prod" ? `${0, _config.APP_ADDRESS}/user-update` : "/user-update", "_self");
@@ -52489,12 +52490,12 @@ const UserInfoView = (props)=>{
                             children: "Warning"
                         }, void 0, false, {
                             fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                            lineNumber: 219,
+                            lineNumber: 221,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                        lineNumber: 218,
+                        lineNumber: 220,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Body, {
@@ -52505,7 +52506,7 @@ const UserInfoView = (props)=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                        lineNumber: 221,
+                        lineNumber: 223,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
@@ -52516,7 +52517,7 @@ const UserInfoView = (props)=>{
                                 children: "Cancel"
                             }, void 0, false, {
                                 fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                lineNumber: 226,
+                                lineNumber: 228,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -52525,19 +52526,19 @@ const UserInfoView = (props)=>{
                                 children: "Yes"
                             }, void 0, false, {
                                 fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                lineNumber: 229,
+                                lineNumber: 231,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                        lineNumber: 225,
+                        lineNumber: 227,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                lineNumber: 217,
+                lineNumber: 219,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -52558,7 +52559,7 @@ const UserInfoView = (props)=>{
                                                     children: "Email"
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 240,
+                                                    lineNumber: 242,
                                                     columnNumber: 19
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Text, {
@@ -52566,13 +52567,13 @@ const UserInfoView = (props)=>{
                                                     children: email
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 241,
+                                                    lineNumber: 243,
                                                     columnNumber: 19
                                                 }, undefined)
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                            lineNumber: 239,
+                                            lineNumber: 241,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -52583,7 +52584,7 @@ const UserInfoView = (props)=>{
                                                     children: "Birth date"
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 245,
+                                                    lineNumber: 247,
                                                     columnNumber: 19
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Text, {
@@ -52591,18 +52592,18 @@ const UserInfoView = (props)=>{
                                                     children: birth ? (0, _dateFormatDefault.default)(birth, "toLocaleDateString") : "NA"
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 246,
+                                                    lineNumber: 248,
                                                     columnNumber: 19
                                                 }, undefined)
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                            lineNumber: 244,
+                                            lineNumber: 246,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
                                             fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                            lineNumber: 250,
+                                            lineNumber: 252,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -52616,33 +52617,33 @@ const UserInfoView = (props)=>{
                                                 children: "Delete Account"
                                             }, void 0, false, {
                                                 fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                lineNumber: 252,
+                                                lineNumber: 254,
                                                 columnNumber: 19
                                             }, undefined)
                                         }, void 0, false, {
                                             fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                            lineNumber: 251,
+                                            lineNumber: 253,
                                             columnNumber: 17
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                    lineNumber: 238,
+                                    lineNumber: 240,
                                     columnNumber: 15
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                lineNumber: 237,
+                                lineNumber: 239,
                                 columnNumber: 13
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                            lineNumber: 236,
+                            lineNumber: 238,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                        lineNumber: 235,
+                        lineNumber: 237,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -52661,7 +52662,7 @@ const UserInfoView = (props)=>{
                                                     children: "Username"
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 270,
+                                                    lineNumber: 272,
                                                     columnNumber: 19
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -52672,7 +52673,7 @@ const UserInfoView = (props)=>{
                                                     onChange: (e)=>setUsernameUpdate(e.target.value)
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 271,
+                                                    lineNumber: 273,
                                                     columnNumber: 19
                                                 }, undefined),
                                                 usernameErr && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Text, {
@@ -52680,13 +52681,13 @@ const UserInfoView = (props)=>{
                                                     children: usernameErr
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 280,
+                                                    lineNumber: 282,
                                                     columnNumber: 21
                                                 }, undefined)
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                            lineNumber: 269,
+                                            lineNumber: 271,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -52697,7 +52698,7 @@ const UserInfoView = (props)=>{
                                                     children: "Email"
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 287,
+                                                    lineNumber: 289,
                                                     columnNumber: 19
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -52707,7 +52708,7 @@ const UserInfoView = (props)=>{
                                                     onChange: (e)=>setEmailUpdate(e.target.value)
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 288,
+                                                    lineNumber: 290,
                                                     columnNumber: 19
                                                 }, undefined),
                                                 emailErr && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Text, {
@@ -52715,13 +52716,13 @@ const UserInfoView = (props)=>{
                                                     children: emailErr
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 296,
+                                                    lineNumber: 298,
                                                     columnNumber: 21
                                                 }, undefined)
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                            lineNumber: 286,
+                                            lineNumber: 288,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -52732,7 +52733,7 @@ const UserInfoView = (props)=>{
                                                     children: "Password"
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 303,
+                                                    lineNumber: 305,
                                                     columnNumber: 19
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -52743,7 +52744,7 @@ const UserInfoView = (props)=>{
                                                     onChange: (e)=>setPasswordUpdate(e.target.value)
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 304,
+                                                    lineNumber: 306,
                                                     columnNumber: 19
                                                 }, undefined),
                                                 passwordErr && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Text, {
@@ -52751,13 +52752,13 @@ const UserInfoView = (props)=>{
                                                     children: passwordErr
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 313,
+                                                    lineNumber: 315,
                                                     columnNumber: 21
                                                 }, undefined)
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                            lineNumber: 302,
+                                            lineNumber: 304,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -52768,7 +52769,7 @@ const UserInfoView = (props)=>{
                                                     children: "Birth date"
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 320,
+                                                    lineNumber: 322,
                                                     columnNumber: 19
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -52778,7 +52779,7 @@ const UserInfoView = (props)=>{
                                                     onChange: (e)=>setBirthUpdate((0, _dateFormatDefault.default)(e.target.value))
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 321,
+                                                    lineNumber: 323,
                                                     columnNumber: 19
                                                 }, undefined),
                                                 birthErr && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Text, {
@@ -52786,13 +52787,13 @@ const UserInfoView = (props)=>{
                                                     children: birthErr
                                                 }, void 0, false, {
                                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                    lineNumber: 329,
+                                                    lineNumber: 331,
                                                     columnNumber: 21
                                                 }, undefined)
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                            lineNumber: 319,
+                                            lineNumber: 321,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -52806,12 +52807,12 @@ const UserInfoView = (props)=>{
                                                 children: "Update"
                                             }, void 0, false, {
                                                 fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                                lineNumber: 336,
+                                                lineNumber: 338,
                                                 columnNumber: 19
                                             }, undefined)
                                         }, void 0, false, {
                                             fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                            lineNumber: 335,
+                                            lineNumber: 337,
                                             columnNumber: 17
                                         }, undefined),
                                         updateErr && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Text, {
@@ -52819,44 +52820,44 @@ const UserInfoView = (props)=>{
                                             children: updateErr
                                         }, void 0, false, {
                                             fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                            lineNumber: 347,
+                                            lineNumber: 349,
                                             columnNumber: 19
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                    lineNumber: 268,
+                                    lineNumber: 270,
                                     columnNumber: 15
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                                lineNumber: 267,
+                                lineNumber: 269,
                                 columnNumber: 13
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                            lineNumber: 266,
+                            lineNumber: 268,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                        lineNumber: 265,
+                        lineNumber: 267,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                lineNumber: 234,
+                lineNumber: 236,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                 fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                lineNumber: 357,
+                lineNumber: 359,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                 fileName: "src/components/userProfileView/userInfoView/index.jsx",
-                lineNumber: 358,
+                lineNumber: 360,
                 columnNumber: 7
             }, undefined)
         ]
