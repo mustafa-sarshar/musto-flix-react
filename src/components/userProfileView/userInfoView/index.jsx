@@ -119,12 +119,13 @@ const UserInfoView = (props) => {
           if (DEBUG) console.log(data);
           if (usernameUpdate) {
             localStorage.setItem("user", usernameUpdate);
-            window.open(
-              APP_MODE === "prod"
-                ? `${APP_ADDRESS}/user-update`
-                : "/user-update",
-              "_self"
-            );
+            window.open(APP_MODE === "prod" ? `${APP_ADDRESS}/` : "/", "_self");
+            // window.open(
+            //   APP_MODE === "prod"
+            //     ? `${APP_ADDRESS}/user-update`
+            //     : "/user-update",
+            //   "_self"
+            // );
           } else {
             notifier.notifySuccess("Data updated successfully", {
               position: "top-center",
@@ -173,8 +174,7 @@ const UserInfoView = (props) => {
               autoClose: 2500,
               onClose: () =>
                 window.open(
-                  APP_MODE === "prod" ? `${APP_ADDRESS}/logout` : "/logout",
-                  "_self"
+                  APP_MODE === "prod" ? `${APP_ADDRESS}/logout` : "/logout"
                 ),
             }
           );

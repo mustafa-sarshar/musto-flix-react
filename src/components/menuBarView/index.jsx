@@ -34,7 +34,7 @@ const MenuBarView = ({ user }) => {
     >
       <Container>
         <Navbar.Brand className="navbar-logo">
-          <Link to={APP_MODE === "prod" ? APP_ADDRESS : "/"}>
+          <Link to={APP_MODE === "prod" ? `${APP_ADDRESS}/` : "/"}>
             <span className="navbar-brand">Musto Flix</span>
           </Link>
         </Navbar.Brand>
@@ -62,7 +62,7 @@ const MenuBarView = ({ user }) => {
               </Link>
             )}
             {!isAuth() && (
-              <Link to={APP_MODE === "prod" ? APP_ADDRESS : "/"}>
+              <Link to={APP_MODE === "prod" ? `${APP_ADDRESS}/` : "/"}>
                 <Button variant="link-outlined text-secondary">Sign In</Button>
               </Link>
             )}

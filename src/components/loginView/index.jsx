@@ -78,7 +78,7 @@ function LoginView(props) {
           autoClose: 1000,
           onClose: () => {
             props.onLoggedIn({ ...authData });
-            window.open(APP_MODE === "prod" ? APP_ADDRESS : "/", "_self");
+            window.open(APP_MODE === "prod" ? `${APP_ADDRESS}/` : "/", "_self");
           },
         });
       })

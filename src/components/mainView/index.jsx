@@ -45,8 +45,8 @@ class MainView extends React.Component {
         <Row className="main-view justify-content-md-center mt-1">
           <Switch>
             <Route
-              path={APP_MODE === "prod" ? APP_ADDRESS : "/"}
               exact
+              path={APP_MODE === "prod" ? `${APP_ADDRESS}/` : "/"}
               render={() => {
                 if (!user) {
                   return (
@@ -68,13 +68,16 @@ class MainView extends React.Component {
             />
 
             <Route
+              exact
               path={
                 APP_MODE === "prod" ? `${APP_ADDRESS}/register` : "/register"
               }
               render={() => {
                 if (user)
                   return (
-                    <Redirect to={APP_MODE === "prod" ? APP_ADDRESS : "/"} />
+                    <Redirect
+                      to={APP_MODE === "prod" ? `${APP_ADDRESS}/` : "/"}
+                    />
                   );
                 return (
                   <Col sm={12} lg={8}>
@@ -84,7 +87,12 @@ class MainView extends React.Component {
               }}
             />
             <Route
-              path="/movies/:id"
+              exact
+              path={
+                APP_MODE === "prod"
+                  ? `${APP_ADDRESS}/movies/:id`
+                  : "/movies/:id"
+              }
               render={({ match, history }) => {
                 if (!user) {
                   return (
@@ -115,6 +123,7 @@ class MainView extends React.Component {
             />
 
             <Route
+              exact
               path={
                 APP_MODE === "prod"
                   ? `${APP_ADDRESS}/movies/:id/details`
@@ -150,6 +159,7 @@ class MainView extends React.Component {
             />
 
             <Route
+              exact
               path={
                 APP_MODE === "prod"
                   ? `${APP_ADDRESS}/directors/:id`
@@ -183,6 +193,7 @@ class MainView extends React.Component {
             />
 
             <Route
+              exact
               path={
                 APP_MODE === "prod"
                   ? `${APP_ADDRESS}/actors/:id`
@@ -216,6 +227,7 @@ class MainView extends React.Component {
             />
 
             <Route
+              exact
               path={
                 APP_MODE === "prod"
                   ? `${APP_ADDRESS}/genres/:id`
@@ -249,6 +261,7 @@ class MainView extends React.Component {
             />
 
             <Route
+              exact
               path={
                 APP_MODE === "prod"
                   ? `${APP_ADDRESS}/users/:username`
@@ -274,6 +287,7 @@ class MainView extends React.Component {
             />
 
             <Route
+              exact
               path={
                 APP_MODE === "prod"
                   ? `${APP_ADDRESS}/user-update`
@@ -288,7 +302,9 @@ class MainView extends React.Component {
                   );
                 }
                 return (
-                  <Redirect to={APP_MODE === "prod" ? APP_ADDRESS : "/"} />
+                  <Redirect
+                    to={APP_MODE === "prod" ? `${APP_ADDRESS}/` : "/"}
+                  />
                 );
               }}
             />
@@ -299,7 +315,10 @@ class MainView extends React.Component {
               render={async () => {
                 localStorage.clear();
                 await this.props.setUser("");
-                window.open(APP_MODE === "prod" ? APP_ADDRESS : "/", "_self");
+                window.open(
+                  APP_MODE === "prod" ? `${APP_ADDRESS}/` : "/",
+                  "_self"
+                );
               }}
             />
           </Switch>

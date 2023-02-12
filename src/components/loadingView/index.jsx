@@ -18,7 +18,7 @@ class LoadingView extends React.Component {
   componentDidMount() {
     const user = localStorage.getItem("user");
     if (!user) {
-      window.open(APP_MODE === "prod" ? APP_ADDRESS : "/", "_self");
+      window.open(APP_MODE === "prod" ? `${APP_ADDRESS}/` : "/", "_self");
     }
   }
   render() {

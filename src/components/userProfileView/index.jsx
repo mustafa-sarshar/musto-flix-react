@@ -10,7 +10,6 @@ import { connect } from "react-redux";
 import "./styles.scss";
 
 // Import Bootstrap Components
-import { SERVER_ADDRESS } from "../../config";
 import { Row, Col, Card } from "react-bootstrap";
 
 // Import Custom Components
@@ -21,7 +20,7 @@ import UserFavoriteMoviesView from "./userFavoriteMoviesView";
 import UserAllMoviesView from "./userAllMoviesView";
 
 // Configs
-import { APP_MODE, APP_ADDRESS } from "../../config";
+import { SERVER_ADDRESS, APP_MODE, APP_ADDRESS } from "../../config";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 class UserProfileView extends React.Component {
@@ -41,7 +40,7 @@ class UserProfileView extends React.Component {
 
     if (user !== username) {
       console.log("Hack attack detected");
-      window.open(APP_MODE === "prod" ? APP_ADDRESS : "/", "_self");
+      window.open(APP_MODE === "prod" ? `${APP_ADDRESS}/` : "/", "_self");
     }
 
     if (!userData) {

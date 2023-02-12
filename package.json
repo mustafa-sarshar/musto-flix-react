@@ -1,12 +1,13 @@
 {
   "name": "musto-flix-react",
-  "version": "2.1.0",
+  "version": "2.1.4",
   "description": "This app is the front-end part of the main app.",
   "alias": {
     "process": false
   },
   "scripts": {
     "start": "parcel src/index.html",
+    "build-dev": "parcel build src/index.html --public-url ./",
     "build": "parcel build src/index.html --public-url /musto-flix-react/",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"

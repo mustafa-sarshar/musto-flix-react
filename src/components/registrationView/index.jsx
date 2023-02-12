@@ -120,7 +120,10 @@ function RegistrationView(props) {
               position: "top-center",
               autoClose: 2500,
               onClose: () =>
-                window.open(APP_MODE === "prod" ? APP_ADDRESS : "/", "_self"),
+                window.open(
+                  APP_MODE === "prod" ? `${APP_ADDRESS}/` : "/",
+                  "_self"
+                ),
             }
           );
         })

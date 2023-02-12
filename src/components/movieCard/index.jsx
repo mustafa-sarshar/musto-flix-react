@@ -10,6 +10,7 @@ import "./styles.scss";
 import { Card, Button } from "react-bootstrap";
 
 // Configs
+import { APP_MODE, APP_ADDRESS } from "../../config";
 const DEBUG = Boolean(process.env.DEBUG_MY_APP) || false;
 
 const MovieCard = (props) => {
@@ -46,9 +47,11 @@ const MovieCard = (props) => {
         )}
         {showOpenBtn && (
           <Link
-            to={{
-              pathname: `/movies/${movie._id}`,
-            }}
+            to={
+              APP_MODE === "prod"
+                ? `${APP_ADDRESS}/movies/${movie._id}`
+                : `/movies/${movie._id}`
+            }
           >
             <Button variant="link" className="text-primary">
               Open
