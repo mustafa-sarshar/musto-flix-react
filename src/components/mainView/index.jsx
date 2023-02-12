@@ -313,7 +313,7 @@ class MainView extends React.Component {
               exact
               path={APP_MODE === "prod" ? `${APP_ADDRESS}/logout` : "/logout"}
               render={async () => {
-                localStorage.clear();
+                await localStorage.clear();
                 await this.props.setUser("");
                 window.open(
                   APP_MODE === "prod" ? `${APP_ADDRESS}/` : "/",

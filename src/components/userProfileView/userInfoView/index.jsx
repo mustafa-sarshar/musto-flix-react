@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+
 import dateFormat from "../../../utils/dateFormat";
 import notifier from "../../../utils/notifiers";
 
@@ -117,15 +118,15 @@ const UserInfoView = (props) => {
         .then((response) => {
           const data = response.data;
           if (DEBUG) console.log(data);
+          console.log("Location:", location);
           if (usernameUpdate) {
             localStorage.setItem("user", usernameUpdate);
-            window.open(APP_MODE === "prod" ? `${APP_ADDRESS}/` : "/", "_self");
-            // window.open(
-            //   APP_MODE === "prod"
-            //     ? `${APP_ADDRESS}/user-update`
-            //     : "/user-update",
-            //   "_self"
-            // );
+            window.open(
+              APP_MODE === "prod"
+                ? `${APP_ADDRESS}/user-update`
+                : "/user-update",
+              "_self"
+            );
           } else {
             notifier.notifySuccess("Data updated successfully", {
               position: "top-center",
@@ -174,7 +175,8 @@ const UserInfoView = (props) => {
               autoClose: 2500,
               onClose: () =>
                 window.open(
-                  APP_MODE === "prod" ? `${APP_ADDRESS}/logout` : "/logout"
+                  APP_MODE === "prod" ? `${APP_ADDRESS}/logout` : "/logout",
+                  "_self"
                 ),
             }
           );
