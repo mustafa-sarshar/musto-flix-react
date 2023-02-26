@@ -10,9 +10,20 @@
 
 ### SCREENSHOTS
 
-| **Landing/Sign In Page** | **   Sign Up Page   ** | **   Movie List   ** | **   User Profile   ** |
-| :-------------: | :-------------: | :-------------: | :-------------: |
-| ![Landing/Sign In Page](https://github.com/mustafa-sarshar/musto-flix-react/blob/main/docs/assets/img/musto-flix-react-1.png?raw=true) | ![Sign Up Page](https://github.com/mustafa-sarshar/musto-flix-react/blob/main/docs/assets/img/musto-flix-react-2.png?raw=true) | ![Movie List](https://github.com/mustafa-sarshar/musto-flix-react/blob/main/docs/assets/img/musto-flix-react-3.png?raw=true) | ![User Profile](https://github.com/mustafa-sarshar/musto-flix-react/blob/main/docs/assets/img/musto-flix-react-4.png?raw=true) |
+<table width="100%"  style="overflow:auto">
+  <tr>
+    <th width="25%" style="text-align:center;">Landing/Sign In Page</th>
+    <th width="25%" style="text-align:center;">Sign Up Page</th>
+    <th width="25%" style="text-align:center;">Movie List</th>
+    <th width="25%" style="text-align:center;">User Profile</th>
+  </tr>
+  <tr>
+    <td width="25%"><img src="https://github.com/mustafa-sarshar/musto-flix-react/blob/main/docs/assets/img/musto-flix-react-1.png?raw=true"/></td>
+    <td width="25%"><img src="https://github.com/mustafa-sarshar/musto-flix-react/blob/main/docs/assets/img/musto-flix-react-2.png?raw=true"/></td>
+    <td width="25%"><img src="https://github.com/mustafa-sarshar/musto-flix-react/blob/main/docs/assets/img/musto-flix-react-3.png?raw=true"/></td>
+    <td width="25%"><img src="https://github.com/mustafa-sarshar/musto-flix-react/blob/main/docs/assets/img/musto-flix-react-4.png?raw=true"/></td>
+  </tr>
+</table>
 
 ## THE 5 W’s
 
@@ -47,6 +58,7 @@
 - Parcel
 
 ## Note:
+
 - The package "**parcel**" is installed locally as a dev-dependency via: **npm install --save-dev parcel**. [More info](https://parceljs.org/)
 - If you have already installed this package globally, we recommend to use this package as a local dev-dependency to avoid any conflict between packages.
 - Moreover, you may add one command to the **script** tag in the package.json as follows:
