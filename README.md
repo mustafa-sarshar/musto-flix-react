@@ -64,4 +64,6 @@
 - Moreover, you may add one command to the **script** tag in the package.json as follows:
   - "start": "parcel src/index.html"
 - Add the following tag to the deploy index.html file to prevent getting the Permission-Policy Error:
-  - <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
+```
+  <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
+```
