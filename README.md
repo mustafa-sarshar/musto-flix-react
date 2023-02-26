@@ -10,7 +10,7 @@
 
 ### SCREENSHOTS
 
-| **Landing/Sign In Page** | **Sign Up Page** | **Movie List** | **User Profile** |
+| **Landing/Sign In Page** | **   Sign Up Page   ** | **   Movie List   ** | **   User Profile   ** |
 | :-------------: | :-------------: | :-------------: | :-------------: |
 | ![Landing/Sign In Page](https://github.com/mustafa-sarshar/musto-flix-react/blob/main/docs/assets/img/musto-flix-react-1.png?raw=true) | ![Sign Up Page](https://github.com/mustafa-sarshar/musto-flix-react/blob/main/docs/assets/img/musto-flix-react-2.png?raw=true) | ![Movie List](https://github.com/mustafa-sarshar/musto-flix-react/blob/main/docs/assets/img/musto-flix-react-3.png?raw=true) | ![User Profile](https://github.com/mustafa-sarshar/musto-flix-react/blob/main/docs/assets/img/musto-flix-react-4.png?raw=true) |
 
