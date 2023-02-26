@@ -2,11 +2,11 @@
 
 - A web-application for movie fans.
 
-## VISIT THE WEBSITE [😎🔗](https://mustafa-sarshar.github.io/musto-flix-react/)
-
 ## OBJECTIVES
 
 - Using React.js library (framework 😋), build the client-side for [MovieApi](https://github.com/mustafa-sarshar/movie-api) based on its existing server-side code (REST API and database), with supporting documentation.
+
+## VISIT THE WEBSITE [😎🔗](https://mustafa-sarshar.github.io/musto-flix-react/)
 
 ### SCREENSHOTS
 
@@ -64,6 +64,7 @@
 - Moreover, you may add one command to the **script** tag in the package.json as follows:
   - "start": "parcel src/index.html"
 - Add the following tag to the deploy index.html file to prevent getting the Permission-Policy Error:
+
 ```
   <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
 ```
