@@ -68,3 +68,5 @@
 ```
   <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
 ```
+
+- Please change the APP_MODE constant in src/config/index.js to **'prod'** if you deploy it to gh-pages and to **'dev'** when you run and test the app locally.
